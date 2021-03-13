@@ -81,6 +81,26 @@ public class Negozio {
         return this.merceInventarioNegozioList;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public String getP_iva() {
+        return p_iva;
+    }
+
+    public void setP_iva(String p_iva) {
+        this.p_iva = p_iva;
+    }
+
     public int getId() {
         return id;
     }
