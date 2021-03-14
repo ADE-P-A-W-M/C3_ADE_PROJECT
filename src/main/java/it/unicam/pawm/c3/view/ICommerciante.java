@@ -2,18 +2,38 @@ package it.unicam.pawm.c3.view;
 
 import it.unicam.pawm.c3.gestori.GestoreCommercianti;
 import it.unicam.pawm.c3.merce.Categoria;
+import it.unicam.pawm.c3.merce.Merce;
+import it.unicam.pawm.c3.merce.MerceAlPubblico;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
+import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Component
+@Controller
+@RequestMapping("/commerciante/")
 public class ICommerciante {
 
     private GestoreCommercianti gestoreCommercianti;
+    private NegozioRepository negozioRepository;
+    @Autowired
+    private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
+    @Autowired
+    private MerceAlPubblicoRepository merceAlPubblicoRepository;
+    @Autowired
+    private PromozioneRepository promozioneRepository;
+    private MerceRepository merceRepository;
 
     /******************Interfaccia GestionePromozioni***************/
 
@@ -40,6 +60,66 @@ public class ICommerciante {
 //        scontoPromozione.setVisible(true);
 //        getMerciDoveApplicarePromozioni();
     }
+    public List<MerceInventarioNegozio> getPromozioniA() {
+        List<MerceInventarioNegozio> minList=new ArrayList<>();
+        for (MerceInventarioNegozio min : merceInventarioNegozioRepository.findAll())
+        {
+            if(min.getMerceAlPubblico().getPromozione().isDisponibile()) {
+                minList.add(min);
+            }
+        }
+        return minList;
+    }
+    public List<MerceInventarioNegozio> getMerciNonInPromozione() {
+        List<MerceInventarioNegozio> minList=new ArrayList<>();
+        for (MerceInventarioNegozio min : merceInventarioNegozioRepository.findAll())
+        {
+            if(!min.getMerceAlPubblico().getPromozione().isDisponibile()) {
+                minList.add(min);
+            }
+        }
+        return minList;
+    }
+    @GetMapping("merceInPromozione")
+    public String merceInPromozione(Model model)
+    {
+        model.addAttribute("minList",getPromozioniA());
+        return "showPromozioni";
+    }
+    @GetMapping("merceInPromozione/delete/{id}")
+    public String removePromozione(@PathVariable Long id,Model model) {
+        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
+        min.getMerceAlPubblico().getPromozione().setDisponibile(false);
+        model.addAttribute("minList",getPromozioniA());
+        return "showPromozioni";
+    }
+    @GetMapping("merceNonInPromozione")
+    public String merceNonInPromozione(Model model) {
+        model.addAttribute("minList",getMerciNonInPromozione());
+        return "showMerceNonInPromozione";
+    }
+    @GetMapping("merceNonInPromozione/formAddPromozione/{id}")
+    public String addPromozioneForm(@PathVariable Long id,Model model) {
+        MerceInventarioNegozio min=merceInventarioNegozioRepository.findById(id).
+                orElseThrow(()-> new IllegalArgumentException("invalid id"));
+        model.addAttribute("min",min);
+        return "addPromozione";
+    }
+    @PostMapping("merceInPromozione/addPromozione/{id}")
+    public String addPromozione(@PathVariable("id") Long id, @Valid MerceInventarioNegozio min, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            min.setId(id);
+            return "addPromozione";
+        }
+        //System.out.println(min);
+        merceInventarioNegozioRepository.save(min);
+        merceAlPubblicoRepository.save(min.getMerceAlPubblico());
+        promozioneRepository.save(min.getMerceAlPubblico().getPromozione());
+        //System.out.println(min);
+        model.addAttribute("min",merceInventarioNegozioRepository.findAll());
+        return "showPromozioni";
+    }
 
     public void addPromozione(MerceInventarioNegozio miv, LocalDate di, LocalDate df, double pp){
         gestoreCommercianti.addPromozione(miv,di,df,pp);
@@ -52,8 +132,8 @@ public class ICommerciante {
 //        initFieldPromozioni();
     }
 
-    public void rimuoviPromozione(List<MerceInventarioNegozio> lista){
-        gestoreCommercianti.rimuoviPromozione(lista);
+    public void rimuoviPromozione(MerceInventarioNegozio min){
+        gestoreCommercianti.rimuoviPromozione(min);
     }
 
 //    @FXML

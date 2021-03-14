@@ -287,13 +287,11 @@ public class GestoreMerci {
 
     /**
      * il metodo serve per disattivare la promozione sulle specificate
-     * @param lista delle merci su cui disattivare la promozione
+     * @param min
      */
-    public void rimuoviPromozione(List<MerceInventarioNegozio> lista) {
-        for(MerceInventarioNegozio miv : lista){
-            miv.getMerceAlPubblico().getPromozione().setDisponibile(false);
-            merceAlPubblicoRepository.save(miv.getMerceAlPubblico());
-        }
+    public void rimuoviPromozione(MerceInventarioNegozio min) {
+            min.getMerceAlPubblico().getPromozione().setDisponibile(false);
+            merceAlPubblicoRepository.save(min.getMerceAlPubblico());
     }
 
     /**
