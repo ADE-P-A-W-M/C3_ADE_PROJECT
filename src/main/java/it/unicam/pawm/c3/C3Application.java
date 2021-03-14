@@ -62,7 +62,7 @@ public class C3Application {
 			Merce merce = new Merce("Ipad", Categoria.TECNOLOGIA, "ipad terza generazione");
 			merceRepository.save(merce);
 			MerceAlPubblico merceAlPubblico = new MerceAlPubblico(999, merce);
-			merceAlPubblico.setPromozione(LocalDate.now(),LocalDate.now().plusDays(40),10,45);
+			//merceAlPubblico.setPromozione(LocalDate.now(),LocalDate.now().plusDays(40),10,45);
 			merceAlPubblicoRepository.save(merceAlPubblico);
 			MerceInventarioNegozio min = new MerceInventarioNegozio(20, merceAlPubblico);
 			merceInventarioNegozioRepository.save(min);

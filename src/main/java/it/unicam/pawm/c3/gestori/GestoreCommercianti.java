@@ -60,8 +60,8 @@ public class GestoreCommercianti {
         gestoreMerci.addPromozione(miv, di, df, pp);
     }
 
-    public void rimuoviPromozione(List<MerceInventarioNegozio> lista) {
-        gestoreMerci.rimuoviPromozione(lista);
+    public void rimuoviPromozione(MerceInventarioNegozio min) {
+        gestoreMerci.rimuoviPromozione(min);
     }
 
     /****************Gestione corrieri*******************/
