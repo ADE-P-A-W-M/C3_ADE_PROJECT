@@ -4,8 +4,10 @@ import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.gestori.GestoreCommercianti;
 import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.*;
+import it.unicam.pawm.c3.personale.AddettoNegozio;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.RuoloSistema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,8 @@ public class ICommerciante {
     private PromozioneRepository promozioneRepository;
     @Autowired
     private MerceRepository merceRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
     @Autowired
     private RuoloRepository ruoloRepository;
     @Autowired
@@ -93,7 +97,7 @@ public class ICommerciante {
     @GetMapping("merceInPromozione/delete/{id}")
     public String removePromozione(@PathVariable Long id,Model model) {
         MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid promozione :" + id));
         min.getMerceAlPubblico().getPromozione().setDisponibile(false);
         model.addAttribute("minList",getPromozioniA());
         return "showPromozioni";
@@ -200,7 +204,44 @@ public class ICommerciante {
 //        clientiFiltratiAA.getItems().clear();
 //        clientiFiltratiAA.getItems().addAll(gestoreCommercianti.getCliente(email));
     }
-
+    //METODO CHE SUL GESTORE SI CHIAMA GETCLIENTE(String email)
+    public Cliente getClienteByEmail(String email) {
+        System.out.println(email);
+        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
+        if(cliente.isPresent()){
+            return cliente.get();
+        }
+        throw new IllegalStateException("cliente non presente");
+    }
+    //METODO CHE STAVA SU GESTORE
+    public void assunzioneAddettoGestore(Cliente cliente){
+        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
+        cliente.setRuolo(addettoNegozio);
+        ruoloRepository.save(addettoNegozio);
+        clienteRepository.save(cliente);
+        getNegozio().addAddettoNegozio(addettoNegozio);
+        negozioRepository.save(getNegozio());
+    }
+    @GetMapping("assunzioneAddetto")
+    public String assunzioneForm() {
+        return "assunzioneAddetto";
+    }
+    @PostMapping ("assunzioneAddetto")
+    public String assumiCliente(String email,Model model) {
+        Cliente cliente=getClienteByEmail(email);
+        System.out.println(cliente);
+        List<Cliente> clienteList=List.of(cliente);
+        model.addAttribute("clienteList",clienteList);
+        return "clienteDaAssumere";
+    }
+    @GetMapping("assunzioneAddetto/{id}")
+    public String assunzioneFinita(@PathVariable Long id) {
+         Cliente cliente= clienteRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user:" + id));
+         assunzioneAddettoGestore(cliente);
+        System.out.println(id);
+        return "assunzioneAddetto";
+    }
     public void assunzioneAddetto(Cliente cliente){
         gestoreCommercianti.assunzioneAddetto(cliente);
     }

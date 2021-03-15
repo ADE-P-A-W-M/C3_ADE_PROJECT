@@ -37,7 +37,8 @@ public class C3Application {
 			Cliente cliente2 = new Cliente("Davide", "Bianchi", "davidebianchi@gmail.com", "bianchi");
 			Cliente cliente3 = new Cliente("Alberto", "Neri", "albertoneri@gmail.com", "neri");
 			Cliente cliente4 = new Cliente("Mario", "Rossi", "mariorossi@gmail.com", "rossi");
-			clienteRepository.saveAll(List.of(cliente1,cliente2,cliente3,cliente4));
+			Cliente cliente5 = new Cliente("Franco", "Trentalance", "franco@gmail.com", "franco");
+			clienteRepository.saveAll(List.of(cliente1,cliente2,cliente3,cliente4,cliente5));
 
 			Amministratore admin = new Amministratore(RuoloSistema.AMMINISTRATORE);
 			cliente1.setRuolo(admin);
