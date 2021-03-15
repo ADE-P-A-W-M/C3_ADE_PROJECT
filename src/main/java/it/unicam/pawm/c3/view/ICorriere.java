@@ -8,10 +8,7 @@ import it.unicam.pawm.c3.persistenza.MerceAlPubblicoRepository;
 import it.unicam.pawm.c3.persistenza.MerceRepository;
 import it.unicam.pawm.c3.persistenza.MerceVenditaRepository;
 import it.unicam.pawm.c3.persistenza.VenditaSpeditaRepository;
-import it.unicam.pawm.c3.vendita.MerceVendita;
-import it.unicam.pawm.c3.vendita.StatoConsegna;
-import it.unicam.pawm.c3.vendita.Vendita;
-import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import it.unicam.pawm.c3.vendita.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -138,9 +135,18 @@ public class ICorriere {
         return "venditeDaConsegnare";
    }
 
-//    public void consegnaVendita(List<VenditaSpedita> list) {
-//        gestore.consegnaVendita(list);
-//    }
+    @GetMapping("/consegna/{id}")
+    public String consegnaVendita(@PathVariable Long id) {
+        Optional<VenditaSpedita> VS = venditaSpeditaRepository.findById(id);
+        if(VS.get().getLuogoDiRitiro().equals(LuogoDiRitiro.NEGOZIO)) {
+            VS.get().setStatoConsegna(StatoConsegna.CONSEGNATO_AL_NEGOZIO);
+
+        }else if(VS.get().getLuogoDiRitiro().equals(LuogoDiRitiro.DOMICILIO)) {
+            VS.get().setStatoConsegna(StatoConsegna.CONSEGNATO_AL_NEGOZIO);
+        }
+        venditaSpeditaRepository.save(VS.get());
+        return "venditeDaConsegnare";
+    }
 //
 //    @FXML
 //    void consegnaVenditaButtonEvent(ActionEvent event) {

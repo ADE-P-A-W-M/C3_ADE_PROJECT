@@ -24,11 +24,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="VS2 : ${daRitirare}">
-                    <td th:text="${VS2.prezzo}"></td>
-                    <td th:text="${VS2.indirizzoNegozioDiRitiro}"></td>
-                    <td th:text="${VS2.listaMerceVendita}"></td>
-                    <td><a th:href="@{/corriere/ritiro/{id}(id=${VS2.id})}" class="btn btn-primary">Preleva<i class="fas fa-user-edit ml-2"></i></a></td>
+                <tr th:each="VS : ${daRitirare}">
+                    <td th:text="${VS.prezzo}"></td>
+                    <td th:text="${VS.indirizzoNegozioDiRitiro}"></td>
+                    <td th:text="${VS.listaMerceVendita}"></td>
+                    <td><a th:href="@{/corriere/ritiro/{id}(id=${VS.id})}" class="btn btn-primary">Preleva<i class="fas fa-user-edit ml-2"></i></a></td>
                 </tr>
                 </tbody>
             </table>
