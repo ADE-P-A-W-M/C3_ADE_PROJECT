@@ -5,6 +5,7 @@ public enum RuoloSistema {
     CORRIERE,
     ADDETTONEGOZIO,
     AMMINISTRATORE,
-    COMMERCIANTE
+    COMMERCIANTE,
+    CLIENTE
 
 }

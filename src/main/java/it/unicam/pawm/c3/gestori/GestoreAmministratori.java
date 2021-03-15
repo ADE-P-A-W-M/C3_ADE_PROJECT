@@ -39,14 +39,14 @@ public class GestoreAmministratori {
      * @param email del cliente da cercare
      * @return cliente
      */
-    public Cliente ricercaCliente(String email) {
-        Optional<Cliente> cliente=clienteRepository.findByEmail(email);
-        if(cliente.isPresent()){
-            return cliente.get();
-        } else {
-            throw new IllegalStateException("cliente non presente");
-        }
-    }
+//    public Cliente ricercaCliente(String email) {
+//        Optional<Cliente> cliente=clienteRepository.findByEmail(email);
+//        if(cliente.isPresent()){
+//            return cliente.get();
+//        } else {
+//            throw new IllegalStateException("cliente non presente");
+//        }
+//    }
 
     /**
      * Il metodo serve registrare un corriere all'interno della piattaforma insieme alla sua attivita
@@ -57,10 +57,10 @@ public class GestoreAmministratori {
      * @param indirizzo del nuovo corriere
      */
     public void registraCorriere(Cliente cliente,String nomeDitta,String piva,String indirizzo) {
-        Corriere corriere = new Corriere(RuoloSistema.CORRIERE,nomeDitta,indirizzo,piva);
-        cliente.setRuolo(corriere);
-        ruoloRepository.save(corriere);
-        clienteRepository.save(cliente);
+//        Corriere corriere = new Corriere(RuoloSistema.CORRIERE,nomeDitta,indirizzo,piva);
+//        cliente.setRuolo(corriere);
+//        ruoloRepository.save(corriere);
+//        clienteRepository.save(cliente);
     }
 
     /**
@@ -73,12 +73,12 @@ public class GestoreAmministratori {
      * @param indirizzo del nuovo negozio
      */
     public void registraNegozio(List<Categoria> categorie, Cliente cliente, String nome, String piva, String indirizzo) {
-        Negozio negozio=new Negozio(nome,indirizzo,piva,categorie);
-        Commerciante commerciante=new Commerciante(RuoloSistema.COMMERCIANTE);
-        cliente.setRuolo(commerciante);
-        negozio.addAddettoNegozio(commerciante);
-        ruoloRepository.save(commerciante);
-        clienteRepository.save(cliente);
-        negozioRepository.save(negozio);
+//        Negozio negozio=new Negozio(nome,indirizzo,piva,categorie);
+//        Commerciante commerciante=new Commerciante(RuoloSistema.COMMERCIANTE);
+//        cliente.setRuolo(commerciante);
+//        negozio.addAddettoNegozio(commerciante);
+//        ruoloRepository.save(commerciante);
+//        clienteRepository.save(cliente);
+//        negozioRepository.save(negozio);
     }
 }

@@ -92,24 +92,24 @@ public class GestoreVendite {
      */
     public List<VenditaSpedita> getAcquistiClienteDaRitirare(String email, Negozio negozio) {
         List<VenditaSpedita> list = new ArrayList<>();
-        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
-        if(cliente.isPresent()){
-            if(!cliente.get().getAcquisti().isEmpty()){
-                Iterator<VenditaSpedita> venditeNegozio = negozio.getVenditeNegozioRitiro().iterator();
-                while(venditeNegozio.hasNext()){
-                    VenditaSpedita vs = venditeNegozio.next();
-                    if(vs.getStatoConsegna().equals(StatoConsegna.CONSEGNATO_AL_NEGOZIO)){
-                        Iterator<Vendita> venditaIterator = cliente.get().getAcquisti().iterator();
-                        while(venditaIterator.hasNext()){
-                            Vendita vendita = venditaIterator.next();
-                            if(vendita.getId() == vs.getId()){
-                                list.add(vs);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
+//        if(cliente.isPresent()){
+//            if(!cliente.get().getAcquisti().isEmpty()){
+//                Iterator<VenditaSpedita> venditeNegozio = negozio.getVenditeNegozioRitiro().iterator();
+//                while(venditeNegozio.hasNext()){
+//                    VenditaSpedita vs = venditeNegozio.next();
+//                    if(vs.getStatoConsegna().equals(StatoConsegna.CONSEGNATO_AL_NEGOZIO)){
+//                        Iterator<Vendita> venditaIterator = cliente.get().getAcquisti().iterator();
+//                        while(venditaIterator.hasNext()){
+//                            Vendita vendita = venditaIterator.next();
+//                            if(vendita.getId() == vs.getId()){
+//                                list.add(vs);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
         return list;
     }
 

@@ -38,13 +38,13 @@ public class GestoreCommercianti {
 
     /*****************Assegnazione Carta***************/
 
-    public Cliente getCliente(String email){
-        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
-        if(cliente.isPresent()){
-            return cliente.get();
-        }
-        throw new IllegalStateException("cliente non presente");
-    }
+//    public Cliente getCliente(String email){
+//        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
+//        if(cliente.isPresent()){
+//            return cliente.get();
+//        }
+//        throw new IllegalStateException("cliente non presente");
+//    }
 
     /*****************GestionePromozioni*****************/
 
@@ -101,14 +101,14 @@ public class GestoreCommercianti {
      * il metodo permette al commerciante di assumere un nuovo addetto per il negozio
      * @param cliente che diventerà  addetto
      */
-    public void assunzioneAddetto(Cliente cliente){
-        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
-        cliente.setRuolo(addettoNegozio);
-        ruoloRepository.save(addettoNegozio);
-        clienteRepository.save(cliente);
-        getNegozio().addAddettoNegozio(addettoNegozio);
-        negozioRepository.save(negozio);
-    }
+//    public void assunzioneAddetto(Cliente cliente){
+//        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
+//        cliente.setRuolo(addettoNegozio);
+//        ruoloRepository.save(addettoNegozio);
+//        clienteRepository.save(cliente);
+//        getNegozio().addAddettoNegozio(addettoNegozio);
+//        negozioRepository.save(negozio);
+//    }
 
     /***************Gestione Inventario********************/
 

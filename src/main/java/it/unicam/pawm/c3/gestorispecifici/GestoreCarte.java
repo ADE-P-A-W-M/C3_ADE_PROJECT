@@ -84,15 +84,15 @@ public class GestoreCarte {
      * @return il codice della carta del cliente o in mancanza di risultato positivo verà ritornato zero
      */
     public long searchCodiceCartaFromEmail(String email,Negozio negozio) {
-        if(!negozio.getCarte().isEmpty()) {
-            Iterator<Carta> it = negozio.getCarte().iterator();
-            while (it.hasNext()) {
-                Carta c = it.next();
-                if (c.getCliente().getEmail().equals(email)) {
-                    return c.getCodice();
-                }
-            }
-        }
+//        if(!negozio.getCarte().isEmpty()) {
+//            Iterator<Carta> it = negozio.getCarte().iterator();
+//            while (it.hasNext()) {
+//                Carta c = it.next();
+//                if (c.getCliente().getEmail().equals(email)) {
+//                    return c.getCodice();
+//                }
+//            }
+//        }
         return 0;
     }
 

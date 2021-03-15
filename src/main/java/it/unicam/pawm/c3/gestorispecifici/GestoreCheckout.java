@@ -235,24 +235,24 @@ public class GestoreCheckout {
      * @param negozio negozio in cui si lavora
      */
     public void registraAcquistoCliente(long cc, Negozio pdr, String indirizzo, Corriere cr, Negozio negozio) {
-        Carta carta = searchCarta(cc, negozio);
-        VenditaSpedita vs;
-        if(indirizzo.isEmpty()){
-            vs = new VenditaSpedita(getPrezzoCarrello(), pdr.getIndirizzo(), getMerciCarrello());
-            venditaSpeditaRepository.save(vs);
-            pdr.addVenditaInNegozioRitiro(vs);
-            negozioRepository.save(pdr);
-        } else {
-            vs = new VenditaSpedita(getPrezzoCarrello(),getMerciCarrello(),indirizzo);
-            venditaSpeditaRepository.save(vs);
-        }
-        venditaSpeditaRepository.save(vs);
-        carta.getCliente().getAcquisti().add(vs);
-        clienteRepository.save(carta.getCliente());
-        negozio.addVendita(vs);
-        cr.addMerceDaSpedire(vs);
-        negozioRepository.save(negozio);
-        ruoloRepository.save(cr);
+//        Carta carta = searchCarta(cc, negozio);
+//        VenditaSpedita vs;
+//        if(indirizzo.isEmpty()){
+//            vs = new VenditaSpedita(getPrezzoCarrello(), pdr.getIndirizzo(), getMerciCarrello());
+//            venditaSpeditaRepository.save(vs);
+//            pdr.addVenditaInNegozioRitiro(vs);
+//            negozioRepository.save(pdr);
+//        } else {
+//            vs = new VenditaSpedita(getPrezzoCarrello(),getMerciCarrello(),indirizzo);
+//            venditaSpeditaRepository.save(vs);
+//        }
+//        venditaSpeditaRepository.save(vs);
+//        carta.getCliente().getAcquisti().add(vs);
+//        clienteRepository.save(carta.getCliente());
+//        negozio.addVendita(vs);
+//        cr.addMerceDaSpedire(vs);
+//        negozioRepository.save(negozio);
+//        ruoloRepository.save(cr);
     }
 
     /**
@@ -263,13 +263,13 @@ public class GestoreCheckout {
      * @param negozio in cui si lavora
      */
     public void registraAcquistoCliente(long cc, Negozio negozio) {
-        Carta carta = searchCarta(cc, negozio);
-        Vendita v = new Vendita(getPrezzoCarrello(), getMerciCarrello());
-        venditaRepository.save(v);
-        carta.getCliente().getAcquisti().add(v);
-        clienteRepository.save(carta.getCliente());
-        negozio.addVendita(v);
-        negozioRepository.save(negozio);
+//        Carta carta = searchCarta(cc, negozio);
+//        Vendita v = new Vendita(getPrezzoCarrello(), getMerciCarrello());
+//        venditaRepository.save(v);
+//        carta.getCliente().getAcquisti().add(v);
+//        clienteRepository.save(carta.getCliente());
+//        negozio.addVendita(v);
+//        negozioRepository.save(negozio);
     }
 
     public Carta searchCarta(long cc, Negozio negozio) {

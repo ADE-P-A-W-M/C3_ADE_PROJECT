@@ -111,13 +111,13 @@ public class GestoreAddetti {
 
     /*****************Assegnazione Carta***************/
 
-    public Cliente getCliente(String email){
-        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
-        if(cliente.isPresent()){
-            return cliente.get();
-        }
-        throw new IllegalStateException("cliente non presente");
-    }
+//    public Cliente getCliente(String email){
+//        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
+//        if(cliente.isPresent()){
+//            return cliente.get();
+//        }
+//        throw new IllegalStateException("cliente non presente");
+//    }
 
     public long assegnaCarta(Cliente cliente, TipoScontoCliente tsc){
         long cc = gestoreCarte.assegnaCarta(cliente,tsc, getNegozio());

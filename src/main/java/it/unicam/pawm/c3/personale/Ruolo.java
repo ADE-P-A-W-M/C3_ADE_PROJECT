@@ -4,7 +4,8 @@ package it.unicam.pawm.c3.personale;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "role")
 public abstract class Ruolo{
 
     @Id
@@ -13,9 +14,9 @@ public abstract class Ruolo{
 
     @Enumerated(value = EnumType.STRING)
     private RuoloSistema ruolo;
-
-    @OneToOne(mappedBy = "ruolo")
-    private Cliente cliente;
+//
+//    @OneToOne(mappedBy = "ruolo")
+//    private Cliente cliente;
 
     public Ruolo(RuoloSistema ruolo) {
         this.ruolo = ruolo;
@@ -32,11 +33,11 @@ public abstract class Ruolo{
         return ruolo;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+//    public Cliente getCliente() {
+//        return cliente;
+//    }
+//
+//    public void setCliente(Cliente cliente) {
+//        this.cliente = cliente;
+//    }
 }

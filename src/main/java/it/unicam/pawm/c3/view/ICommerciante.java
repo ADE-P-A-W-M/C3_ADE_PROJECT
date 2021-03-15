@@ -202,7 +202,7 @@ public class ICommerciante {
     }
 
     public void assunzioneAddetto(Cliente cliente){
-        gestoreCommercianti.assunzioneAddetto(cliente);
+//        gestoreCommercianti.assunzioneAddetto(cliente);
     }
 
 //    @FXML
