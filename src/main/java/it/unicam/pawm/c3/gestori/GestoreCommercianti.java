@@ -88,14 +88,10 @@ public class GestoreCommercianti {
 
     /**
      * il metodo serve per affiliare al negozio la lista di corrieri specificata
-     * @param corrieriDaAggiungere al negozio
+     * @param corriereDaAggiungere al negozio
      */
-    public void addCorrieri(List<Corriere> corrieriDaAggiungere) {
-        Iterator<Corriere> corriereIterator = corrieriDaAggiungere.iterator();
-        while(corriereIterator.hasNext()){
-            Corriere corriere = corriereIterator.next();
-            negozio.addCorriere(corriere);
-        }
+    public void addCorrieri(Corriere corriereDaAggiungere) {
+        negozio.addCorriere(corriereDaAggiungere);
         negozioRepository.save(negozio);
     }
 

@@ -98,10 +98,21 @@ public class MerceAlPubblico {
         this.sconto = sconto;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return prezzo +
                 ", " + merce +
                 ", " + sconto;
+    }*/
+
+    @Override
+    public String toString() {
+        return "MerceAlPubblico{" +
+                "id=" + id +
+                ", prezzo=" + prezzo +
+                ", merce=" + merce +
+                ", sconto=" + sconto +
+                ", promozione=" + promozione +
+                '}';
     }
 }

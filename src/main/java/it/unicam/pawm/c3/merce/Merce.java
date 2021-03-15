@@ -63,11 +63,21 @@ public class Merce {
         this.descrizione = descrizione;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return  ID +
                 ", " + nome  +
                 ", " + categoria +
                 ", " + descrizione;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Merce{" +
+                "ID=" + ID +
+                ", nome='" + nome + '\'' +
+                ", categoria=" + categoria +
+                ", descrizione='" + descrizione + '\'' +
+                '}';
     }
 }

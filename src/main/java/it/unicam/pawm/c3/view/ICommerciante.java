@@ -1,10 +1,8 @@
 package it.unicam.pawm.c3.view;
 
+import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.gestori.GestoreCommercianti;
-import it.unicam.pawm.c3.merce.Categoria;
-import it.unicam.pawm.c3.merce.Merce;
-import it.unicam.pawm.c3.merce.MerceAlPubblico;
-import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
+import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
@@ -26,6 +24,7 @@ import java.util.Optional;
 public class ICommerciante {
 
     private GestoreCommercianti gestoreCommercianti;
+    @Autowired
     private NegozioRepository negozioRepository;
     @Autowired
     private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
@@ -33,7 +32,12 @@ public class ICommerciante {
     private MerceAlPubblicoRepository merceAlPubblicoRepository;
     @Autowired
     private PromozioneRepository promozioneRepository;
+    @Autowired
     private MerceRepository merceRepository;
+    @Autowired
+    private RuoloRepository ruoloRepository;
+    @Autowired
+    private CorriereRepository corriereRepository;
 
     /******************Interfaccia GestionePromozioni***************/
 
@@ -101,23 +105,15 @@ public class ICommerciante {
     }
     @GetMapping("merceNonInPromozione/formAddPromozione/{id}")
     public String addPromozioneForm(@PathVariable Long id,Model model) {
-        MerceInventarioNegozio min=merceInventarioNegozioRepository.findById(id).
-                orElseThrow(()-> new IllegalArgumentException("invalid id"));
-        model.addAttribute("min",min);
+        Promozione promozione=merceInventarioNegozioRepository.findById(id).get().getMerceAlPubblico().getPromozione();
+        model.addAttribute("promozione",promozione);
         return "addPromozione";
     }
     @PostMapping("merceInPromozione/addPromozione/{id}")
-    public String addPromozione(@PathVariable("id") Long id, @Valid MerceInventarioNegozio min, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            min.setId(id);
-            return "addPromozione";
-        }
-        //System.out.println(min);
-        merceInventarioNegozioRepository.save(min);
-        merceAlPubblicoRepository.save(min.getMerceAlPubblico());
-        promozioneRepository.save(min.getMerceAlPubblico().getPromozione());
-        //System.out.println(min);
-        model.addAttribute("min",merceInventarioNegozioRepository.findAll());
+    public String addPromozione(@PathVariable("id") Long id, Promozione promozione,Model model) {
+        promozione.setDisponibile(true);
+        promozioneRepository.save(promozione);
+        model.addAttribute("minList",getPromozioniA());
         return "showPromozioni";
     }
 
@@ -166,11 +162,32 @@ public class ICommerciante {
 //        corrieriDaAggiungere.getItems().clear();
 //        corrieriDaAggiungere.getItems().addAll(gestoreCommercianti.getCorrieri());
     }
-
-    public void addCorrieri(List<Corriere> corrieriDaAggiungere) {
-        gestoreCommercianti.addCorrieri(corrieriDaAggiungere);
+    public Negozio getNegozio() {
+        return negozioRepository.findAll().get(0);
     }
-
+    public List<Corriere> getCorrieriDaAggiungere() {
+        List<Corriere> corrieri=corriereRepository.findAll();
+        corrieri.removeAll(getNegozio().getCorrieri());
+        return corrieri;
+    }
+    public void addCorrieri(Corriere corriereDaAggiungere) {
+        gestoreCommercianti.addCorrieri(corriereDaAggiungere);
+    }
+    @GetMapping("showCorrieriDaAggiungere")
+    public String showCorrieriDaAggiunguere(Model model)
+    {
+        model.addAttribute("corrieriList",getCorrieriDaAggiungere());
+        return "showCorrieriDaAggiungere";
+    }
+    @GetMapping("showCorrieriDaAggiungere/add/{id}")
+    public String addCorriere(@PathVariable Long id,Model model) {
+        Corriere corriere = corriereRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
+        getNegozio().getCorrieri().add(corriereRepository.findById(id).get());
+        negozioRepository.save(getNegozio());
+        model.addAttribute("corrieriList",getCorrieriDaAggiungere());
+        return "showCorrieriDaAggiungere";
+    }
 //    @FXML
     void confermAggiuntaCorriereButtonEvent() {
 //        addCorrieri(corrieriDaAggiungere.getSelectionModel().getSelectedItems());

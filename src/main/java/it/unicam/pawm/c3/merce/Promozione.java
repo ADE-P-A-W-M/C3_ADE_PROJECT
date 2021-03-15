@@ -1,5 +1,7 @@
 package it.unicam.pawm.c3.merce;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,9 @@ public class Promozione {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataInizio;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataFine;
     private double percentualeSconto;
     private boolean disponibile;
@@ -78,5 +82,17 @@ public class Promozione {
 
     public void setPrezzoPromozione(double prezzoPromozione) {
         this.prezzoPromozione = prezzoPromozione;
+    }
+
+    @Override
+    public String toString() {
+        return "Promozione{" +
+                "id=" + id +
+                ", dataInizio=" + dataInizio +
+                ", dataFine=" + dataFine +
+                ", percentualeSconto=" + percentualeSconto +
+                ", disponibile=" + disponibile +
+                ", prezzoPromozione=" + prezzoPromozione +
+                '}';
     }
 }

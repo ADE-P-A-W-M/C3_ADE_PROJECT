@@ -48,7 +48,7 @@ public class C3Application {
 
 			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", List.of(Categoria.ABBIGLIAMENTO));
 			negozio.addAddettoNegozio(commerciante);
-			negozio.addCorriere(corriere);
+			//negozio.addCorriere(corriere);
 			negozioRepository.save(negozio);
 
 			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campiglione", "3525235", List.of(Categoria.ABBIGLIAMENTO));
@@ -58,7 +58,6 @@ public class C3Application {
 			Merce merce = new Merce("Ipad", Categoria.TECNOLOGIA, "ipad terza generazione");
 			merceRepository.save(merce);
 			MerceAlPubblico merceAlPubblico = new MerceAlPubblico(999, merce);
-			//merceAlPubblico.setPromozione(LocalDate.now(),LocalDate.now().plusDays(40),10,45);
 			merceAlPubblicoRepository.save(merceAlPubblico);
 			MerceInventarioNegozio min = new MerceInventarioNegozio(20, merceAlPubblico);
 			merceInventarioNegozioRepository.save(min);

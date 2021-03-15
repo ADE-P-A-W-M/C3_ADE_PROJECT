@@ -48,12 +48,21 @@ public class MerceInventarioNegozio {
         this.merceAlPubblico = merceAlPubblico;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return merceAlPubblico.getMerce().getNome() +
                 ", " + merceAlPubblico.getMerce().getDescrizione() +
                 ", " + merceAlPubblico.getPrezzo() +
                 ", " +quantita;
+    }*/
+
+    @Override
+    public String toString() {
+        return "MerceInventarioNegozio{" +
+                "id=" + id +
+                ", quantita=" + quantita +
+                ", merceAlPubblico=" + merceAlPubblico +
+                '}';
     }
 }
 
