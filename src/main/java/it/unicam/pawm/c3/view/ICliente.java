@@ -64,6 +64,7 @@ public class ICliente {
         return "promozioniPerCategoria";
     }
     /*****************Ricerca Prodotto******************/
+
     public List<Negozio> ricercaProdotto(String nome) {
         Merce merce = new Merce("Ipad", Categoria.ABBIGLIAMENTO, "ipad terza generazione");
         MerceAlPubblico merceAlPubblico = new MerceAlPubblico(999, merce);

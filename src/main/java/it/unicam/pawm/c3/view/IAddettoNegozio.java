@@ -7,14 +7,19 @@ import it.unicam.pawm.c3.gestori.GestoreAddetti;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.User;
 import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
 import it.unicam.pawm.c3.vendita.TipoDiRitiro;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Component
+@Controller
+@RequestMapping(path = "/addettonegozio")
 public class IAddettoNegozio {
 
     private GestoreAddetti gestoreAddetti;
@@ -29,6 +34,12 @@ public class IAddettoNegozio {
 
     public double getSconto(long id) {
         return gestoreAddetti.getSconto(id);
+    }
+
+    @GetMapping("/")
+    public String home(User user){
+        System.out.println(user);
+        return "homeAddetto";
     }
 
     void trovaPrezzoEScontoButtonEvent() {

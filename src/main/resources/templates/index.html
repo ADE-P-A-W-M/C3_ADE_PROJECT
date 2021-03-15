@@ -30,9 +30,8 @@
                                 <th:block th:each="r, iter:${#authentication.getAuthorities()}">
                                     <div th:if="${iter.size}>1">
                                         <li>
-                                            <a href="#">
-                                                <span th:text="${r}"></span>
-                                                <th:block th:if="${!iter.last}">, </th:block>
+                                            <a th:href="@{/{ruolo}//(ruolo=${r.authority.toLowerCase()})}" >
+                                                <span th:text="${r}"></span><th:block th:if="${!iter.last}">, </th:block>
                                             </a>
                                         </li>
                                     </div>

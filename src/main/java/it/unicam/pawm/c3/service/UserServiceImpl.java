@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
                 passwordEncoder.encode(registrationDto.getPassword()));
         Cliente cliente  = new Cliente(RuoloSistema.CLIENTE);
         user.setRuolo(cliente);
-//        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
-//        user.setRuolo(addettoNegozio);
+        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
+        user.setRuolo(addettoNegozio);
         return userRepository.save(user);
     }
 

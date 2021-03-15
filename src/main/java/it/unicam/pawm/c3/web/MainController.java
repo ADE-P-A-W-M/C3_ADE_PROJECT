@@ -1,5 +1,6 @@
 package it.unicam.pawm.c3.web;
 
+import it.unicam.pawm.c3.personale.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,7 +13,8 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String home(User user) {
+
         return "index";
     }
 
