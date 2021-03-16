@@ -54,27 +54,27 @@ public class IAddettoNegozio {
         this.gestoreAddetti = gestoreAddetti;
     }
 
-//    @GetMapping("/")
-//    public String home(@AuthenticationPrincipal UserDetails userDetails){
-//        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-//        if(user.isPresent()){
-//            Iterator<Negozio> negozioIterator = negozioRepository.findAll().iterator();
-//            while(negozioIterator.hasNext()){
-//                Negozio negozio = negozioIterator.next();
-//                Iterator<AddettoNegozio> addettoNegozioIterator = negozio.getAddetti().iterator();
-//                while (addettoNegozioIterator.hasNext()){
-//                    AddettoNegozio addettoNegozio = addettoNegozioIterator.next();
-//                    for(Ruolo ruolo : user.get().getRuolo()){
-//                        if(ruolo.getId()== addettoNegozio.getId()) {
-//                            gestoreAddetti.setNegozio(negozio);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        System.out.println(gestoreAddetti.getNegozio().getNome());
-//        return "homeAddetto";
-//    }
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if(user.isPresent()){
+            Iterator<Negozio> negozioIterator = negozioRepository.findAll().iterator();
+            while(negozioIterator.hasNext()){
+                Negozio negozio = negozioIterator.next();
+                Iterator<AddettoNegozio> addettoNegozioIterator = negozio.getAddetti().iterator();
+                while (addettoNegozioIterator.hasNext()){
+                    AddettoNegozio addettoNegozio = addettoNegozioIterator.next();
+                    for(Ruolo ruolo : user.get().getRuolo()){
+                        if(ruolo.getId()== addettoNegozio.getId()) {
+                            gestoreAddetti.setNegozio(negozio);
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(gestoreAddetti.getNegozio().getNome());
+        return "homeAddetto";
+    }
 
     void trovaPrezzoEScontoButtonEvent() {
 //        try{
