@@ -1,10 +1,9 @@
-package it.unicam.pawm.c3.service;
+package it.unicam.pawm.c3.web.userdetailservice;
 
-import it.unicam.pawm.c3.persistenza.ClienteRepository;
 import it.unicam.pawm.c3.persistenza.NegozioRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
 import it.unicam.pawm.c3.personale.*;
-import it.unicam.pawm.c3.web.dto.UserRegistrationDto;
+import it.unicam.pawm.c3.web.registration.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
