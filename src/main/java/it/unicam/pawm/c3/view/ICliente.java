@@ -1,7 +1,9 @@
 package it.unicam.pawm.c3.view;
 
 import it.unicam.pawm.c3.Negozio;
+import it.unicam.pawm.c3.gestori.GestoreAddetti;
 import it.unicam.pawm.c3.gestori.GestoreClienti;
+import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.merce.Categoria;
 import it.unicam.pawm.c3.merce.Merce;
 import it.unicam.pawm.c3.merce.MerceAlPubblico;
@@ -31,30 +33,21 @@ import java.util.Optional;
 @RequestMapping(path = "/cliente")
 public class ICliente {
 
+    @Autowired
+    private GestoreAccessi gestoreAccessi;
+    @Autowired
     private GestoreClienti gestoreClienti;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ClienteRepository clienteRepository;
 
+    @Autowired
     public ICliente() {
         this.gestoreClienti = new GestoreClienti();
+        this.gestoreAccessi = new GestoreAccessi();
     }
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails userDetails){
-        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-        if(user.isPresent()){
-            Iterator<Cliente> clienteIterator = clienteRepository.findAll().iterator();
-            while (clienteIterator.hasNext()){
-                Cliente cliente = clienteIterator.next();
-                for(Ruolo ruolo : user.get().getRuolo()){
-                    if(ruolo.getId() == cliente.getId()) {
-                        gestoreClienti.setCliente(cliente);
-                    }
-                }
-            }
-        }
+        String email = userDetails.getUsername();
+        gestoreClienti.setCliente(gestoreAccessi.homeCliente(email));
         return "homeCliente";
     }
 

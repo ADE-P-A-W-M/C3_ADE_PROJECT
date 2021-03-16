@@ -4,6 +4,7 @@ package it.unicam.pawm.c3.view;
 import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.carta.TipoScontoCliente;
 import it.unicam.pawm.c3.gestori.GestoreAddetti;
+import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.NegozioRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
@@ -27,14 +28,26 @@ import java.util.Optional;
 @RequestMapping(path = "/addettonegozio")
 public class IAddettoNegozio {
 
+    @Autowired
     private GestoreAddetti gestoreAddetti;
+    @Autowired
+    private GestoreAccessi gestoreAccessi;
     @Autowired
     private NegozioRepository negozioRepository;
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     public IAddettoNegozio() {
         this.gestoreAddetti = new GestoreAddetti();
+        this.gestoreAccessi = new GestoreAccessi();
+    }
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        String email = userDetails.getUsername();
+        gestoreAddetti.setNegozio(gestoreAccessi.homeAddetto(email));
+        return "homeAddetto";
     }
 
     //    public void startCarrello(){
@@ -49,31 +62,7 @@ public class IAddettoNegozio {
 //        return gestoreAddetti.getSconto(id);
 //    }
 
-    @Autowired
-    private void setGestoreAddetti(GestoreAddetti gestoreAddetti){
-        this.gestoreAddetti = gestoreAddetti;
-    }
 
-    @GetMapping("/")
-    public String home(@AuthenticationPrincipal UserDetails userDetails){
-        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-        if(user.isPresent()){
-            Iterator<Negozio> negozioIterator = negozioRepository.findAll().iterator();
-            while(negozioIterator.hasNext()){
-                Negozio negozio = negozioIterator.next();
-                Iterator<AddettoNegozio> addettoNegozioIterator = negozio.getAddetti().iterator();
-                while (addettoNegozioIterator.hasNext()){
-                    AddettoNegozio addettoNegozio = addettoNegozioIterator.next();
-                    for(Ruolo ruolo : user.get().getRuolo()){
-                        if(ruolo.getId()== addettoNegozio.getId()) {
-                            gestoreAddetti.setNegozio(negozio);
-                        }
-                    }
-                }
-            }
-        }
-        return "homeAddetto";
-    }
 
     void trovaPrezzoEScontoButtonEvent() {
 //        try{
