@@ -37,7 +37,7 @@
                 <tbody>
                 <tr th:each="user : ${userList}">
                     <!--/*@thymesVar id="email" type="it.unicam.pawm.c3.personale.User"*/-->
-                    <td th:text="${user.}"></td>
+                    <td th:text="${user.email}"></td>
                     <td th:text="${user.nome}"></td>
                     <td th:text="${user.cognome}"></td>
 <!--                    <td><a th:href="@{/addettonegozio/getVenditeAssegnate/{id}(id=${cliente.id})}" class="btn btn-primary">Visualizza merci<i class="fas fa-user-edit ml-2"></i></a></td>-->
