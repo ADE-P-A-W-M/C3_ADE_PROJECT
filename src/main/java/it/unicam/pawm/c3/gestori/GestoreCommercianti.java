@@ -30,6 +30,8 @@ public class GestoreCommercianti {
     @Autowired
     private CorriereRepository corriereRepository;
     @Autowired
+    private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
+    @Autowired
     private GestoreMerci gestoreMerci;
     private Negozio negozio;
     @Autowired
@@ -56,7 +58,9 @@ public class GestoreCommercianti {
     }
 
     /*****************GestionePromozioni*****************/
-
+    public Promozione getPromozione(Long id) {
+        return gestoreMerci.getPromozione(id);
+    }
     public List<MerceInventarioNegozio> getPromozioniAttive() {
         return gestoreMerci.getPromozioniAttive(getNegozio());
     }
@@ -65,11 +69,14 @@ public class GestoreCommercianti {
         return gestoreMerci.getPromozioniPossibili(getNegozio());
     }
 
-    public void addPromozione(MerceInventarioNegozio miv, LocalDate di, LocalDate df, double pp) {
+    public void addPromozione(Long id, LocalDate di, LocalDate df, double pp) {
+        MerceInventarioNegozio miv=merceInventarioNegozioRepository.findById(id).get();
         gestoreMerci.addPromozione(miv, di, df, pp);
     }
 
-    public void rimuoviPromozione(MerceInventarioNegozio min) {
+    public void rimuoviPromozione(Long id) {
+        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid promozione :" + id));
         gestoreMerci.rimuoviPromozione(min);
     }
 
@@ -97,10 +104,12 @@ public class GestoreCommercianti {
 
     /**
      * il metodo serve per affiliare al negozio la lista di corrieri specificata
-     * @param corriereDaAggiungere al negozio
+     * @param id del corriere da aggiungere
      */
-    public void addCorriere(Corriere corriereDaAggiungere) {
-        negozio.addCorriere(corriereDaAggiungere);
+    public void addCorriere(Long id) {
+        Corriere corriere = corriereRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
+        negozio.addCorriere(corriere);
         negozioRepository.save(negozio);
     }
 
@@ -108,9 +117,11 @@ public class GestoreCommercianti {
 
     /**
      * il metodo permette al commerciante di assumere un nuovo addetto per il negozio
-     * @param user che diventerà  addetto
+     * @param id dell'utente che diventerà  addetto
      */
-    public void assunzioneAddetto(User user){
+    public void assunzioneAddetto(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user:" + id));
         AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
         user.setRuolo(addettoNegozio);
         ruoloRepository.save(addettoNegozio);
@@ -138,12 +149,21 @@ public class GestoreCommercianti {
         gestoreMerci.addMerce(id, nome,descrizione, categoria, quantita, prezzo , sconto , getNegozio());
     }
 
-    public void removeMerce(MerceInventarioNegozio min, double quantita){
+    public void removeMerce(Long id, double quantita){
+        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid merce :" + id));
         gestoreMerci.removeMerce(min, quantita, getNegozio());
     }
 
-    public void modificaMerce(MerceInventarioNegozio min,double prezzo, double sconto, double quantita) {
-        gestoreMerci.modificaMerce(min, prezzo,sconto,quantita);
+    public void modificaMerce(Long id,double prezzo, double sconto, double quantita) {
+        //MerceInventarioNegozio min=merceInventarioNegozioRepository.findById(id).get();
+        Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
+        while(minList.hasNext()) {
+            MerceInventarioNegozio min= minList.next();
+            if(min.getId()==id) {
+                gestoreMerci.modificaMerce(getNegozio(),min, prezzo,sconto,quantita);
+            }
+        }
     }
 
     /************************** Metodi Accessori ******************************/

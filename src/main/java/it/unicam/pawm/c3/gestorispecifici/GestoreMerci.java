@@ -1,10 +1,7 @@
 package it.unicam.pawm.c3.gestorispecifici;
 
 import it.unicam.pawm.c3.Negozio;
-import it.unicam.pawm.c3.merce.Categoria;
-import it.unicam.pawm.c3.merce.Merce;
-import it.unicam.pawm.c3.merce.MerceAlPubblico;
-import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
+import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.MerceAlPubblicoRepository;
 import it.unicam.pawm.c3.persistenza.MerceInventarioNegozioRepository;
 import it.unicam.pawm.c3.persistenza.MerceRepository;
@@ -175,11 +172,12 @@ public class GestoreMerci {
      * @param sconto
      * @param quantita
      */
-    public void modificaMerce(MerceInventarioNegozio min, double prezzo, double sconto, double quantita) {
+    public void modificaMerce(Negozio negozio,MerceInventarioNegozio min, double prezzo, double sconto, double quantita) {
         min.getMerceAlPubblico().setPrezzo(prezzo);
         min.getMerceAlPubblico().setSconto(sconto);
         min.setQuantita(quantita);
         merceInventarioNegozioRepository.save(min);
+        negozioRepository.save(negozio);
     }
 
     /**
@@ -302,6 +300,9 @@ public class GestoreMerci {
             }
         }
         return minList;
+    }
+    public Promozione getPromozione(Long id) {
+        return merceInventarioNegozioRepository.findById(id).get().getMerceAlPubblico().getPromozione();
     }
 
 }
