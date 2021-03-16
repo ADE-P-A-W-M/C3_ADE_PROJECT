@@ -29,10 +29,10 @@ public class GestoreCommercianti {
     private NegozioRepository negozioRepository;
     @Autowired
     private CorriereRepository corriereRepository;
-
+    @Autowired
     private GestoreMerci gestoreMerci;
     private Negozio negozio;
-
+    @Autowired
     public GestoreCommercianti() {
         this.gestoreMerci = new GestoreMerci();
     }
@@ -134,6 +134,7 @@ public class GestoreCommercianti {
     }
 
     public void addMerce(Long id, String nome, String descrizione, Categoria categoria, double quantita, double prezzo, double sconto) {
+        System.out.println(getNegozio());
         gestoreMerci.addMerce(id, nome,descrizione, categoria, quantita, prezzo , sconto , getNegozio());
     }
 

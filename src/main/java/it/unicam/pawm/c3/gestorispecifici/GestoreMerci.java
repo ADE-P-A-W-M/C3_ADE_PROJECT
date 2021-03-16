@@ -153,9 +153,7 @@ public class GestoreMerci {
      */
     public void addMerce(Long id, String nome, String descrizione, Categoria categoria, double quantita, double prezzo, double sconto, Negozio negozio) {
         Merce m;
-        System.out.println("bellaaa");
         Optional<Merce> merce = merceRepository.findById(id);
-        System.out.println("dio fantasioso");
         if(!merce.isPresent()){
             m = new Merce(nome, categoria, descrizione);
         } else {
@@ -163,7 +161,6 @@ public class GestoreMerci {
         }
         merceRepository.save(m);
         MerceAlPubblico map = new MerceAlPubblico(prezzo, m, sconto);
-        merceAlPubblicoRepository.save(map);
         MerceInventarioNegozio min = new MerceInventarioNegozio(quantita, map);
         merceInventarioNegozioRepository.save(min);
         negozio.addMerceInventarioNegozio(min);
