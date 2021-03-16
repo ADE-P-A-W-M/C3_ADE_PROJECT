@@ -28,24 +28,6 @@ public class ICommerciante {
     private GestoreCommercianti gestoreCommercianti;
     @Autowired
     private GestoreAccessi gestoreAccessi;
-    @Autowired
-    private NegozioRepository negozioRepository;
-    @Autowired
-    private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
-    @Autowired
-    private MerceAlPubblicoRepository merceAlPubblicoRepository;
-    @Autowired
-    private PromozioneRepository promozioneRepository;
-    @Autowired
-    private MerceRepository merceRepository;
-    @Autowired
-    private ClienteRepository clienteRepository;
-    @Autowired
-    private RuoloRepository ruoloRepository;
-    @Autowired
-    private CorriereRepository corriereRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     public ICommerciante() {
         this.gestoreCommercianti = new GestoreCommercianti();
@@ -92,9 +74,7 @@ public class ICommerciante {
 
     @GetMapping("merceInPromozione/delete/{id}")
     public String removePromozione(@PathVariable Long id,Model model) {
-        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid promozione :" + id));
-        gestoreCommercianti.rimuoviPromozione(min);
+        gestoreCommercianti.rimuoviPromozione(id);
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
         return "showPromozioni";
     }
@@ -107,21 +87,18 @@ public class ICommerciante {
 
     @GetMapping("merceNonInPromozione/formAddPromozione/{id}")
     public String addPromozioneForm(@PathVariable Long id,Model model) {
-        Promozione promozione=merceInventarioNegozioRepository.findById(id).get().getMerceAlPubblico().getPromozione();
+        Promozione promozione= gestoreCommercianti.getPromozione(id);
         model.addAttribute("promozione",promozione);
         return "addPromozione";
     }
 
     @PostMapping("merceInPromozione/addPromozione/{id}")
     public String addPromozione(@PathVariable("id") Long id, Promozione promozione,Model model) {
-        gestoreCommercianti.addPromozione(merceInventarioNegozioRepository.findById(id).get(),promozione.getDataInizio(),promozione.getDataFine(),promozione.getPrezzoPromozione());
+        gestoreCommercianti.addPromozione(id,promozione.getDataInizio(),promozione.getDataFine(),promozione.getPrezzoPromozione());
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
         return "showPromozioni";
     }
 
-    public void addPromozione(MerceInventarioNegozio miv, LocalDate di, LocalDate df, double pp){
-        gestoreCommercianti.addPromozione(miv,di,df,pp);
-    }
 
 //    @FXML
     void addPromozioneButtonEvent(){
@@ -129,11 +106,6 @@ public class ICommerciante {
 //        getPromozioniAttive();
 //        initFieldPromozioni();
     }
-
-    public void rimuoviPromozione(MerceInventarioNegozio min){
-        gestoreCommercianti.rimuoviPromozione(min);
-    }
-
 //    @FXML
     void rimuoviPromozioneButtonEvent() {
 //        listaPromozioniPossibili.setVisible(false);
@@ -164,17 +136,6 @@ public class ICommerciante {
 //        corrieriDaAggiungere.getItems().clear();
 //        corrieriDaAggiungere.getItems().addAll(gestoreCommercianti.getCorrieri());
     }
-    public Negozio getNegozio() {
-        return negozioRepository.findAll().get(0);
-    }
-    public List<Corriere> getCorrieriDaAggiungere() {
-        List<Corriere> corrieri=corriereRepository.findAll();
-        corrieri.removeAll(getNegozio().getCorrieri());
-        return corrieri;
-    }
-    public void addCorriere(Corriere corriereDaAggiungere) {
-        gestoreCommercianti.addCorriere(corriereDaAggiungere);
-    }
     @GetMapping("showCorrieriDaAggiungere")
     public String showCorrieriDaAggiunguere(Model model)
     {
@@ -183,10 +144,8 @@ public class ICommerciante {
     }
     @GetMapping("showCorrieriDaAggiungere/add/{id}")
     public String addCorriere(@PathVariable Long id,Model model) {
-        Corriere corriere = corriereRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
-        gestoreCommercianti.addCorriere(corriere);
-        model.addAttribute("corrieriList",getCorrieriDaAggiungere());
+        gestoreCommercianti.addCorriere(id);
+        model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
         return "showCorrieriDaAggiungere";
     }
 //    @FXML
@@ -202,21 +161,7 @@ public class ICommerciante {
 //        clientiFiltratiAA.getItems().addAll(gestoreCommercianti.getCliente(email));
     }
     //METODO CHE SUL GESTORE SI CHIAMA GETCLIENTE(String email)
-    public User getClienteByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if(user.isPresent()){
-            return user.get();
-        }
-        throw new IllegalStateException("cliente non presente");
-    }
-    //METODO CHE STAVA SU GESTORE
-    public void assunzioneAddettoGestore(User user){
-        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
-        user.setRuolo(addettoNegozio);
-        ruoloRepository.save(addettoNegozio);
-        getNegozio().addAddettoNegozio(addettoNegozio);
-        negozioRepository.save(getNegozio());
-    }
+
     @GetMapping("assunzioneAddetto")
     public String assunzioneForm() {
         return "assunzioneAddetto";
@@ -232,9 +177,7 @@ public class ICommerciante {
     }
     @GetMapping("assunzioneAddetto/{id}")
     public String assunzioneFinita(@PathVariable Long id) {
-         User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user:" + id));
-         gestoreCommercianti.assunzioneAddetto(user);
+         gestoreCommercianti.assunzioneAddetto(id);
         return "assunzioneAddetto";
     }
     public void assunzioneAddetto(Cliente cliente){
@@ -311,11 +254,6 @@ public class ICommerciante {
 //        merciInventario.getItems().clear();
 //        merciInventario.getItems().addAll(gestoreCommercianti.getInventario());
     }
-    //METODO DEL GESTORE
-    public List<MerceInventarioNegozio> getInventario() {
-        Negozio negozio=negozioRepository.findAll().get(0);
-        return negozio.getMerceInventarioNegozio();
-    }
     @GetMapping("showInventario")
     public String showInventario(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getInventario());
@@ -338,16 +276,14 @@ public class ICommerciante {
     }
     @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
-        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid merce :" + id));
-        gestoreCommercianti.removeMerce(min,quantita);
+        gestoreCommercianti.removeMerce(id,quantita);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
         return "showInventario";
     }
     @PostMapping("showInventario/addMerceId")
     public String checkIfMerceExists(Long id,Model model) {
         model.addAttribute("id",id);
-        if(merceRepository.findById(id).isPresent()) {
+        if(gestoreCommercianti.verificaIdMerce(id)) {
             return "addMerceAlreadyExisting";
         } else {
             return "addNewMerce";
@@ -355,21 +291,18 @@ public class ICommerciante {
     }
     @PostMapping("showInventario/addMerce/{id}")
     public String addMerce(@PathVariable Long id,String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
-        aggiungiMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
+        gestoreCommercianti.addMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
         return "showInventario";
     }
     @PostMapping("showInventario/modificaMerce/{id}")
     public String modificaMerce(@PathVariable Long id,Model model,Double quantita,Double prezzo,Double sconto) {
+        gestoreCommercianti.modificaMerce(id,prezzo,sconto,quantita);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
-        modificaMerce(merceInventarioNegozioRepository.findById(id).get(),prezzo,sconto,quantita);
         return "showInventario";
     }
     private void aggiungiMerce(Long id, String nome, String descrizione, Categoria categoria, double quantita, double prezzo, double sconto) {
         gestoreCommercianti.addMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
-    }
-    private void modificaMerce(MerceInventarioNegozio min,double prezzo, double sconto, double quantita){
-        gestoreCommercianti.modificaMerce(min,prezzo, sconto, quantita);
     }
     private boolean verificaIdMerce(Long id){
         return gestoreCommercianti.verificaIdMerce(id);
