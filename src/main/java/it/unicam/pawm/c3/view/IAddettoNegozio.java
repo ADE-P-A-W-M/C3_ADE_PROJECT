@@ -6,20 +6,21 @@ import it.unicam.pawm.c3.carta.TipoScontoCliente;
 import it.unicam.pawm.c3.gestori.GestoreAddetti;
 import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
-import it.unicam.pawm.c3.persistenza.NegozioRepository;
-import it.unicam.pawm.c3.persistenza.UserRepository;
+import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.*;
-import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
-import it.unicam.pawm.c3.vendita.TipoDiRitiro;
-import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import it.unicam.pawm.c3.vendita.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,13 @@ public class IAddettoNegozio {
     private NegozioRepository negozioRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MerceVenditaRepository merceVenditaRepository;
+    @Autowired
+    private VenditaSpeditaRepository venditaSpeditaRepository;
+    @Autowired
+    private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
+
 
     @Autowired
     public IAddettoNegozio() {
@@ -436,6 +444,31 @@ public class IAddettoNegozio {
 
     /***********************Assegnazione Carta****************************/
 
+    @GetMapping("/ricercaCliente")
+    public String clienteAssegnazioneCartaForm(){
+        return "formRicercaClienteAssegnazione";
+    }
+
+    @PostMapping("/getCliente")
+    public String getClientiFiltered(String email, Model model){
+        Optional<User> user = userRepository.findByEmail(email);
+        // clienteRepository.save(cliente);
+        List<User> userList = new ArrayList<>();
+        userList.add(user.get());
+        model.addAttribute("userList",userList);
+        // clientiFiltratiAC.getItems().add(gestoreAddetti.getCliente(email));
+        return "clienteAssegnazioneCarta";
+    }
+
+    @PostMapping("/getCliente/{id}")
+    public String assegnaCarta(@PathVariable Long id, TipoScontoCliente tsc, Model model) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            gestoreAddetti.assegnaCarta((Cliente) user.get().getRuolo().get(0), tsc);
+
+        }
+return "";
+    }
     public void initAssegnazioneCartaField(){
 //        emailAC.clear();
 //        clientiFiltratiAC.getItems().clear();
@@ -484,6 +517,24 @@ public class IAddettoNegozio {
 
     /******************Interfaccia Consulta Inventario*********************/
 
+    @GetMapping("/consultaInventarioAddetto")
+    public String getInventario(Model model){
+        List<MerceInventarioNegozio> inventario = new ArrayList<>();
+        for (MerceInventarioNegozio min : merceInventarioNegozioRepository.findAll()) {
+            inventario.add(min);
+        }
+        model.addAttribute("inventario",inventario);
+        return "consultaInventarioAddetto";
+    }
+
+    @GetMapping("/infoMerce/{id}")
+    public String getInfoMerce(@PathVariable Long id, Model model){
+        List<MerceInventarioNegozio> minList = new ArrayList<>();
+        Optional<MerceInventarioNegozio> min = merceInventarioNegozioRepository.findById(id);
+        minList.add(min.get());
+        model.addAttribute("minList",minList);
+        return "infoMerceSingola";
+    }
     public void getInventario(){
 //        listViewConsultaInventario.getItems().clear();
 //        listViewConsultaInventario.getItems().addAll(gestoreAddetti.getInventario());
@@ -499,6 +550,61 @@ public class IAddettoNegozio {
     }
 
     /****************Interfaccia Consegna Vendita Assegnata**************/
+
+    @GetMapping("/getVenditeAssegnate")
+    public String venditeAssegnateForm(){
+        return "formVenditeAssegnate";
+    }
+
+    @PostMapping("/getVenditeAssegnate")
+    public String showCliente(String email,Model model){
+        Optional<User> user = userRepository.findByEmail(email);
+        // clienteRepository.save(cliente);
+        List<User> userList = new ArrayList<>();
+        userList.add(user.get());
+        model.addAttribute("clienteList",userList);
+        return "clienteVenditaAssegnata";
+    }
+
+    @GetMapping("/getVenditeAssegnate/{id}")
+    public String getAcquistiClienteDaRitirare(@PathVariable Long id,Model model){
+        Optional<User> user = userRepository.findById(id);
+        Negozio negozio = negozioRepository.findAll().get(0);
+        List<VenditaSpedita> venditaSpeditaList = new ArrayList<>();
+        if(user.isPresent()){
+            Cliente cliente = (Cliente) user.get().getRuolo().get(0);
+            if(!cliente.getAcquisti().isEmpty()){
+                Iterator<VenditaSpedita> venditeNegozio = negozio.getVenditeNegozioRitiro().iterator();
+                while(venditeNegozio.hasNext()){
+                    VenditaSpedita vs = venditeNegozio.next();
+                    if(vs.getStatoConsegna().equals(StatoConsegna.CONSEGNATO_AL_NEGOZIO)){
+                        Iterator<Vendita> venditaIterator = cliente.getAcquisti().iterator();
+                        while(venditaIterator.hasNext()){
+                            Vendita vendita = venditaIterator.next();
+                            if(vendita.getId() == vs.getId()){
+                                venditaSpeditaList.add(vs);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //  model.addAttribute("cliente",cliente.get());
+        model.addAttribute("listaVendite",venditaSpeditaList);
+        return "consegnaVenditaAssegnata";
+    }
+
+
+
+    @GetMapping("consegnaAlCliente/{id}")
+    public String consegnaVenditaAlNegozio(@PathVariable Long id) {
+        Optional<VenditaSpedita> VS = venditaSpeditaRepository.findById(id);
+        if(VS.isPresent()) {
+            VS.get().setStatoConsegna(StatoConsegna.CONSEGNATO_AL_CLIENTE);
+        }
+        venditaSpeditaRepository.save(VS.get());
+        return "consegnaVenditaAssegnata";
+    }
 
     public void getAcquistiClienteDaRitirare(String email){
 //        listaVenditeDaConsegnare.getItems().clear();

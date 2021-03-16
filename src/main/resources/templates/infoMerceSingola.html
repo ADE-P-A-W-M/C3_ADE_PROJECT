@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class = "container">
+    <div class="row">
+        <div class = "col-md-12">
+
+            <h2>Info merce</h2>
+            <br>
+            <table class = "table table-responsive table-bordered .table-striped">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>ID</th>
+                    <th>Categoria</th>
+                    <th>Quantita</th>
+                    <th>Sconto</th>
+                    <th>Promozione</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="min : ${minList}">
+                    <td th:text="${min.merceAlPubblico.merce.nome}"></td>
+                    <td th:text="${min.id}"></td>
+                    <td th:text="${min.merceAlPubblico.merce.categoria}"></td>
+                    <td th:text="${min.quantita}"></td>
+                    <td th:text="${min.merceAlPubblico.sconto}"></td>
+                    <td>
+                        <span th:if="${min.merceAlPubblico.promozione.disponibile == 'true'}">Si trova in promozione</span>
+                        <span th:unless="${min.merceAlPubblico.promozione.disponibile == 'false'}">Non si trova in promozione</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/addettonegozio/consultaInventarioAddetto}" class="btn btn-primary">Indietro<i class="fas fa-user-edit ml-2"></i></a>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

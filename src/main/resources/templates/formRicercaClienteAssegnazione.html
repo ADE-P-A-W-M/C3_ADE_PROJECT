@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+</head>
+
+<body>
+<div class="container my-5">
+    <h2>Assegnazione carta</h2>
+    <h4>ricerca user...</h4>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <!--/*@thymesVar id="cliente" type="it.unicam.pawm.c3.personale.Cliente"*/-->
+        <!--da cambiare form action-->        <form action="#" th:action="@{/addettonegozio/getCliente}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="email" class="col-form-label">Email</label> <input type="text" name="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <input type="submit" class="btn btn-primary" value="Submit">
+                        </div>
+                    </div>
+                </form>
+                <!-- <form method="post">
+                     <div class="row">
+                         <div class="form-group col-md-6">
+                             <label for="email" class="col-form-label">email</label> <input type="text" name="email" class="form-control" id="email">
+                         </div>
+                         <div class="form-group col-md-8">
+                             <input type="submit" class="btn btn-primary" value="Aggiungi Promozione">
+                         </div>
+                     </div>
+                 </form>-->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

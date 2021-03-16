@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Add User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+</head>
+
+<body>
+<div class="container my-5">
+    <h3>Assegnazione carta cliente</h3>
+    <div class="card">
+        <div class="card-body">
+
+            <h4>Cliente selezionato</h4>
+            <table class = "table table-responsive table-bordered .table-striped">
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${userList}">
+                    <!--/*@thymesVar id="email" type="it.unicam.pawm.c3.personale.User"*/-->
+                    <td th:text="${user.}"></td>
+                    <td th:text="${user.nome}"></td>
+                    <td th:text="${user.cognome}"></td>
+<!--                    <td><a th:href="@{/addettonegozio/getVenditeAssegnate/{id}(id=${cliente.id})}" class="btn btn-primary">Visualizza merci<i class="fas fa-user-edit ml-2"></i></a></td>-->
+
+                </tr>
+                </tbody>
+            </table>
+            <!--/*@thymesVar id="tipoScontoCliente" type="it.unicam.pawm.c3.carta.Carta"*/-->
+            <!--/*@thymesVar id="carta" type="it.unicam.pawm.c3.carta"*/-->
+            <form th:action="@{/getCliente/{id}(id=cliente.id)}" method="post" th:object="${carta}">
+
+                <select name="tipoScontoCliente">
+                    <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"
+                            th:value="${tipoScontoCliente}" th:text="${tipoScontoCliente}"></option>
+                </select>
+
+<!--                <input type="submit" th:value="#{submit.button}"/>-->
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+</html>
+
+</body>
+
+</html>
