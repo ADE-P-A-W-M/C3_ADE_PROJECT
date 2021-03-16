@@ -184,24 +184,14 @@ public class GestoreMerci {
 
     /**
      * il metodo serve a rimuovere dall'inventario del negozio specificato una determinata quantita di una lista di merci
-     * @param list delle merce da rimuove
+     * @param min merce da rimuove
      * @param quantita da rimuovere
      * @param negozio dove si trovano le merci
      */
-    public void removeMerce(List<MerceInventarioNegozio> list, double quantita, Negozio negozio){
-        Iterator<MerceInventarioNegozio> minIterator = negozio.getMerceInventarioNegozio().iterator();
-        while (minIterator.hasNext()) {
-            MerceInventarioNegozio min=minIterator.next();
-            Iterator<MerceInventarioNegozio> daRimuovere = list.iterator();
-            while(daRimuovere.hasNext()) {
-                MerceInventarioNegozio minDaRimuovere= daRimuovere.next();
-                if(min.equals(minDaRimuovere)) {
-                    double nuovaQuantita=min.getQuantita()-quantita;
-                    min.setQuantita(nuovaQuantita);
-                    merceInventarioNegozioRepository.save(min);
-                }
-            }
-        }
+    public void removeMerce(MerceInventarioNegozio min, double quantita, Negozio negozio){
+        double nuovaQuantita=min.getQuantita()-quantita;
+        min.setQuantita(nuovaQuantita);
+        merceInventarioNegozioRepository.save(min);
         negozioRepository.save(negozio);
     }
 

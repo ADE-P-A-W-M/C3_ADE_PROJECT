@@ -24,7 +24,7 @@ public class GestoreCommercianti {
     @Autowired
     private RuoloRepository ruoloRepository;
     @Autowired
-    private ClienteRepository clienteRepository;
+    private UserRepository userRepository;
     @Autowired
     private NegozioRepository negozioRepository;
     @Autowired
@@ -47,13 +47,13 @@ public class GestoreCommercianti {
 
     /*****************Assegnazione Carta***************/
 
-//    public Cliente getCliente(String email){
-//        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
-//        if(cliente.isPresent()){
-//            return cliente.get();
-//        }
-//        throw new IllegalStateException("cliente non presente");
-//    }
+    public User getCliente(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            return user.get();
+        }
+        throw new IllegalStateException("utente non presente");
+    }
 
     /*****************GestionePromozioni*****************/
 
@@ -99,7 +99,7 @@ public class GestoreCommercianti {
      * il metodo serve per affiliare al negozio la lista di corrieri specificata
      * @param corriereDaAggiungere al negozio
      */
-    public void addCorrieri(Corriere corriereDaAggiungere) {
+    public void addCorriere(Corriere corriereDaAggiungere) {
         negozio.addCorriere(corriereDaAggiungere);
         negozioRepository.save(negozio);
     }
@@ -108,16 +108,16 @@ public class GestoreCommercianti {
 
     /**
      * il metodo permette al commerciante di assumere un nuovo addetto per il negozio
-     * @param cliente che diventerà  addetto
+     * @param user che diventerà  addetto
      */
-//    public void assunzioneAddetto(Cliente cliente){
-//        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
-//        cliente.setRuolo(addettoNegozio);
-//        ruoloRepository.save(addettoNegozio);
-//        clienteRepository.save(cliente);
-//        getNegozio().addAddettoNegozio(addettoNegozio);
-//        negozioRepository.save(negozio);
-//    }
+    public void assunzioneAddetto(User user){
+        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
+        user.setRuolo(addettoNegozio);
+        ruoloRepository.save(addettoNegozio);
+        userRepository.save(user);
+        getNegozio().addAddettoNegozio(addettoNegozio);
+        negozioRepository.save(negozio);
+    }
 
     /***************Gestione Inventario********************/
 
@@ -138,8 +138,8 @@ public class GestoreCommercianti {
         gestoreMerci.addMerce(id, nome,descrizione, categoria, quantita, prezzo , sconto , getNegozio());
     }
 
-    public void removeMerce(List<MerceInventarioNegozio> list, double quantita){
-        gestoreMerci.removeMerce(list, quantita, getNegozio());
+    public void removeMerce(MerceInventarioNegozio min, double quantita){
+        gestoreMerci.removeMerce(min, quantita, getNegozio());
     }
 
     public void modificaMerce(MerceInventarioNegozio min,double prezzo, double sconto, double quantita) {
