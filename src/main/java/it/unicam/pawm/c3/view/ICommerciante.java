@@ -1,24 +1,23 @@
 package it.unicam.pawm.c3.view;
 
-import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.gestori.GestoreCommercianti;
 import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
-import it.unicam.pawm.c3.merce.*;
-import it.unicam.pawm.c3.persistenza.*;
-import it.unicam.pawm.c3.personale.*;
+import it.unicam.pawm.c3.merce.Categoria;
+import it.unicam.pawm.c3.merce.Promozione;
+import it.unicam.pawm.c3.personale.Cliente;
+import it.unicam.pawm.c3.personale.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/commerciante")

@@ -30,7 +30,11 @@ public class GestoreMerci {
     @Autowired
     private NegozioRepository negozioRepository;
 
-//    public GestoreMerci(MerceInventarioNegozioRepository merceInventarioNegozioRepository, MerceRepository merceRepository, MerceAlPubblicoRepository merceAlPubblicoRepository, NegozioRepository negozioRepository) {
+    @Autowired
+    public GestoreMerci() {
+    }
+
+    //    public GestoreMerci(MerceInventarioNegozioRepository merceInventarioNegozioRepository, MerceRepository merceRepository, MerceAlPubblicoRepository merceAlPubblicoRepository, NegozioRepository negozioRepository) {
 //        this.merceInventarioNegozioRepository = merceInventarioNegozioRepository;
 //        this.merceRepository = merceRepository;
 //        this.merceAlPubblicoRepository = merceAlPubblicoRepository;
