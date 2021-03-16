@@ -6,13 +6,10 @@ import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -330,9 +327,9 @@ public class ICommerciante {
         model.addAttribute("id",id);
         return "rimuoviMerce";
     }
-    @GetMapping("showInventario/addForm")
-    public String addForm() {
-        return "addMerce";
+    @GetMapping("showInventario/addMerceIdForm")
+    public String addMerceIdForm() {
+        return "addMerceIdForm";
     }
     @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
@@ -340,6 +337,21 @@ public class ICommerciante {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid merce :" + id));
         min.setQuantita(min.getQuantita()-quantita);
         merceInventarioNegozioRepository.save(min);
+        model.addAttribute("minList",getInventario());
+        return "showInventario";
+    }
+    @PostMapping("showInventario/addMerceId")
+    public String checkIfMerceExists(Long id,Model model) {
+        model.addAttribute("id",id);
+        if(merceRepository.findById(id).isPresent()) {
+            return "addMerceAlreadyExisting";
+        } else {
+            return "addNewMerce";
+        }
+    }
+    @PostMapping("showInventario/addMerce/{id}")
+    public String addMerce(@PathVariable Long id,String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
+        aggiungiMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
         model.addAttribute("minList",getInventario());
         return "showInventario";
     }
