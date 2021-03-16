@@ -18,16 +18,16 @@
             <table class = "table table-responsive table-bordered .table-striped">
                 <thead>
                 <tr>
-                    <th>Prezzo</th>
+                    <th>Id</th>
                     <th>Indirizzo luogo di ritiro</th>
-                    <th>Lista merce</th>
+<!--                    <th>Lista merce</th>-->
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="VS : ${ritirate}">
-                    <td th:text="${VS.prezzo}"></td>
+                    <td th:text="${VS.id}"></td>
                     <td th:text="${VS.indirizzoNegozioDiRitiro}"></td>
-                    <td th:text="${VS.listaMerceVendita}"></td>
+<!--                    <td th:text="${VS.listaMerceVendita}"></td>-->
                     <td><a  th:href="@{/corriere/consegna/{id}(id=${VS.id})}" class="btn btn-primary">Consegna<i class="fas fa-user-edit ml-2"></i></a></td>
                 </tr>
                 </tbody>

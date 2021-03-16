@@ -46,7 +46,17 @@ public class GestoreVendite {
                 VenditaSpedita vsIterata = iterator.next();
                 if(vsIterata.equals(vs)){
                     vs.setStatoConsegna(sc);
+                    venditaSpeditaRepository.save(vs);
                 }
+            }
+        }
+    }
+
+    public void aggiornaStatoVendita(VenditaSpedita vs , StatoConsegna sc, Corriere corriere){
+        for(VenditaSpedita v : corriere.getVendite()){
+            if(v.getId()==vs.getId()){
+                v.setStatoConsegna(sc);
+                venditaSpeditaRepository.save(v);
             }
         }
     }
@@ -138,4 +148,5 @@ public class GestoreVendite {
             iterator.next().setStatoConsegna(sc);
         }
     }
+
 }

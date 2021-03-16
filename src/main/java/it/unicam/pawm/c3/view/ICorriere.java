@@ -28,18 +28,6 @@ import java.util.Optional;
 public class ICorriere {
 
     @Autowired
-    private VenditaSpeditaRepository venditaSpeditaRepository;
-    @Autowired
-    private MerceRepository merceRepository;
-    @Autowired
-    private MerceAlPubblicoRepository merceAlPubblicoRepository;
-    @Autowired
-    private MerceVenditaRepository merceVenditaRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private CorriereRepository corriereRepository;
-    @Autowired
     private GestoreAccessi gestoreAccessi;
     @Autowired
     private GestoreCorrieri gestoreCorrieri;
@@ -51,140 +39,49 @@ public class ICorriere {
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails userDetails){
-//        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-//        if(user.isPresent()){
-//            Iterator<Corriere> corriereIterator = corriereRepository.findAll().iterator();
-//            while (corriereIterator.hasNext()){
-//                Corriere corriere = corriereIterator.next();
-//                for(Ruolo ruolo : user.get().getRuolo()){
-//                    if(ruolo.getId() == corriere.getId()) {
-//                        gestoreCorrieri.setCorriere(corriere);
-//                    }
-//                }
-//            }
-//        }
         String email = userDetails.getUsername();
         gestoreCorrieri.setCorriere(gestoreAccessi.homeCorriere(email));
-        System.out.println(gestoreCorrieri.getCorriere());
         return "homeCorriere";
     }
-
-
-
 
     /************Interfaccia Consulta Inventario********************/
 
     @GetMapping("/gestioneInventarioCorriere")
     public String gestioneInventario(Model model){
-     //   List<VenditaSpedita> venditeDaRitirare = gestore.getVenditeDaRitirare();
-     //   List<VenditaSpedita> venditeRitirate = gestore.getVenditeRitirate();
-     //   List<VenditaSpedita> venditeConsegnate = gestore.getVenditeConsegnate();
-        List<VenditaSpedita> venditeDaRitirare = new ArrayList<>();
-        for (VenditaSpedita VS : venditaSpeditaRepository.findAll()) {
-            if(VS.getStatoConsegna().equals(StatoConsegna.IN_ATTESA_DI_RITIRO)){
-                venditeDaRitirare.add(VS);
-            }
-        }
-        List<VenditaSpedita> venditeRitirate = new ArrayList<>();
-        for (VenditaSpedita VS : venditaSpeditaRepository.findAll()) {
-            if(VS.getStatoConsegna().equals(StatoConsegna.RITIRATO)){
-                venditeRitirate.add(VS);
-            }
-        }
-
-        List<VenditaSpedita> venditeConsegnate = new ArrayList<>();
-        for (VenditaSpedita VS : venditaSpeditaRepository.findAll()) {
-            if(VS.getStatoConsegna().equals(StatoConsegna.CONSEGNATO_AL_NEGOZIO)){
-                venditeConsegnate.add(VS);
-            }
-        }
-
-        model.addAttribute("daRitirare",venditeDaRitirare);
-        model.addAttribute("ritirate",venditeRitirate);
-        model.addAttribute("consegnate",venditeConsegnate);
-
+        model.addAttribute("daRitirare",gestoreCorrieri.getVenditeDaRitirare());
+        model.addAttribute("ritirate",gestoreCorrieri.getVenditeRitirate());
+        model.addAttribute("consegnate",gestoreCorrieri.getVenditeConsegnate());
     return "gestioneInventarioCorriere";
 }
-//    public void getVenditeNonRitirateInventario() {
-//        listaDaRitirare.getItems().clear();
-//        listaDaRitirare.getItems().addAll(gestore.getVenditeDaRitirare());
-//    }
-//    public void getVenditeRitirateInventario() {
-//        listaRitirate.getItems().clear();
-//        listaRitirate.getItems().addAll(gestore.getVenditeRitirate());
-//    }
-//
-//    public void getVenditeConsegnateInventario() {
-//        listaConsegnate.getItems().clear();
-//        listaConsegnate.getItems().addAll(gestore.getVenditeConsegnate());
-//    }
 
     /************Interfaccia Preleva Vendita********************/
 
     @GetMapping("/venditeDaRitirare")
     public String getVenditeDaRitirare(Model model){
-        List<VenditaSpedita> venditeDaRitirare = new ArrayList<>();
-        for (VenditaSpedita VS : venditaSpeditaRepository.findAll()) {
-            if(VS.getStatoConsegna().equals(StatoConsegna.IN_ATTESA_DI_RITIRO)){
-                venditeDaRitirare.add(VS);
-            }
-        }
-        model.addAttribute("daRitirare",venditeDaRitirare);
-
-        return "venditeDaRitirare";
-
-    }
-    @GetMapping("/ritiro/{id}")
-    public String prelevaVendita(@PathVariable Long id) {
-        Optional<VenditaSpedita> VS = venditaSpeditaRepository.findById(id);
-        VS.get().setStatoConsegna(StatoConsegna.RITIRATO);
-        venditaSpeditaRepository.save(VS.get());
+        model.addAttribute("daRitirare",gestoreCorrieri.getVenditeDaRitirare());
         return "venditeDaRitirare";
     }
-//
-//    @FXML
-//    void prelevaVenditaButtonEvent(ActionEvent event) {
-//        prelevaVendita(listaVenditeDaPrelevare.getSelectionModel().getSelectedItems());
-//        //getVenditeDaRitirare();
-//        init();
-//    }
+
+    @GetMapping("/venditeDaRitirare/ritiro/{id}")
+    public String prelevaVendita(@PathVariable Long id, Model model) {
+        gestoreCorrieri.prelevaVendita(id);
+        model.addAttribute("daRitirare", gestoreCorrieri.getVenditeDaRitirare());
+        return "venditeDaRitirare";
+    }
 
     /************Interfaccia Consegna Vendita********************/
 
     @GetMapping("/consegnavendita")
     public String getVenditePreseInCarico(Model model) {
-        List<VenditaSpedita> venditeRitirate = new ArrayList<>();
-        for (VenditaSpedita VS : venditaSpeditaRepository.findAll()) {
-            if(VS.getStatoConsegna().equals(StatoConsegna.RITIRATO)){
-                venditeRitirate.add(VS);
-            }
-        }
-        model.addAttribute("ritirate",venditeRitirate);
-
+        model.addAttribute("ritirate",gestoreCorrieri.getVenditeRitirate());
         return "venditeDaConsegnare";
    }
 
     @GetMapping("/consegna/{id}")
-    public String consegnaVendita(@PathVariable Long id) {
-        Optional<VenditaSpedita> VS = venditaSpeditaRepository.findById(id);
-        if(VS.get().getLuogoDiRitiro().equals(LuogoDiRitiro.NEGOZIO)) {
-            VS.get().setStatoConsegna(StatoConsegna.CONSEGNATO_AL_NEGOZIO);
-
-        }else if(VS.get().getLuogoDiRitiro().equals(LuogoDiRitiro.DOMICILIO)) {
-            VS.get().setStatoConsegna(StatoConsegna.CONSEGNATO_AL_NEGOZIO);
-        }
-        venditaSpeditaRepository.save(VS.get());
+    public String consegnaVendita(@PathVariable Long id, Model model) {
+        gestoreCorrieri.consegnaVendita(id);
+        model.addAttribute("ritirate", gestoreCorrieri.getVenditeRitirate());
         return "venditeDaConsegnare";
-    }
-//
-//    @FXML
-//    void consegnaVenditaButtonEvent(ActionEvent event) {
-//        consegnaVendita(listaVenditeDaConsegnare.getSelectionModel().getSelectedItems());
-//        init();
-//    }
-
-    public void setGestoreCorriere(GestoreCorrieri gestoreCorrieri) {
-        this.gestoreCorrieri = gestoreCorrieri;
     }
 }
 

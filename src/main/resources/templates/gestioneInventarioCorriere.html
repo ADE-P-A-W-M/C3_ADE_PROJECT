@@ -16,16 +16,15 @@
             <table class = "table table-responsive table-bordered .table-striped">
                 <thead>
                 <tr>
-                    <th>Prezzo</th>
+                    <th>Id</th>
                     <th>Indirizzo luogo di ritiro</th>
-                    <th>Lista merce</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="VS : ${daRitirare}">
-                    <td th:text="${VS.prezzo}"></td>
+                    <td th:text="${VS.id}"></td>
                     <td th:text="${VS.indirizzoNegozioDiRitiro}"></td>
-                    <td th:text="${VS.listaMerceVendita}"></td>
+<!--                    <td th:text="${VS.listaMerceVendita}"></td>-->
                 </tr>
                 </tbody>
             </table>
@@ -38,16 +37,15 @@
             <table class = "table table-responsive table-bordered .table-striped">
                 <thead>
                 <tr>
-                    <th>Prezzo</th>
+                    <th>Id</th>
                     <th>Indirizzo luogo di ritiro</th>
-                    <th>Lista merce</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="VS1 : ${ritirate}">
-                    <td th:text="${VS1.prezzo}"></td>
+                    <td th:text="${VS1.id}"></td>
                     <td th:text="${VS1.indirizzoNegozioDiRitiro}"></td>
-                    <td th:text="${VS1.listaMerceVendita}"></td>
+<!--                    <td th:text="${VS1.listaMerceVendita}"></td>-->
                 </tr>
                 </tbody>
             </table>
@@ -58,16 +56,15 @@
             <table class = "table table-responsive table-bordered .table-striped">
                 <thead>
                 <tr>
-                    <th>Prezzo</th>
+                    <th>Id</th>
                     <th>Indirizzo luogo di ritiro</th>
-                    <th>Lista merce</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="VS2 : ${consegnate}">
-                    <td th:text="${VS2.prezzo}"></td>
+                    <td th:text="${VS2.id}"></td>
                     <td th:text="${VS2.indirizzoNegozioDiRitiro}"></td>
-                    <td th:text="${VS2.listaMerceVendita}"></td>
+<!--                    <td th:text="${VS2.listaMerceVendita}"></td>-->
                 </tr>
                 </tbody>
             </table>

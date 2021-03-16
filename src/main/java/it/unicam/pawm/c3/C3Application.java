@@ -28,7 +28,11 @@ public class C3Application {
 										MerceRepository merceRepository,
 										MerceAlPubblicoRepository merceAlPubblicoRepository,
 										MerceInventarioNegozioRepository merceInventarioNegozioRepository,
-										PromozioneRepository promozioneRepository){
+										PromozioneRepository promozioneRepository,
+										VenditaSpeditaRepository venditaSpeditaRepository,
+										VenditaRepository venditaRepository,
+										MerceVenditaRepository merceVenditaRepository,
+										CorriereRepository corriereRepository){
 		return args -> {
 
 			/*********Parte del personale********************/
@@ -51,22 +55,98 @@ public class C3Application {
 //			ruoloRepository.saveAll(List.of(admin, commerciante,commerciante1,corriere));
 //			clienteRepository.saveAll(List.of(cliente1,cliente2,cliente3,cliente4));
 //
-			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", List.of(Categoria.ABBIGLIAMENTO));
-//			negozio.addAddettoNegozio(commerciante);
-			negozioRepository.save(negozio);
+//			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", List.of(Categoria.ABBIGLIAMENTO));
+//			negozioRepository.save(negozio);
 //
-			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campiglione", "3525235", List.of(Categoria.ABBIGLIAMENTO));
-//			negozio1.addAddettoNegozio(commerciante1);
-			negozioRepository.save(negozio1);
-//
-//			Merce merce = new Merce("Ipad", Categoria.TECNOLOGIA, "ipad terza generazione");
+//			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campiglione", "3525235", List.of(Categoria.ABBIGLIAMENTO));
+//			negozioRepository.save(negozio1);
+
+//			Merce merce = new Merce("Iphone", Categoria.TECNOLOGIA, "iphone di dodicesima generazione");
 //			merceRepository.save(merce);
-//			MerceAlPubblico merceAlPubblico = new MerceAlPubblico(999, merce);
+//			MerceAlPubblico merceAlPubblico = new MerceAlPubblico(799, merce);
 //			merceAlPubblicoRepository.save(merceAlPubblico);
 //			MerceInventarioNegozio min = new MerceInventarioNegozio(20, merceAlPubblico);
 //			merceInventarioNegozioRepository.save(min);
-//			negozio.addMerceInventarioNegozio(min);
+//			negozioRepository.findAll().get(0).addMerceInventarioNegozio(min);
+//			List<MerceVendita> merceVenditaList = new ArrayList<>();
+//			MerceVendita mv = new MerceVendita(12,3,merceAlPubblico);
+//			merceVenditaRepository.save(mv);
+//			merceVenditaList.add(mv);
+//			VenditaSpedita vs = new VenditaSpedita(32,"bella cacca",merceVenditaList);
+//			venditaSpeditaRepository.save(vs);
+//			Cliente cliente = clienteRepository.findAll().get(0);
+//			cliente.addAcquisto(vs);
+//			clienteRepository.save(cliente);
+//			venditaSpeditaRepository.save(vs);
+//			Negozio negozio = negozioRepository.findAll().get(0);
+//			negozio.addVendita(vs);
+//			negozio.addVenditaInNegozioRitiro(vs);
 //			negozioRepository.save(negozio);
+//			venditaSpeditaRepository.save(vs);
+//			Corriere corriere = corriereRepository.findAll().get(0);
+//			corriere.addMerceDaSpedire(vs);
+//			corriereRepository.save(corriere);
+//			venditaSpeditaRepository.save(vs);
+
+
+//			Merce merce1 = new Merce("Ipad", Categoria.TECNOLOGIA, "ipad terza generazione");
+//			merceRepository.save(merce1);
+//			MerceAlPubblico merceAlPubblico1 = new MerceAlPubblico(999, merce1);
+//			merceAlPubblicoRepository.save(merceAlPubblico1);
+//			MerceInventarioNegozio min1 = new MerceInventarioNegozio(20, merceAlPubblico1);
+//			merceInventarioNegozioRepository.save(min1);
+//			negozioRepository.findAll().get(0).addMerceInventarioNegozio(min1);
+//			List<MerceVendita> merceVenditaList1 = new ArrayList<>();
+//			MerceVendita mv1 = new MerceVendita(12,3,merceAlPubblico1);
+//			merceVenditaList1.add(mv1);
+//			merceVenditaRepository.save(mv1);
+//			VenditaSpedita vs1 = new VenditaSpedita(32,"bella merda",merceVenditaList1);
+//			vs1.setStatoConsegna(StatoConsegna.RITIRATO);
+//			venditaSpeditaRepository.save(vs1);
+//			Cliente cliente = clienteRepository.findAll().get(0);
+//			cliente.addAcquisto(vs1);
+//			clienteRepository.save(cliente);
+//			venditaSpeditaRepository.save(vs1);
+//			Negozio negozio = negozioRepository.findAll().get(0);
+//			negozio.addVendita(vs1);
+//			negozio.addVenditaInNegozioRitiro(vs1);
+//			negozioRepository.save(negozio);
+//			venditaSpeditaRepository.save(vs1);
+//			Corriere corriere = corriereRepository.findAll().get(0);
+//			corriere.addMerceDaSpedire(vs1);
+//			corriereRepository.save(corriere);
+//			venditaSpeditaRepository.save(vs1);
+
+
+//			Merce merce2 = new Merce("Macbook", Categoria.TECNOLOGIA, "macbook m1");
+//			merceRepository.save(merce2);
+//			MerceAlPubblico merceAlPubblico2 = new MerceAlPubblico(1599, merce2);
+//			merceAlPubblicoRepository.save(merceAlPubblico2);
+//			MerceInventarioNegozio min2 = new MerceInventarioNegozio(10, merceAlPubblico2);
+//			merceInventarioNegozioRepository.save(min2);
+//			negozioRepository.findAll().get(0).addMerceInventarioNegozio(min2);
+//			List<MerceVendita> merceVenditaList2 = new ArrayList<>();
+//			MerceVendita mv2 = new MerceVendita(12,1,merceAlPubblico2);
+//			merceVenditaList2.add(mv2);
+//			merceVenditaRepository.save(mv2);
+//			VenditaSpedita vs2 = new VenditaSpedita(1599,"bella mercula",merceVenditaList2);
+//			vs2.setStatoConsegna(StatoConsegna.CONSEGNATO_AL_NEGOZIO);
+//			venditaSpeditaRepository.save(vs2);
+//			Cliente cliente = clienteRepository.findAll().get(0);
+//			cliente.addAcquisto(vs2);
+//			clienteRepository.save(cliente);
+//			venditaSpeditaRepository.save(vs2);
+//			Negozio negozio = negozioRepository.findAll().get(0);
+//			negozio.addVendita(vs2);
+//			negozio.addVenditaInNegozioRitiro(vs2);
+//			negozioRepository.save(negozio);
+//			venditaSpeditaRepository.save(vs2);
+//			Corriere corriere = corriereRepository.findAll().get(0);
+//			corriere.addMerceDaSpedire(vs2);
+//			corriereRepository.save(corriere);
+//			venditaSpeditaRepository.save(vs2);
+
+
 		};
 	}
 }
