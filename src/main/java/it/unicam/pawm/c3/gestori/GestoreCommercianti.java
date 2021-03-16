@@ -33,7 +33,9 @@ public class GestoreCommercianti {
     private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
     @Autowired
     private GestoreMerci gestoreMerci;
+
     private Negozio negozio;
+
     @Autowired
     public GestoreCommercianti() {
         this.gestoreMerci = new GestoreMerci();

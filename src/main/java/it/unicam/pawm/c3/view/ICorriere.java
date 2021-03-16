@@ -1,6 +1,7 @@
 package it.unicam.pawm.c3.view;
 
 import it.unicam.pawm.c3.gestori.GestoreCorrieri;
+import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
@@ -38,27 +39,33 @@ public class ICorriere {
     private UserRepository userRepository;
     @Autowired
     private CorriereRepository corriereRepository;
-
+    @Autowired
+    private GestoreAccessi gestoreAccessi;
+    @Autowired
     private GestoreCorrieri gestoreCorrieri;
 
+    @Autowired
     public ICorriere() {
         this.gestoreCorrieri = new GestoreCorrieri();
     }
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails userDetails){
-        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-        if(user.isPresent()){
-            Iterator<Corriere> corriereIterator = corriereRepository.findAll().iterator();
-            while (corriereIterator.hasNext()){
-                Corriere corriere = corriereIterator.next();
-                for(Ruolo ruolo : user.get().getRuolo()){
-                    if(ruolo.getId() == corriere.getId()) {
-                        gestoreCorrieri.setCorriere(corriere);
-                    }
-                }
-            }
-        }
+//        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+//        if(user.isPresent()){
+//            Iterator<Corriere> corriereIterator = corriereRepository.findAll().iterator();
+//            while (corriereIterator.hasNext()){
+//                Corriere corriere = corriereIterator.next();
+//                for(Ruolo ruolo : user.get().getRuolo()){
+//                    if(ruolo.getId() == corriere.getId()) {
+//                        gestoreCorrieri.setCorriere(corriere);
+//                    }
+//                }
+//            }
+//        }
+        String email = userDetails.getUsername();
+        gestoreCorrieri.setCorriere(gestoreAccessi.homeCorriere(email));
+        System.out.println(gestoreCorrieri.getCorriere());
         return "homeCorriere";
     }
 

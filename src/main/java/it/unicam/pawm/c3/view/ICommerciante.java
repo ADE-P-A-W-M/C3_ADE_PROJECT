@@ -67,28 +67,31 @@ public class ICommerciante {
 //        getMerciDoveApplicarePromozioni();
     }
     @GetMapping("merceInPromozione")
-    public String merceInPromozione(Model model)
-    {
+    public String merceInPromozione(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
         return "showPromozioni";
     }
+
     @GetMapping("merceInPromozione/delete/{id}")
     public String removePromozione(@PathVariable Long id,Model model) {
         gestoreCommercianti.rimuoviPromozione(id);
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
         return "showPromozioni";
     }
+
     @GetMapping("merceNonInPromozione")
     public String merceNonInPromozione(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getPromozioniPossibili());
         return "showMerceNonInPromozione";
     }
+
     @GetMapping("merceNonInPromozione/formAddPromozione/{id}")
     public String addPromozioneForm(@PathVariable Long id,Model model) {
         Promozione promozione= gestoreCommercianti.getPromozione(id);
         model.addAttribute("promozione",promozione);
         return "addPromozione";
     }
+
     @PostMapping("merceInPromozione/addPromozione/{id}")
     public String addPromozione(@PathVariable("id") Long id, Promozione promozione,Model model) {
         gestoreCommercianti.addPromozione(id,promozione.getDataInizio(),promozione.getDataFine(),promozione.getPrezzoPromozione());

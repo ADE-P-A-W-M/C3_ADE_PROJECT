@@ -1,6 +1,7 @@
 package it.unicam.pawm.c3.view;
 
 import it.unicam.pawm.c3.gestori.GestoreAmministratori;
+import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.merce.Categoria;
 import it.unicam.pawm.c3.persistenza.AmministratoreRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
@@ -24,38 +25,28 @@ import java.util.Optional;
 @RequestMapping(path = "/amministratore")
 public class IAmministratore {
 
+    @Autowired
     private GestoreAmministratori gestoreAmministratori;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private AmministratoreRepository amministratoreRepository;
+    private GestoreAccessi gestoreAccessi;
 
+    @Autowired
     public IAmministratore() {
         this.gestoreAmministratori = new GestoreAmministratori();
     }
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails userDetails){
-        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-        if(user.isPresent()){
-            Iterator<Amministratore> amministratoreIterator = amministratoreRepository.findAll().iterator();
-            while (amministratoreIterator.hasNext()){
-                Amministratore amministratore = amministratoreIterator.next();
-                for(Ruolo ruolo : user.get().getRuolo()){
-                    if(ruolo.getId() == amministratore.getId()) {
-                        gestoreAmministratori.setAmministratore(amministratore);
-                    }
-                }
-            }
-        }
+        String email = userDetails.getUsername();
+        gestoreAmministratori.setAmministratore(gestoreAccessi.homeAmministratore(email));
         return "homeAmministratore";
     }
-
 
     public void init() {
 //        settoriList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 //        settoriList.getItems().addAll(Categoria.values());
     }
+
 //    public Cliente ricercaCliente(String email) {
 //        return gestoreAmministratori.ricercaCliente(email);
 //    }
