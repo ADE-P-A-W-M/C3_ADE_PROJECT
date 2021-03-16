@@ -6,17 +6,21 @@ import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/commerciante/")
+@RequestMapping("/commerciante")
 public class ICommerciante {
 
     private GestoreCommercianti gestoreCommercianti;
@@ -38,6 +42,31 @@ public class ICommerciante {
     private CorriereRepository corriereRepository;
     @Autowired
     private UserRepository userRepository;
+
+    public ICommerciante() {
+        this.gestoreCommercianti = new GestoreCommercianti();
+    }
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if(user.isPresent()){
+            Iterator<Negozio> negozioIterator = negozioRepository.findAll().iterator();
+            while(negozioIterator.hasNext()){
+                Negozio negozio = negozioIterator.next();
+                Iterator<AddettoNegozio> addettoNegozioIterator = negozio.getAddetti().iterator();
+                while (addettoNegozioIterator.hasNext()){
+                    AddettoNegozio addettoNegozio = addettoNegozioIterator.next();
+                    for(Ruolo ruolo : user.get().getRuolo()){
+                        if(ruolo.getId()== addettoNegozio.getId()) {
+                            gestoreCommercianti.setNegozio(negozio);
+                        }
+                    }
+                }
+            }
+        }
+        return "homeCommerciante";
+    }
 
     /******************Interfaccia GestionePromozioni***************/
 
@@ -331,6 +360,11 @@ public class ICommerciante {
     public String addMerceIdForm() {
         return "addMerceIdForm";
     }
+    @GetMapping("showInventario/modificaMerceForm/{id}")
+    public String modifcaMerceForm(@PathVariable Long id,Model model) {
+        model.addAttribute("id",id);
+        return "modificaMerceForm";
+    }
     @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
         MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
@@ -353,6 +387,12 @@ public class ICommerciante {
     public String addMerce(@PathVariable Long id,String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
         aggiungiMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
         model.addAttribute("minList",getInventario());
+        return "showInventario";
+    }
+    @PostMapping("showInventario/modificaMerce/{id}")
+    public String modificaMerce(@PathVariable Long id,Model model,Double quantita,Double prezzo,Double sconto) {
+        model.addAttribute("minList",getInventario());
+        modificaMerce(merceInventarioNegozioRepository.findById(id).get(),prezzo,sconto,quantita);
         return "showInventario";
     }
     public void rimuoviMerce(List<MerceInventarioNegozio> min,double quantita) {

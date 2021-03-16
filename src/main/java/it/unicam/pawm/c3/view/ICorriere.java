@@ -1,16 +1,15 @@
 package it.unicam.pawm.c3.view;
 
 import it.unicam.pawm.c3.gestori.GestoreCorrieri;
-import it.unicam.pawm.c3.merce.Categoria;
-import it.unicam.pawm.c3.merce.Merce;
-import it.unicam.pawm.c3.merce.MerceAlPubblico;
-import it.unicam.pawm.c3.persistenza.MerceAlPubblicoRepository;
-import it.unicam.pawm.c3.persistenza.MerceRepository;
-import it.unicam.pawm.c3.persistenza.MerceVenditaRepository;
-import it.unicam.pawm.c3.persistenza.VenditaSpeditaRepository;
+import it.unicam.pawm.c3.persistenza.*;
+import it.unicam.pawm.c3.personale.Cliente;
+import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.Ruolo;
+import it.unicam.pawm.c3.personale.User;
 import it.unicam.pawm.c3.vendita.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,19 +34,36 @@ public class ICorriere {
     private MerceAlPubblicoRepository merceAlPubblicoRepository;
     @Autowired
     private MerceVenditaRepository merceVenditaRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CorriereRepository corriereRepository;
 
-
-    private GestoreCorrieri gestore;
-
-//   @GetMapping("/")
-//    public void init() {
-//
-//    }
-
+    private GestoreCorrieri gestoreCorrieri;
 
     public ICorriere() {
-//        this.gestore = new GestoreCorrieri();
+        this.gestoreCorrieri = new GestoreCorrieri();
     }
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if(user.isPresent()){
+            Iterator<Corriere> corriereIterator = corriereRepository.findAll().iterator();
+            while (corriereIterator.hasNext()){
+                Corriere corriere = corriereIterator.next();
+                for(Ruolo ruolo : user.get().getRuolo()){
+                    if(ruolo.getId() == corriere.getId()) {
+                        gestoreCorrieri.setCorriere(corriere);
+                    }
+                }
+            }
+        }
+        return "homeCorriere";
+    }
+
+
+
 
     /************Interfaccia Consulta Inventario********************/
 
@@ -160,7 +177,7 @@ public class ICorriere {
 //    }
 
     public void setGestoreCorriere(GestoreCorrieri gestoreCorrieri) {
-        this.gestore = gestoreCorrieri;
+        this.gestoreCorrieri = gestoreCorrieri;
     }
 }
 

@@ -1,4 +1,4 @@
-package it.unicam.pawm.c3.web.dto;
+package it.unicam.pawm.c3.web.registration;
 
 public class UserRegistrationDto {
     private String firstName;

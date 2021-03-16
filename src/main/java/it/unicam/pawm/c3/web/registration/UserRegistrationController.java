@@ -1,7 +1,7 @@
-package it.unicam.pawm.c3.web;
+package it.unicam.pawm.c3.web.registration;
 
-import it.unicam.pawm.c3.service.UserService;
-import it.unicam.pawm.c3.web.dto.UserRegistrationDto;
+import it.unicam.pawm.c3.web.userdetailservice.UserService;
+import it.unicam.pawm.c3.web.registration.UserRegistrationDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

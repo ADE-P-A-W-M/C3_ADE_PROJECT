@@ -2,16 +2,55 @@ package it.unicam.pawm.c3.view;
 
 import it.unicam.pawm.c3.gestori.GestoreAmministratori;
 import it.unicam.pawm.c3.merce.Categoria;
+import it.unicam.pawm.c3.persistenza.AmministratoreRepository;
+import it.unicam.pawm.c3.persistenza.UserRepository;
+import it.unicam.pawm.c3.personale.Amministratore;
 import it.unicam.pawm.c3.personale.Cliente;
+import it.unicam.pawm.c3.personale.Ruolo;
+import it.unicam.pawm.c3.personale.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
-@Component
+@Controller
+@RequestMapping(path = "/amministratore")
 public class IAmministratore {
 
-
     private GestoreAmministratori gestoreAmministratori;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AmministratoreRepository amministratoreRepository;
+
+    public IAmministratore() {
+        this.gestoreAmministratori = new GestoreAmministratori();
+    }
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if(user.isPresent()){
+            Iterator<Amministratore> amministratoreIterator = amministratoreRepository.findAll().iterator();
+            while (amministratoreIterator.hasNext()){
+                Amministratore amministratore = amministratoreIterator.next();
+                for(Ruolo ruolo : user.get().getRuolo()){
+                    if(ruolo.getId() == amministratore.getId()) {
+                        gestoreAmministratori.setAmministratore(amministratore);
+                    }
+                }
+            }
+        }
+        return "homeAmministratore";
+    }
+
 
     public void init() {
 //        settoriList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

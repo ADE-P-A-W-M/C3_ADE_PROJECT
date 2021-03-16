@@ -72,7 +72,6 @@ public class IAddettoNegozio {
                 }
             }
         }
-        System.out.println(gestoreAddetti.getNegozio().getNome());
         return "homeAddetto";
     }
 

@@ -1,10 +1,9 @@
-package it.unicam.pawm.c3.service;
+package it.unicam.pawm.c3.web.userdetailservice;
 
-import it.unicam.pawm.c3.persistenza.ClienteRepository;
 import it.unicam.pawm.c3.persistenza.NegozioRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
 import it.unicam.pawm.c3.personale.*;
-import it.unicam.pawm.c3.web.dto.UserRegistrationDto;
+import it.unicam.pawm.c3.web.registration.UserRegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -46,8 +45,14 @@ public class UserServiceImpl implements UserService {
         user.setRuolo(addettoNegozio);
         if(user.getEmail().equals("danielepelosi99@gmail.com")){
             negozioRepository.findAll().get(0).addAddettoNegozio(addettoNegozio);
+            Commerciante commerciante = new Commerciante(RuoloSistema.COMMERCIANTE);
+            user.setRuolo(commerciante);
         } else {
+            Amministratore amministratore = new Amministratore(RuoloSistema.AMMINISTRATORE);
+            user.setRuolo(amministratore);
             negozioRepository.findAll().get(1).addAddettoNegozio(addettoNegozio);
+            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "Bartoini ", "Via della rimembranza", "435436");
+            user.setRuolo(corriere);
         }
         return userRepository.save(user);
     }

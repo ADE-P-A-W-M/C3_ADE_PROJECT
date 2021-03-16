@@ -8,21 +8,17 @@ import it.unicam.pawm.c3.merce.MerceAlPubblico;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.ClienteRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
-import it.unicam.pawm.c3.personale.AddettoNegozio;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Ruolo;
 import it.unicam.pawm.c3.personale.User;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -59,8 +55,7 @@ public class ICliente {
                 }
             }
         }
-        System.out.println(gestoreClienti.getCliente().getId());
-        return "index";
+        return "homeCliente";
     }
 
     public void init() {
