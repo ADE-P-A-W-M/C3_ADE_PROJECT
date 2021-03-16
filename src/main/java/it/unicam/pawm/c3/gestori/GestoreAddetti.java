@@ -10,7 +10,9 @@ import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.User;
 import it.unicam.pawm.c3.vendita.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,26 +23,35 @@ import java.util.Optional;
 @Transactional
 public class GestoreAddetti {
 
-    private Negozio negozio;
+
+    @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private NegozioRepository negozioRepository;
+    @Autowired
+    private UserRepository userRepository;
+
     private GestoreCheckout gestoreCheckout;
     private GestoreCarte gestoreCarte;
     private GestoreVendite gestoreVendite;
     private GestoreMerci gestoreMerci;
-    private NegozioRepository negozioRepository;
+    private Negozio negozio;
 
-    public GestoreAddetti(ClienteRepository clienteRepository, GestoreCheckout gestoreCheckout, GestoreCarte gestoreCarte, GestoreVendite gestoreVendite, GestoreMerci gestoreMerci, NegozioRepository negozioRepository) {
-        this.clienteRepository = clienteRepository;
-        this.gestoreCheckout = gestoreCheckout;
-        this.gestoreCarte = gestoreCarte;
-        this.gestoreVendite = gestoreVendite;
-        this.gestoreMerci = gestoreMerci;
-        this.negozioRepository = negozioRepository;
+    public GestoreAddetti() {
+        this.gestoreCheckout = new GestoreCheckout();
+        this.gestoreCarte = new GestoreCarte();
+        this.gestoreVendite = new GestoreVendite();
+        this.gestoreMerci = new GestoreMerci();
     }
 
     public Negozio getNegozio(){
         return this.negozio;
     }
+
+    public void setNegozio(Negozio negozio){
+        this.negozio = negozio;
+    }
+
 
     /********** Checkout Merce *********/
 
@@ -111,13 +122,14 @@ public class GestoreAddetti {
 
     /*****************Assegnazione Carta***************/
 
-//    public Cliente getCliente(String email){
+    public User getCliente(String email){
 //        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
-//        if(cliente.isPresent()){
-//            return cliente.get();
-//        }
-//        throw new IllegalStateException("cliente non presente");
-//    }
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user.isPresent()){
+            return user.get();
+        }
+        throw new IllegalStateException("cliente non presente");
+    }
 
     public long assegnaCarta(Cliente cliente, TipoScontoCliente tsc){
         long cc = gestoreCarte.assegnaCarta(cliente,tsc, getNegozio());
@@ -143,12 +155,6 @@ public class GestoreAddetti {
 
     public void confermaConsegnaVenditaAssegnata(List<VenditaSpedita> vendite) {
         gestoreVendite.confermaConsegnaVenditaAssegnata(vendite);
-    }
-
-    /************************ Fine Consegna Vendita Assegnata**********************/
-
-    public void setNegozio(Negozio negozio){
-        this.negozio = negozio;
     }
 
 }

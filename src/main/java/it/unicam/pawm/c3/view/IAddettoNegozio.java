@@ -5,42 +5,76 @@ import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.carta.TipoScontoCliente;
 import it.unicam.pawm.c3.gestori.GestoreAddetti;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
-import it.unicam.pawm.c3.personale.Cliente;
-import it.unicam.pawm.c3.personale.Corriere;
-import it.unicam.pawm.c3.personale.User;
+import it.unicam.pawm.c3.persistenza.NegozioRepository;
+import it.unicam.pawm.c3.persistenza.UserRepository;
+import it.unicam.pawm.c3.personale.*;
 import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
 import it.unicam.pawm.c3.vendita.TipoDiRitiro;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/addettonegozio")
 public class IAddettoNegozio {
 
     private GestoreAddetti gestoreAddetti;
+    @Autowired
+    private NegozioRepository negozioRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public void startCarrello(){
-        gestoreAddetti.startCarrello();
+    public IAddettoNegozio() {
+        this.gestoreAddetti = new GestoreAddetti();
     }
 
-    public double getPrezzo(long id, double quantita){
-        return gestoreAddetti.getPrezzo(id, quantita);
+    //    public void startCarrello(){
+//        gestoreAddetti.startCarrello();
+//    }
+
+//    public double getPrezzo(long id, double quantita){
+//        return gestoreAddetti.getPrezzo(id, quantita);
+//    }
+
+//    public double getSconto(long id) {
+//        return gestoreAddetti.getSconto(id);
+//    }
+
+    @Autowired
+    private void setGestoreAddetti(GestoreAddetti gestoreAddetti){
+        this.gestoreAddetti = gestoreAddetti;
     }
 
-    public double getSconto(long id) {
-        return gestoreAddetti.getSconto(id);
-    }
-
-    @GetMapping("/")
-    public String home(User user){
-        System.out.println(user);
-        return "homeAddetto";
-    }
+//    @GetMapping("/")
+//    public String home(@AuthenticationPrincipal UserDetails userDetails){
+//        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+//        if(user.isPresent()){
+//            Iterator<Negozio> negozioIterator = negozioRepository.findAll().iterator();
+//            while(negozioIterator.hasNext()){
+//                Negozio negozio = negozioIterator.next();
+//                Iterator<AddettoNegozio> addettoNegozioIterator = negozio.getAddetti().iterator();
+//                while (addettoNegozioIterator.hasNext()){
+//                    AddettoNegozio addettoNegozio = addettoNegozioIterator.next();
+//                    for(Ruolo ruolo : user.get().getRuolo()){
+//                        if(ruolo.getId()== addettoNegozio.getId()) {
+//                            gestoreAddetti.setNegozio(negozio);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        System.out.println(gestoreAddetti.getNegozio().getNome());
+//        return "homeAddetto";
+//    }
 
     void trovaPrezzoEScontoButtonEvent() {
 //        try{
@@ -60,9 +94,9 @@ public class IAddettoNegozio {
 //        }
     }
 
-    public double aggiuntaMerceNelCarrello(double prezzo, double sconto, long id, double quantita){
-        return gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita);
-    }
+//    public double aggiuntaMerceNelCarrello(double prezzo, double sconto, long id, double quantita){
+//        return gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita);
+//    }
 
     void inserisciButtonEvent() {
 //        prezzoCarrello.setText(String.valueOf(aggiuntaMerceNelCarrello(Double.parseDouble(prezzoMerce.getText()),Double.parseDouble(scontoMerce.getText()),Integer.parseInt(idMerce.getText()),Double.parseDouble(quantitaMerce.getText()))));
@@ -164,13 +198,13 @@ public class IAddettoNegozio {
 //        }
     }
 
-    public boolean verificaCodiceCarta(long cc) {
-        return gestoreAddetti.verificaCodiceCarta(cc);
-    }
+//    public boolean verificaCodiceCarta(long cc) {
+//        return gestoreAddetti.verificaCodiceCarta(cc);
+//    }
 
-    public long searchCodiceCartaByEmail(String email) {
-        return gestoreAddetti.searchCodiceCartaFromEmail(email);
-    }
+//    public long searchCodiceCartaByEmail(String email) {
+//        return gestoreAddetti.searchCodiceCartaFromEmail(email);
+//    }
 
     void verificaCodiceCartaButton() {
 //        if(verificaCodiceCarta(Long.parseLong(codiceCarta.getText()))) {
@@ -211,9 +245,9 @@ public class IAddettoNegozio {
 
     /********************Fine Richiesta Carta*******************/
 
-    public double applyScontoCarta(long cc){
-        return gestoreAddetti.applyScontoCarta(cc);
-    }
+//    public double applyScontoCarta(long cc){
+//        return gestoreAddetti.applyScontoCarta(cc);
+//    }
 
     void applyScontoCartaButtonEvent() {
 //        prezzoTotale.setText(String.valueOf(applyScontoCarta(Long.parseLong(codiceCarta.getText()))));
@@ -241,7 +275,7 @@ public class IAddettoNegozio {
                 changeVisibilityFieldRegistraVendita();
             } else {
                 changeVisibilityFieldRegistraVendita();
-                addVenditaInventario();
+//                addVenditaInventario();
             }
         }
     }
@@ -270,21 +304,21 @@ public class IAddettoNegozio {
 //        tabPaneAddetto.getSelectionModel().select(tabRegistraVendita);
     }
 
-    public void addVenditaInventario(){
-        gestoreAddetti.addVenditaInventario();
-    }
+//    public void addVenditaInventario(){
+//        gestoreAddetti.addVenditaInventario();
+//    }
 
-    public double calcolaResto(double denaro){
-        return gestoreAddetti.calcoraResto(denaro);
-    }
+//    public double calcolaResto(double denaro){
+//        return gestoreAddetti.calcoraResto(denaro);
+//    }
 
     void calcolaRestoButtonEvent() {
 //        resto.setText(String.valueOf(calcolaResto(Double.parseDouble(denaroRicevuto.getText()))));
     }
 
-    public void checkoutCompletato(){
-        gestoreAddetti.checkoutCompletato();
-    }
+//    public void checkoutCompletato(){
+//        gestoreAddetti.checkoutCompletato();
+//    }
 
     void checkoutCompletedButtonEvent() {
 //        checkoutCompletato();
@@ -293,9 +327,9 @@ public class IAddettoNegozio {
 //        initRichiestaCartField();
     }
 
-    public void annullaCheckout(){
-        gestoreAddetti.annullaCheckout();
-    }
+//    public void annullaCheckout(){
+//        gestoreAddetti.annullaCheckout();
+//    }
 
     void annullaCheckoutButtonEvent() {
 //        annullaCheckout();
@@ -352,9 +386,9 @@ public class IAddettoNegozio {
 //        }
     }
 
-    private List<Corriere> getCorrieriDisponibili(){
-        return gestoreAddetti.getCorrieriDisponibili();
-    }
+//    private List<Corriere> getCorrieriDisponibili(){
+//        return gestoreAddetti.getCorrieriDisponibili();
+//    }
 
     private void getNegoziDisponibili(){
 //        puntiDiRitiroDisponibili.getItems().clear();
@@ -388,12 +422,12 @@ public class IAddettoNegozio {
     }
 
     private void registraAcquistoCliente(long cc, Negozio pdr, String indirizzo , Corriere corriere){
-        gestoreAddetti.registraAcquistoCliente(cc,pdr,indirizzo, corriere);
+//        gestoreAddetti.registraAcquistoCliente(cc,pdr,indirizzo, corriere);
     }
 
-    private void registraAcquistoCliente(long cc){
-        gestoreAddetti.registraAcquistoCliente(cc);
-    }
+//    private void registraAcquistoCliente(long cc){
+//        gestoreAddetti.registraAcquistoCliente(cc);
+//    }
 
     void venditaButtonEvent() {
 //        try{
@@ -429,9 +463,9 @@ public class IAddettoNegozio {
 //        clientiFiltratiAC.getItems().add(gestoreAddetti.getCliente(email));
     }
 
-    public long assegnaCarta(Cliente cliente, TipoScontoCliente tsc){
-        return gestoreAddetti.assegnaCarta(cliente,tsc);
-    }
+//    public long assegnaCarta(Cliente cliente, TipoScontoCliente tsc){
+//        return gestoreAddetti.assegnaCarta(cliente,tsc);
+//    }
 
     void cercaClienteACButtonEvent() {
 //        try {
@@ -483,9 +517,9 @@ public class IAddettoNegozio {
 //        listaVenditeDaConsegnare.getItems().addAll(gestoreAddetti.getAcquistiClienteDaRitirare(email));
     }
 
-    public void confermaConsegnaVenditaAssegnata(List<VenditaSpedita> vendite) {
-        gestoreAddetti.confermaConsegnaVenditaAssegnata(vendite);
-    }
+//    public void confermaConsegnaVenditaAssegnata(List<VenditaSpedita> vendite) {
+//        gestoreAddetti.confermaConsegnaVenditaAssegnata(vendite);
+//    }
 
     void confermaClienteConsegnaOrdineButton() {
 //        getAcquistiClienteDaRitirare(emailConsegnaOrdine.getText());
@@ -495,8 +529,8 @@ public class IAddettoNegozio {
 //        confermaConsegnaVenditaAssegnata(listaVenditeDaConsegnare.getSelectionModel().getSelectedItems());
 //        getAcquistiClienteDaRitirare(emailConsegnaOrdine.getText());
     }
-
-    public void setGestoreAddetto(GestoreAddetti gestoreAddetti) {
-        this.gestoreAddetti = gestoreAddetti;
-    }
+//
+//    public void setGestoreAddetto(GestoreAddetti gestoreAddetti) {
+//        this.gestoreAddetti = gestoreAddetti;
+//    }
 }

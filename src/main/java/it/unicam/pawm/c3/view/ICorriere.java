@@ -43,6 +43,11 @@ public class ICorriere {
 //
 //    }
 
+
+    public ICorriere() {
+//        this.gestore = new GestoreCorrieri();
+    }
+
     /************Interfaccia Consulta Inventario********************/
 
     @GetMapping("/gestioneInventarioCorriere")

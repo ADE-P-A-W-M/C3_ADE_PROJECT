@@ -24,18 +24,21 @@ import java.util.Optional;
 @Transactional
 public class GestoreMerci {
 
+    @Autowired
     private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
+    @Autowired
     private MerceRepository merceRepository;
+    @Autowired
     private MerceAlPubblicoRepository merceAlPubblicoRepository;
+    @Autowired
     private NegozioRepository negozioRepository;
 
-    @Autowired
-    public GestoreMerci(MerceInventarioNegozioRepository merceInventarioNegozioRepository, MerceRepository merceRepository, MerceAlPubblicoRepository merceAlPubblicoRepository, NegozioRepository negozioRepository) {
-        this.merceInventarioNegozioRepository = merceInventarioNegozioRepository;
-        this.merceRepository = merceRepository;
-        this.merceAlPubblicoRepository = merceAlPubblicoRepository;
-        this.negozioRepository = negozioRepository;
-    }
+//    public GestoreMerci(MerceInventarioNegozioRepository merceInventarioNegozioRepository, MerceRepository merceRepository, MerceAlPubblicoRepository merceAlPubblicoRepository, NegozioRepository negozioRepository) {
+//        this.merceInventarioNegozioRepository = merceInventarioNegozioRepository;
+//        this.merceRepository = merceRepository;
+//        this.merceAlPubblicoRepository = merceAlPubblicoRepository;
+//        this.negozioRepository = negozioRepository;
+//    }
 
     /**
      * il metodo ricerca il prezzo dell'id merce inserito,se non viene trovata nessuna merce con quel id

@@ -5,6 +5,7 @@ import it.unicam.pawm.c3.carta.Carta;
 import it.unicam.pawm.c3.carta.TipoScontoCliente;
 import it.unicam.pawm.c3.persistenza.CartaRepository;
 import it.unicam.pawm.c3.personale.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,12 +15,10 @@ import java.util.Iterator;
 @Transactional
 public class GestoreCarte {
 
+    @Autowired
     private CartaRepository cartaRepository;
 
 
-    public GestoreCarte(CartaRepository cartaRepository) {
-        this.cartaRepository = cartaRepository;
-    }
 
     /**
      * Il metodo serve ad assegnare un nuova carta al cliente. La nuova carta viene create, viene assegnata al cliente

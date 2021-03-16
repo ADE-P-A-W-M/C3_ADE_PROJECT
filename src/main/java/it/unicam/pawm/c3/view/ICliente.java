@@ -6,23 +6,62 @@ import it.unicam.pawm.c3.merce.Categoria;
 import it.unicam.pawm.c3.merce.Merce;
 import it.unicam.pawm.c3.merce.MerceAlPubblico;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
+import it.unicam.pawm.c3.persistenza.ClienteRepository;
+import it.unicam.pawm.c3.persistenza.UserRepository;
+import it.unicam.pawm.c3.personale.AddettoNegozio;
+import it.unicam.pawm.c3.personale.Cliente;
+import it.unicam.pawm.c3.personale.Ruolo;
+import it.unicam.pawm.c3.personale.User;
+import net.bytebuddy.asm.Advice;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
+@RequestMapping(path = "/cliente")
 public class ICliente {
 
     private GestoreClienti gestoreClienti;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public ICliente() {
+        this.gestoreClienti = new GestoreClienti();
+    }
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if(user.isPresent()){
+            Iterator<Cliente> clienteIterator = clienteRepository.findAll().iterator();
+            while (clienteIterator.hasNext()){
+                Cliente cliente = clienteIterator.next();
+                for(Ruolo ruolo : user.get().getRuolo()){
+                    if(ruolo.getId() == cliente.getId()) {
+                        gestoreClienti.setCliente(cliente);
+                    }
+                }
+            }
+        }
+        System.out.println(gestoreClienti.getCliente().getId());
+        return "index";
+    }
 
     public void init() {
         getPromozioni();

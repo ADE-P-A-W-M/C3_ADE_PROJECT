@@ -51,13 +51,13 @@ public class C3Application {
 //			ruoloRepository.saveAll(List.of(admin, commerciante,commerciante1,corriere));
 //			clienteRepository.saveAll(List.of(cliente1,cliente2,cliente3,cliente4));
 //
-//			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", List.of(Categoria.ABBIGLIAMENTO));
+			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", List.of(Categoria.ABBIGLIAMENTO));
 //			negozio.addAddettoNegozio(commerciante);
-//			negozioRepository.save(negozio);
+			negozioRepository.save(negozio);
 //
-//			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campiglione", "3525235", List.of(Categoria.ABBIGLIAMENTO));
+			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campiglione", "3525235", List.of(Categoria.ABBIGLIAMENTO));
 //			negozio1.addAddettoNegozio(commerciante1);
-//			negozioRepository.save(negozio1);
+			negozioRepository.save(negozio1);
 //
 //			Merce merce = new Merce("Ipad", Categoria.TECNOLOGIA, "ipad terza generazione");
 //			merceRepository.save(merce);

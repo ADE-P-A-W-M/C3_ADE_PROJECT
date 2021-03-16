@@ -4,7 +4,7 @@ package it.unicam.pawm.c3.personale;
 import javax.persistence.*;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "role")
 public abstract class Ruolo{
 

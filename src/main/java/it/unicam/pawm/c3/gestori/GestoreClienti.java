@@ -6,6 +6,7 @@ import it.unicam.pawm.c3.merce.Categoria;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.NegozioRepository;
 import it.unicam.pawm.c3.personale.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,13 +18,22 @@ import java.util.List;
 @Transactional
 public class GestoreClienti {
 
-    private Cliente cliente;
+
+    @Autowired
     private NegozioRepository negozioRepository;
     private GestoreMerci gestoreMerci;
+    private Cliente cliente;
 
-    public GestoreClienti(NegozioRepository negozioRepository, GestoreMerci gestoreMerci) {
-        this.negozioRepository = negozioRepository;
-        this.gestoreMerci = gestoreMerci;
+    public GestoreClienti() {
+        this.gestoreMerci = new GestoreMerci();
+    }
+
+    public void setCliente(Cliente cliente){
+        this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     /*****************Ricerca Prodotto******************/
@@ -73,10 +83,5 @@ public class GestoreClienti {
      */
     public List<MerceInventarioNegozio> filtraPromozioniPerCategoria(Categoria categoria) {
         return gestoreMerci.filtraPromozioniPerCategoria(categoria, getPromozioni());
-    }
-
-
-    public void setCliente(Cliente cliente){
-        this.cliente = cliente;
     }
 }

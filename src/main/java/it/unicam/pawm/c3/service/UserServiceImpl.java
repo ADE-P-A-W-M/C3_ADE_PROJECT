@@ -1,6 +1,7 @@
 package it.unicam.pawm.c3.service;
 
 import it.unicam.pawm.c3.persistenza.ClienteRepository;
+import it.unicam.pawm.c3.persistenza.NegozioRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
 import it.unicam.pawm.c3.personale.*;
 import it.unicam.pawm.c3.web.dto.UserRegistrationDto;
@@ -19,7 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NegozioRepository negozioRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -39,6 +44,11 @@ public class UserServiceImpl implements UserService {
         user.setRuolo(cliente);
         AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
         user.setRuolo(addettoNegozio);
+        if(user.getEmail().equals("danielepelosi99@gmail.com")){
+            negozioRepository.findAll().get(0).addAddettoNegozio(addettoNegozio);
+        } else {
+            negozioRepository.findAll().get(1).addAddettoNegozio(addettoNegozio);
+        }
         return userRepository.save(user);
     }
 

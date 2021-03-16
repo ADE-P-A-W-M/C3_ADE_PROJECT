@@ -6,6 +6,7 @@ import it.unicam.pawm.c3.personale.Corriere;
 import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
 import it.unicam.pawm.c3.vendita.StatoConsegna;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +19,11 @@ public class GestoreCorrieri {
 
     private Corriere corriere;
     private GestoreVendite gestoreVendite;
+    @Autowired
     private VenditaSpeditaRepository venditaSpeditarepository;
 
-    public GestoreCorrieri(GestoreVendite gestoreVendite, VenditaSpeditaRepository venditaSpeditarepository) {
+    public GestoreCorrieri(GestoreVendite gestoreVendite) {
         this.gestoreVendite = gestoreVendite;
-        this.venditaSpeditarepository = venditaSpeditarepository;
     }
 
     public void setCorriere(Corriere corriere){

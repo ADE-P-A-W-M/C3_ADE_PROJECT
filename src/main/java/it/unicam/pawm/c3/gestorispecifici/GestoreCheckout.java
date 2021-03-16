@@ -8,6 +8,7 @@ import it.unicam.pawm.c3.personale.Corriere;
 import it.unicam.pawm.c3.vendita.MerceVendita;
 import it.unicam.pawm.c3.vendita.Vendita;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,28 +20,41 @@ import java.util.List;
 @Transactional
 public class GestoreCheckout {
 
-    private List<MerceVendita> merciCarrello;
-    private double prezzoCarrello;
+    @Autowired
     private MerceVenditaRepository merceVenditaRepository;
+    @Autowired
     private VenditaRepository venditaRepository;
+    @Autowired
     private VenditaSpeditaRepository venditaSpeditaRepository;
+    @Autowired
     private NegozioRepository negozioRepository;
+    @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
     private RuoloRepository ruoloRepository;
+
     private GestoreCarte gestoreCarte;
     private GestoreMerci gestoreMerci;
+    private List<MerceVendita> merciCarrello;
+    private double prezzoCarrello;
+//    public GestoreCheckout(MerceVenditaRepository merceVenditaRepository, VenditaRepository venditaRepository, VenditaSpeditaRepository venditaSpeditaRepository, NegozioRepository negozioRepository, ClienteRepository clienteRepository, RuoloRepository ruoloRepository, GestoreCarte gestoreCarte, GestoreMerci gestoreMerci) {
+//        this.merceVenditaRepository = merceVenditaRepository;
+//        this.venditaRepository = venditaRepository;
+//        this.venditaSpeditaRepository = venditaSpeditaRepository;
+//        this.negozioRepository = negozioRepository;
+//        this.clienteRepository = clienteRepository;
+//        this.ruoloRepository = ruoloRepository;
+//        this.gestoreCarte = gestoreCarte;
+//        this.gestoreMerci = gestoreMerci;
+//        merciCarrello = new ArrayList<>();
+//        prezzoCarrello = 0;
+//    }
 
-    public GestoreCheckout(MerceVenditaRepository merceVenditaRepository, VenditaRepository venditaRepository, VenditaSpeditaRepository venditaSpeditaRepository, NegozioRepository negozioRepository, ClienteRepository clienteRepository, RuoloRepository ruoloRepository, GestoreCarte gestoreCarte, GestoreMerci gestoreMerci) {
-        this.merceVenditaRepository = merceVenditaRepository;
-        this.venditaRepository = venditaRepository;
-        this.venditaSpeditaRepository = venditaSpeditaRepository;
-        this.negozioRepository = negozioRepository;
-        this.clienteRepository = clienteRepository;
-        this.ruoloRepository = ruoloRepository;
-        this.gestoreCarte = gestoreCarte;
-        this.gestoreMerci = gestoreMerci;
+    public GestoreCheckout() {
         merciCarrello = new ArrayList<>();
         prezzoCarrello = 0;
+        gestoreCarte = new GestoreCarte();
+        gestoreMerci = new GestoreMerci();
     }
 
     public List<MerceVendita> getMerciCarrello() {

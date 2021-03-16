@@ -8,6 +8,7 @@ import it.unicam.pawm.c3.personale.Corriere;
 import it.unicam.pawm.c3.vendita.StatoConsegna;
 import it.unicam.pawm.c3.vendita.Vendita;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +21,15 @@ import java.util.Optional;
 @Transactional
 public class GestoreVendite {
 
+    @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
     private VenditaSpeditaRepository venditaSpeditaRepository;
 
-    public GestoreVendite(ClienteRepository clienteRepository, VenditaSpeditaRepository venditaSpeditaRepository) {
-        this.clienteRepository = clienteRepository;
-        this.venditaSpeditaRepository = venditaSpeditaRepository;
-    }
+//    public GestoreVendite(ClienteRepository clienteRepository, VenditaSpeditaRepository venditaSpeditaRepository) {
+//        this.clienteRepository = clienteRepository;
+//        this.venditaSpeditaRepository = venditaSpeditaRepository;
+//    }
 
     /**
      * Il metodo serve per settare lo stato delle vendite spedite presenti nella lista
