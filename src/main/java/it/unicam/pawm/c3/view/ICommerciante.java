@@ -186,7 +186,7 @@ public class ICommerciante {
     public String addCorriere(@PathVariable Long id,Model model) {
         Corriere corriere = corriereRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid student Id:" + id));
-        getNegozio().getCorrieri().add(corriereRepository.findById(id).get());
+        getNegozio().getCorrieri().add(corriere);
         negozioRepository.save(getNegozio());
         model.addAttribute("corrieriList",getCorrieriDaAggiungere());
         return "showCorrieriDaAggiungere";
@@ -217,7 +217,6 @@ public class ICommerciante {
         AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
         user.setRuolo(addettoNegozio);
         ruoloRepository.save(addettoNegozio);
-        userRepository.save(user);
         getNegozio().addAddettoNegozio(addettoNegozio);
         negozioRepository.save(getNegozio());
     }
@@ -229,9 +228,10 @@ public class ICommerciante {
     @PostMapping ("assunzioneAddetto")
     public String assumiCliente(String email,Model model) {
         User user = getClienteByEmail(email);
-        System.out.println(user);
-        List<User> clienteList=List.of(user);
-        model.addAttribute("clienteList",clienteList);
+        userRepository.save(user);
+        List<User> userList =new ArrayList<>();
+        userList.add(user);
+        model.addAttribute("userList",userList);
         return "clienteDaAssumere";
     }
     @GetMapping("assunzioneAddetto/{id}")
@@ -239,7 +239,6 @@ public class ICommerciante {
          User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user:" + id));
          assunzioneAddettoGestore(user);
-        System.out.println(id);
         return "assunzioneAddetto";
     }
     public void assunzioneAddetto(Cliente cliente){
@@ -315,6 +314,24 @@ public class ICommerciante {
     public void getMerciInventario() {
 //        merciInventario.getItems().clear();
 //        merciInventario.getItems().addAll(gestoreCommercianti.getInventario());
+    }
+    //METODO DEL GESTORE
+    public List<MerceInventarioNegozio> getInventario() {
+        Negozio negozio=negozioRepository.findAll().get(0);
+        return negozio.getMerceInventarioNegozio();
+    }
+    @GetMapping("showInventario")
+    public String showInventario(Model model) {
+        model.addAttribute("minList",getInventario());
+        return "showInventario";
+    }
+    @GetMapping("showInventario/remove/{id}")
+    public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
+        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid merce :" + id));
+        System.out.println(quantita);
+        model.addAttribute("minList",getInventario());
+        return "showInventario";
     }
     public void rimuoviMerce(List<MerceInventarioNegozio> min,double quantita) {
         gestoreCommercianti.removeMerce(min,quantita);

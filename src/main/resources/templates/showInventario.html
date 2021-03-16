@@ -13,14 +13,15 @@
                 <thead>
                 <tr>
                     <th>nome</th>
+                    <th>quantita</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user : ${userList}">
-                    <td th:text="${user.nome}"></td>
-                    <td>
-                    <td><a th:href="@{/commerciante/assunzioneAddetto/{id}(id=${user.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i>Assumi</a></td>
-                    </td>
+                <tr th:each="min : ${minList}">
+                    <td th:text="${min.merceAlPubblico.merce}"></td>
+                    <td th:text="${min.quantita}"></td>
+                    <td><a th:href="@{/commerciante/merceInPromozione/modifica/{id}(id=${min.id})}" class="btn btn-primary">Modifca</a></td>
+                    <td><a th:href="@{/commerciante/showInventario/remove/{id}(id=${min.id})}" class="btn btn-danger">Elimina</a></td>
                 </tr>
                 </tbody>
             </table>
