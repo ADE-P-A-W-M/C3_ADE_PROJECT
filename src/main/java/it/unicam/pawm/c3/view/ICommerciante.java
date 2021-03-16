@@ -325,11 +325,21 @@ public class ICommerciante {
         model.addAttribute("minList",getInventario());
         return "showInventario";
     }
-    @GetMapping("showInventario/remove/{id}")
+    @GetMapping("showInventario/removeForm/{id}")
+    public String removeForm(@PathVariable Long id,Model model) {
+        model.addAttribute("id",id);
+        return "rimuoviMerce";
+    }
+    @GetMapping("showInventario/addForm")
+    public String addForm() {
+        return "addMerce";
+    }
+    @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
         MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid merce :" + id));
-        System.out.println(quantita);
+        min.setQuantita(min.getQuantita()-quantita);
+        merceInventarioNegozioRepository.save(min);
         model.addAttribute("minList",getInventario());
         return "showInventario";
     }

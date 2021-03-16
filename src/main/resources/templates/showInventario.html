@@ -21,10 +21,11 @@
                     <td th:text="${min.merceAlPubblico.merce}"></td>
                     <td th:text="${min.quantita}"></td>
                     <td><a th:href="@{/commerciante/merceInPromozione/modifica/{id}(id=${min.id})}" class="btn btn-primary">Modifca</a></td>
-                    <td><a th:href="@{/commerciante/showInventario/remove/{id}(id=${min.id})}" class="btn btn-danger">Elimina</a></td>
+                    <td><a th:href="@{/commerciante/showInventario/removeForm/{id}(id=${min.id})}"  class="btn btn-danger">Elimina</a></td>
                 </tr>
                 </tbody>
             </table>
+            <a th:href="@{/commerciante/showInventario/addForm}" class="btn btn-primary">Aggiungi merce</a>
         </div>
     </div>
 </div>
