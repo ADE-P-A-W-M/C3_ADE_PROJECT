@@ -22,8 +22,8 @@ public class GestoreCorrieri {
     @Autowired
     private VenditaSpeditaRepository venditaSpeditarepository;
 
-    public GestoreCorrieri(GestoreVendite gestoreVendite) {
-        this.gestoreVendite = gestoreVendite;
+    public GestoreCorrieri() {
+        this.gestoreVendite = new GestoreVendite();
     }
 
     public void setCorriere(Corriere corriere){

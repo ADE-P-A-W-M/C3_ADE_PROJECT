@@ -18,15 +18,16 @@ import java.util.Optional;
 public class GestoreAmministratori {
 
     private Amministratore amministratore;
-    private final ClienteRepository clienteRepository;
-    private final RuoloRepository ruoloRepository;
-    private final NegozioRepository negozioRepository;
 
     @Autowired
-    public GestoreAmministratori(ClienteRepository clienteRepository, RuoloRepository ruoloRepository, NegozioRepository negozioRepository) {
-        this.clienteRepository = clienteRepository;
-        this.ruoloRepository = ruoloRepository;
-        this.negozioRepository = negozioRepository;
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private RuoloRepository ruoloRepository;
+    @Autowired
+    private NegozioRepository negozioRepository;
+
+    public Amministratore getAmministratore() {
+        return amministratore;
     }
 
     public void setAmministratore(Amministratore amministratore){

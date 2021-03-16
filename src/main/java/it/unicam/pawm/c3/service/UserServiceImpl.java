@@ -46,8 +46,14 @@ public class UserServiceImpl implements UserService {
         user.setRuolo(addettoNegozio);
         if(user.getEmail().equals("danielepelosi99@gmail.com")){
             negozioRepository.findAll().get(0).addAddettoNegozio(addettoNegozio);
+            Commerciante commerciante = new Commerciante(RuoloSistema.COMMERCIANTE);
+            user.setRuolo(commerciante);
         } else {
+            Amministratore amministratore = new Amministratore(RuoloSistema.AMMINISTRATORE);
+            user.setRuolo(amministratore);
             negozioRepository.findAll().get(1).addAddettoNegozio(addettoNegozio);
+            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "Bartoini ", "Via della rimembranza", "435436");
+            user.setRuolo(corriere);
         }
         return userRepository.save(user);
     }

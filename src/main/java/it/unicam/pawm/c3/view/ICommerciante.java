@@ -6,6 +6,8 @@ import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/commerciante/")
+@RequestMapping("/commerciante")
 public class ICommerciante {
 
     private GestoreCommercianti gestoreCommercianti;
@@ -41,6 +44,31 @@ public class ICommerciante {
     private CorriereRepository corriereRepository;
     @Autowired
     private UserRepository userRepository;
+
+    public ICommerciante() {
+        this.gestoreCommercianti = new GestoreCommercianti();
+    }
+
+    @GetMapping("/")
+    public String home(@AuthenticationPrincipal UserDetails userDetails){
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if(user.isPresent()){
+            Iterator<Negozio> negozioIterator = negozioRepository.findAll().iterator();
+            while(negozioIterator.hasNext()){
+                Negozio negozio = negozioIterator.next();
+                Iterator<AddettoNegozio> addettoNegozioIterator = negozio.getAddetti().iterator();
+                while (addettoNegozioIterator.hasNext()){
+                    AddettoNegozio addettoNegozio = addettoNegozioIterator.next();
+                    for(Ruolo ruolo : user.get().getRuolo()){
+                        if(ruolo.getId()== addettoNegozio.getId()) {
+                            gestoreCommercianti.setNegozio(negozio);
+                        }
+                    }
+                }
+            }
+        }
+        return "homeCommerciante";
+    }
 
     /******************Interfaccia GestionePromozioni***************/
 

@@ -23,10 +23,6 @@ public class MainController {
 
     @GetMapping("/")
     public String home() {
-//        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
-//        if(user.isPresent()){
-//            System.out.println(user.get().getCognome());
-//        }
         return "redirect:/cliente/";
     }
 

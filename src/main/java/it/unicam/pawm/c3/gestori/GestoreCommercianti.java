@@ -6,6 +6,7 @@ import it.unicam.pawm.c3.gestorispecifici.GestoreMerci;
 import it.unicam.pawm.c3.merce.*;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,20 +21,28 @@ import java.util.Optional;
 @Transactional
 public class GestoreCommercianti {
 
-
-    private Negozio negozio;
+    @Autowired
     private RuoloRepository ruoloRepository;
+    @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
     private NegozioRepository negozioRepository;
+    @Autowired
     private CorriereRepository corriereRepository;
-    private GestoreMerci gestoreMerci;
 
-    public GestoreCommercianti(GestoreMerci gestoreMerci, RuoloRepository ruoloRepository, ClienteRepository clienteRepository, NegozioRepository negozioRepository, CorriereRepository corriereRepository) {
-        this.gestoreMerci = gestoreMerci;
-        this.ruoloRepository = ruoloRepository;
-        this.clienteRepository = clienteRepository;
-        this.corriereRepository = corriereRepository;
-        this.negozioRepository = negozioRepository;
+    private GestoreMerci gestoreMerci;
+    private Negozio negozio;
+
+    public GestoreCommercianti() {
+        this.gestoreMerci = new GestoreMerci();
+    }
+
+    public Negozio getNegozio() {
+        return this.negozio;
+    }
+
+    public void setNegozio(Negozio negozio){
+        this.negozio = negozio;
     }
 
     /*****************Assegnazione Carta***************/
@@ -138,12 +147,5 @@ public class GestoreCommercianti {
 
     /************************** Metodi Accessori ******************************/
 
-    public Negozio getNegozio() {
-        return this.negozio;
-    }
-
-    public void setNegozio(Negozio negozio){
-        this.negozio = negozio;
-    }
 
 }
