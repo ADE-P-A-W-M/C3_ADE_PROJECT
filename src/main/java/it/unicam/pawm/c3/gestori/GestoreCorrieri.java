@@ -18,10 +18,12 @@ import java.util.List;
 public class GestoreCorrieri {
 
     private Corriere corriere;
+    @Autowired
     private GestoreVendite gestoreVendite;
     @Autowired
     private VenditaSpeditaRepository venditaSpeditarepository;
 
+    @Autowired
     public GestoreCorrieri() {
         this.gestoreVendite = new GestoreVendite();
     }

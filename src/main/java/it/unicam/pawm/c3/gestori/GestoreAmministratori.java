@@ -18,7 +18,6 @@ import java.util.Optional;
 public class GestoreAmministratori {
 
     private Amministratore amministratore;
-
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
