@@ -18,12 +18,13 @@ import java.util.List;
 @Transactional
 public class GestoreClienti {
 
-
     @Autowired
     private NegozioRepository negozioRepository;
+
     private GestoreMerci gestoreMerci;
     private Cliente cliente;
 
+    @Autowired
     public GestoreClienti() {
         this.gestoreMerci = new GestoreMerci();
     }
