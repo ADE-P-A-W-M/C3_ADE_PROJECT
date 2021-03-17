@@ -60,7 +60,7 @@ public class C3Application {
 //
 //			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", List.of(Categoria.ABBIGLIAMENTO));
 //			negozioRepository.save(negozio);
-
+//
 //			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campiglione", "3525235", List.of(Categoria.ABBIGLIAMENTO));
 //			negozioRepository.save(negozio1);
 

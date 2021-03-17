@@ -9,9 +9,12 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
+
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -43,5 +46,62 @@
         </div>
     </div>
 </nav>
+
+<!--SIDEBAR HOME COMMERCIANTE-->
+
+<br>
+<br>
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Menu commerciante
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/commerciante}">Home</a>
+            </li>
+            <li>
+                <a th:href="@{/commerciante/}">Gestione inventario</a>
+            </li>
+            <li>
+                <a th:href="@{/commerciante}">Gestione promozioni</a>
+            </li>
+            <li>
+                <a th:href="@{/commerciante}">Gestione corrieri</a>
+            </li>
+            <li>
+                <a th:href="@{/commerciante}">Assunzione addetto</a>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+
+
+
+
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>contenuto <code>#page-content-wrapper</code>.</p>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
 </body>
 </html>
