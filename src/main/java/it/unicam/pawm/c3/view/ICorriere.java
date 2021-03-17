@@ -32,7 +32,7 @@ public class ICorriere {
     public String home(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
         gestoreCorrieri.setCorriere(gestoreAccessi.homeCorriere(email));
-        return "homeCorriere";
+        return "home/homeCorriere";
     }
 
     /************Interfaccia Consulta Inventario********************/
@@ -42,7 +42,7 @@ public class ICorriere {
         model.addAttribute("daRitirare",gestoreCorrieri.getVenditeDaRitirare());
         model.addAttribute("ritirate",gestoreCorrieri.getVenditeRitirate());
         model.addAttribute("consegnate",gestoreCorrieri.getVenditeConsegnate());
-        return "gestioneInventarioCorriere";
+        return "corriere/gestioneInventarioCorriere";
     }
 
     /************Interfaccia Preleva Vendita********************/

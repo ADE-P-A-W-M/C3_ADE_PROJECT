@@ -34,7 +34,7 @@ public class ICommerciante {
     public String home(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
         gestoreCommercianti.setNegozio(gestoreAccessi.homeAddetto(email));
-        return "homeCommerciante";
+        return "home/homeCommerciante";
     }
 
     /******************Interfaccia GestionePromozioni***************/
@@ -42,106 +42,106 @@ public class ICommerciante {
     @GetMapping("merceInPromozione")
     public String merceInPromozione(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
-        return "showPromozioni";
+        return "commerciante/showPromozioni";
     }
 
     @GetMapping("merceInPromozione/delete/{id}")
     public String removePromozione(@PathVariable Long id,Model model) {
         gestoreCommercianti.rimuoviPromozione(id);
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
-        return "showPromozioni";
+        return "commerciante/showPromozioni";
     }
 
     @GetMapping("merceNonInPromozione")
     public String merceNonInPromozione(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getPromozioniPossibili());
-        return "showMerceNonInPromozione";
+        return "commerciante/showMerceNonInPromozione";
     }
 
     @GetMapping("merceNonInPromozione/formAddPromozione/{id}")
     public String addPromozioneForm(@PathVariable Long id,Model model) {
         model.addAttribute("id",id);
-        return "addPromozione";
+        return "commerciante/addPromozione";
     }
 
     @PostMapping("merceInPromozione/addPromozione/{id}")
     public String addPromozione(@PathVariable("id") Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInizio,@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFine, Double percentualeSconto, Model model) {
         gestoreCommercianti.addPromozione(id,dataInizio,dataFine,percentualeSconto);
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
-        return "showPromozioni";
+        return "commerciante/showPromozioni";
     }
     /******************Interfaccia Gestione Corriere***************/
 
     @GetMapping("showCorrieriDaAggiungere")
     public String showCorrieriDaAggiunguere(Model model) {
         model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
-        return "showCorrieriDaAggiungere";
+        return "commerciante/showCorrieriDaAggiungere";
     }
 
     @GetMapping("showCorrieriDaAggiungere/add/{id}")
     public String addCorriere(@PathVariable Long id,Model model) {
         gestoreCommercianti.addCorriere(id);
         model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
-        return "showCorrieriDaAggiungere";
+        return "commerciante/showCorrieriDaAggiungere";
     }
 
     /******************Interfaccia assunzione addetto***************/
 
     @GetMapping("assunzioneAddetto")
     public String assunzioneForm() {
-        return "assunzioneAddetto";
+        return "commerciante/assunzioneAddetto";
     }
 
     @PostMapping ("assunzioneAddetto")
     public String assumiCliente(String email,Model model) {
         model.addAttribute("userList",gestoreCommercianti.getCliente(email));
-        return "clienteDaAssumere";
+        return "commerciante/clienteDaAssumere";
     }
 
     @GetMapping("assunzioneAddetto/{id}")
     public String assunzioneFinita(@PathVariable Long id) {
          gestoreCommercianti.assunzioneAddetto(id);
-        return "assunzioneAddetto";
+        return "commerciante/assunzioneAddetto";
     }
 
     /****************Gestione inventario**************/
     @GetMapping("showInventario")
     public String showInventario(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "showInventario";
+        return "commerciante/showInventario";
     }
 
     @GetMapping("showInventario/removeForm/{id}")
     public String removeForm(@PathVariable Long id,Model model) {
         model.addAttribute("id",id);
-        return "rimuoviMerce";
+        return "commerciante/rimuoviMerce";
     }
 
     @GetMapping("showInventario/addMerceIdForm")
     public String addMerceIdForm() {
-        return "addMerceIdForm";
+        return "commerciante/addMerceIdForm";
     }
 
     @GetMapping("showInventario/modificaMerceForm/{id}")
     public String modifcaMerceForm(@PathVariable Long id,Model model) {
         model.addAttribute("id",id);
-        return "modificaMerceForm";
+        return "commerciante/modificaMerceForm";
     }
 
     @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
         gestoreCommercianti.removeMerce(id,quantita);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "showInventario";
+        return "commerciante/showInventario";
     }
 
     @PostMapping("showInventario/addMerceId")
     public String checkIfMerceExists(Long id,Model model) {
         model.addAttribute("id",id);
         if(gestoreCommercianti.verificaIdMerce(id)) {
-            return "addMerceAlreadyExisting";
+            return "commerciante/addMerceAlreadyExisting";
         } else {
-            return "addNewMerce";
+            return "commerciante/addNewMerce";
         }
     }
 
@@ -149,13 +149,13 @@ public class ICommerciante {
     public String addMerce(@PathVariable Long id,String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
         gestoreCommercianti.addMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "showInventario";
+        return "commerciante/showInventario";
     }
 
     @PostMapping("showInventario/modificaMerce/{id}")
     public String modificaMerce(@PathVariable Long id,Model model,Double quantita,Double prezzo,Double sconto) {
         gestoreCommercianti.modificaMerce(id,prezzo,sconto,quantita);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "showInventario";
+        return "commerciante/showInventario";
     }
 }
