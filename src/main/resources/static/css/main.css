@@ -12,7 +12,9 @@ strong {
 p {
     font-family: sans-serif;
 }
-/*sidebar corriere , cambiare nomi e eliminare ambiguita*/
+
+
+/*sidebar */
 
 
 #wrapper {
@@ -35,7 +37,7 @@ p {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #222222;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;

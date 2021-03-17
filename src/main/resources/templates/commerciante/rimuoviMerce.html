@@ -53,52 +53,53 @@
         <br>
 
         <div id="wrapper">
-            <!--SIDEBAR HOME ADDETTO-->
+            <!--SIDEBAR COMMERCIANTE-->
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
                         <a href="#">
-                            Menu addetto
+                            Menu commerciante
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Home</a>
+                        <a th:href="@{/commerciante/}">Home</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio/}">Assegnazione carta</a>
+                        <a th:href="@{/commerciante/showInventario}">Gestione inventario</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Consulta inventario</a>
+                        <a th:href="@{/commerciante/merceInPromozione}">Gestione promozioni</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
+                        <a th:href="@{/commerciante/showCorrieriDaAggiungere}">Gestione corrieri</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Registra vendita</a>
+                        <a th:href="@{/commerciante/assunzioneAddetto}">Assunzione addetto</a>
                     </li>
+
                 </ul>
             </div>
             <!-- Page Content -->
-            <div class="container my-5">
-        <h3> Update Student</h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-8">
-                    <form action="#" th:action="@{/commerciante/showInventario/remove/{id}(id=${id})}" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="quantita" class="col-form-label">quantita</label> <input type="text" name="quantita" class="form-control" id="quantita">
-                            </div>
-                            <div class="form-group col-md-8">
-                                <input type="submit" class="btn btn-primary" value="Rimuovi quantita">
+            <div id="page-content-wrapper">
+                <div class="container my-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-md-8">
+                                <form action="#" th:action="@{/commerciante/showInventario/remove/{id}(id=${id})}" method="post">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="quantita" class="col-form-label">quantita</label> <input type="text" name="quantita" class="form-control" id="quantita">
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Rimuovi quantita">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-        </div>
     </body>
-
 </html>

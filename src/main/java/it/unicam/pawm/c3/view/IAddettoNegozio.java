@@ -454,7 +454,7 @@ public class IAddettoNegozio {
     @PostMapping("/getCliente/{id}")
     public String assegnaCarta(@PathVariable Long id, TipoScontoCliente tipoScontoCliente, Model model) {
         gestoreAddetti.assegnaCarta(id, tipoScontoCliente);
-        return "homeAddetto";
+        return "home/homeAddetto";
     }
 
 //    void inviaCodiceAlCheckoutButtonEvent() {

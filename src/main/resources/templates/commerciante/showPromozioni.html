@@ -51,56 +51,59 @@
         <br>
 
         <div id="wrapper">
-            <!--SIDEBAR HOME ADDETTO-->
+            <!--SIDEBAR COMMERCIANTE-->
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
                         <a href="#">
-                            Menu addetto
+                            Menu commerciante
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Home</a>
+                        <a th:href="@{/commerciante/}">Home</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio/}">Assegnazione carta</a>
+                        <a th:href="@{/commerciante/showInventario}">Gestione inventario</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Consulta inventario</a>
+                        <a th:href="@{/commerciante/merceInPromozione}">Gestione promozioni</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
+                        <a th:href="@{/commerciante/showCorrieriDaAggiungere}">Gestione corrieri</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Registra vendita</a>
+                        <a th:href="@{/commerciante/assunzioneAddetto}">Assunzione addetto</a>
                     </li>
+
                 </ul>
             </div>
             <!-- Page Content -->
-            <div class = "container">
-        <div class="row">
-            <div class = "col-md-6">
-                <table class = "table table-responsive table-bordered .table-striped">
-                    <thead>
-                    <tr>
-                        <th>nome</th>
-                        <th>quantita</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="min : ${minList}">
-                        <td th:text="${min.merceAlPubblico.merce}"></td>
-                        <td th:text="${min.quantita}"></td>
-                        <td>
-                        <td><a th:href="@{/commerciante/merceInPromozione/delete/{id}(id=${min.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i>Elimina</a></td>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <a th:href="@{/commerciante/merceNonInPromozione}" class="btn btn-primary">Aggiungi nuova promozione</a>
+            <div id="page-content-wrapper">
+                <div class = "container">
+                    <div class="row">
+                        <div class = "col-md-6">
+                            <table class = "table table-responsive table-bordered .table-striped">
+                                <thead>
+                                <tr>
+                                    <th>nome</th>
+                                    <th>quantita</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="min : ${minList}">
+                                    <td th:text="${min.merceAlPubblico.merce}"></td>
+                                    <td th:text="${min.quantita}"></td>
+                                    <td>
+                                    <td><a th:href="@{/commerciante/merceInPromozione/delete/{id}(id=${min.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i>Elimina</a></td>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a th:href="@{/commerciante/merceNonInPromozione}" class="btn btn-primary">Aggiungi nuova promozione</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
         </div>
     </body>
 </html>

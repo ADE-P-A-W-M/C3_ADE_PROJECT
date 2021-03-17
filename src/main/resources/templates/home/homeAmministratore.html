@@ -9,7 +9,6 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Bootstrap JS -->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
         <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
 
     </head>
@@ -46,7 +45,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+        </nav>
 
         <br>
         <br>
@@ -54,36 +53,36 @@
         <div id="wrapper">
             <!--SIDEBAR AMMINISTRATORE-->
             <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Menu amministratore
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/templates/amministratore}">Home</a>
-                </li>
-                <li>
-                    <a th:href="@{/templates/amministratore}">Registra negozio</a>
-                </li>
-                <li>
-                    <a th:href="@{/templates/amministratore}">Registra corriere</a>
-                </li>
-
-            </ul>
-        </div>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            Menu amministratore
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{amministratore}">Home</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/amministratore}">Registra negozio</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/amministratore}">Registra corriere</a>
+                    </li>
+                </ul>
+            </div>
             <!-- Page Content -->
             <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <p>contenuto <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>Simple Sidebar</h1>
+                            <p>contenuto <code>#page-content-wrapper</code>.</p>
+                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+
     </body>
 </html>

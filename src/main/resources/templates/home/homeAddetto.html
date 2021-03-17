@@ -51,7 +51,7 @@
         <br>
 
         <div id="wrapper">
-            <!--SIDEBAR HOME ADDETTO-->
+            <!--SIDEBAR ADDETTO-->
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav">
                     <li class="sidebar-brand">
@@ -60,19 +60,16 @@
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Home</a>
+                        <a th:href="@{/addettonegozio/}">Home</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio/}">Assegnazione carta</a>
+                        <a th:href="@{/addettonegozio/ricercaCliente}">Assegnazione carta</a>
                     </li>
                     <li>
-                        <a th:href="@{/addettonegozio}">Consulta inventario</a>
+                        <a  th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
                     </li>
                     <li>
                         <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/addettonegozio}">Registra vendita</a>
                     </li>
                 </ul>
             </div>
@@ -94,3 +91,4 @@
 
     </body>
 </html>
+
