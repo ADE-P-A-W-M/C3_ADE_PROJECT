@@ -156,7 +156,6 @@ public class GestoreAddetti {
                 }
             }
         }
-        System.out.println(cc);
         negozioRepository.save(negozio);
         return cc;
     }
