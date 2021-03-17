@@ -72,14 +72,24 @@ public class GestoreCommercianti {
     }
 
     public void addPromozione(Long id, LocalDate di, LocalDate df, double pp) {
-        MerceInventarioNegozio miv=merceInventarioNegozioRepository.findById(id).get();
-        gestoreMerci.addPromozione(miv, di, df, pp);
+        Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
+        while(minList.hasNext()) {
+            MerceInventarioNegozio min= minList.next();
+            if(min.getId()==id) {
+                gestoreMerci.addPromozione(min, di, df, pp);
+            }
+        }
     }
 
     public void rimuoviPromozione(Long id) {
-        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid promozione :" + id));
-        gestoreMerci.rimuoviPromozione(min);
+        Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
+        while(minList.hasNext()) {
+            MerceInventarioNegozio min= minList.next();
+            if(min.getId()==id) {
+                gestoreMerci.rimuoviPromozione(min);
+            }
+        }
+
     }
 
     /****************Gestione corrieri*******************/
@@ -152,13 +162,17 @@ public class GestoreCommercianti {
     }
 
     public void removeMerce(Long id, double quantita){
-        MerceInventarioNegozio min = merceInventarioNegozioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid merce :" + id));
-        gestoreMerci.removeMerce(min, quantita, getNegozio());
+        Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
+        while(minList.hasNext()) {
+            MerceInventarioNegozio min= minList.next();
+            if(min.getId()==id) {
+                gestoreMerci.removeMerce(min, quantita, getNegozio());
+            }
+        }
+
     }
 
     public void modificaMerce(Long id,double prezzo, double sconto, double quantita) {
-        //MerceInventarioNegozio min=merceInventarioNegozioRepository.findById(id).get();
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
             MerceInventarioNegozio min= minList.next();

@@ -452,22 +452,16 @@ public class IAddettoNegozio {
     @PostMapping("/getCliente")
     public String getClientiFiltered(String email, Model model){
         Optional<User> user = userRepository.findByEmail(email);
-        // clienteRepository.save(cliente);
         List<User> userList = new ArrayList<>();
         userList.add(user.get());
         model.addAttribute("userList",userList);
-        // clientiFiltratiAC.getItems().add(gestoreAddetti.getCliente(email));
         return "clienteAssegnazioneCarta";
     }
 
     @PostMapping("/getCliente/{id}")
-    public String assegnaCarta(@PathVariable Long id, TipoScontoCliente tsc, Model model) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            gestoreAddetti.assegnaCarta((Cliente) user.get().getRuolo().get(0), tsc);
-
-        }
-return "";
+    public String assegnaCarta(@PathVariable Long id, TipoScontoCliente tipoScontoCliente, Model model) {
+        gestoreAddetti.assegnaCarta(id, tipoScontoCliente);
+        return "homeAddetto";
     }
     public void initAssegnazioneCartaField(){
 //        emailAC.clear();

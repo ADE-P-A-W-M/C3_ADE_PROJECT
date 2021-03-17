@@ -8,14 +8,13 @@ import it.unicam.pawm.c3.gestorispecifici.GestoreMerci;
 import it.unicam.pawm.c3.gestorispecifici.GestoreVendite;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.*;
-import it.unicam.pawm.c3.personale.Cliente;
-import it.unicam.pawm.c3.personale.Corriere;
-import it.unicam.pawm.c3.personale.User;
+import it.unicam.pawm.c3.personale.*;
 import it.unicam.pawm.c3.vendita.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,11 +31,12 @@ public class GestoreAddetti {
     private UserRepository userRepository;
 
     private GestoreCheckout gestoreCheckout;
+    @Autowired
     private GestoreCarte gestoreCarte;
     private GestoreVendite gestoreVendite;
     private GestoreMerci gestoreMerci;
     private Negozio negozio;
-
+    @Autowired
     public GestoreAddetti() {
         this.gestoreCheckout = new GestoreCheckout();
         this.gestoreCarte = new GestoreCarte();
@@ -131,8 +131,26 @@ public class GestoreAddetti {
         throw new IllegalStateException("cliente non presente");
     }
 
-    public long assegnaCarta(Cliente cliente, TipoScontoCliente tsc){
-        long cc = gestoreCarte.assegnaCarta(cliente,tsc, getNegozio());
+    public long assegnaCarta(Long id, TipoScontoCliente tsc){
+        long cc=0L;
+        Iterator<User> userList=userRepository.findAll().iterator();
+        while(userList.hasNext()) {
+            User user= userList.next();
+            if(user.getId()==id) {
+                Iterator<Ruolo> ruoloList=user.getRuolo().iterator();
+                while(ruoloList.hasNext()) {
+                    Ruolo ruolo= ruoloList.next();
+                    if(ruolo.getRuoloSistema()== RuoloSistema.CLIENTE) {
+                        Optional<Cliente> cliente=clienteRepository.findById(ruolo.getId());
+                        //if(clienteRepository.findById(ruolo.getId()).isPresent()) {
+                        //    Cliente cliente=clienteRepository.findById(ruolo.getId()).get();
+                            cc = gestoreCarte.assegnaCarta(cliente.get(),tsc, getNegozio());
+                        //}
+                    }
+                }
+            }
+        }
+        System.out.println(cc);
         negozioRepository.save(negozio);
         return cc;
     }

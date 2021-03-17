@@ -76,7 +76,7 @@ public class ICliente {
 //        promozioniFiltrate.getItems().clear();
 //        promozioniFiltrate.getItems().addAll(filtraPromozioniPerCategoria(categoriePromozioni.getValue()));
     }
-    @GetMapping("/cliente/promozione/{categoria}")
+    @GetMapping("promozione/{categoria}")
     public String filtraPromozioni(@PathVariable Categoria categoria, Model model){
         List<MerceInventarioNegozio> min=filtraPromozioniPerCategoria(categoria);
         model.addAttribute("min",min);
@@ -96,7 +96,7 @@ public class ICliente {
 //        return negList;
         return gestoreClienti.ricercaProdotto(nome);
     }
-    @GetMapping("/cliente/ricerca/{nomeRicerca}")
+    @GetMapping("ricerca/{nomeRicerca}")
     public String filtraPromozioni(@PathVariable String nomeRicerca, Model model){
         List<Negozio> negList=ricercaProdotto(nomeRicerca);
         model.addAttribute("negList",negList);

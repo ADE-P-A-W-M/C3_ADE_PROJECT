@@ -16,17 +16,16 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-8">
-                <!--/*@thymesVar id="promozione" type="it.unicam.pawm.c3.merce.Promozione"*/-->
-                <form action="#" th:action="@{/commerciante/merceInPromozione/addPromozione/{id}(id=${promozione.id})}" th:object="${promozione}" method="post">
+                <form action="#" th:action="@{/commerciante/merceInPromozione/addPromozione/{id}(id=${id})}" method="post">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="dataInizio" class="col-form-label">Data inizio</label> <input type="date" th:field="*{dataInizio}" class="form-control" id="dataInizio">
+                            <label for="dataInizio" class="col-form-label">Data inizio</label> <input type="date" name="dataInizio" class="form-control" id="dataInizio">
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="dataFine" class="col-form-label" >Data fine</label> <input type="date" th:value="*{dataInizio}" th:field="*{dataFine}" class="form-control" id="dataFine">
+                            <label for="dataFine" class="col-form-label" >Data fine</label> <input type="date" name="dataFine" class="form-control" id="dataFine">
                         </div>
                         <div class="form-group col-md-8">
-                            <label for="percentualeSconto" class="col-form-label">perc sconto</label> <input type="text" th:field="*{percentualeSconto}" class="form-control" id="percentualeSconto">
+                            <label for="percentualeSconto" class="col-form-label">perc sconto</label> <input type="text" name="percentualeSconto" class="form-control" id="percentualeSconto">
                         </div>
                         <div class="form-group col-md-8">
                             <input type="submit" class="btn btn-primary" value="Aggiungi Promozione">
