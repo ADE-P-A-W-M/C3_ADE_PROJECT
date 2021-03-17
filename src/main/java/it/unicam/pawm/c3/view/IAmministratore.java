@@ -39,7 +39,7 @@ public class IAmministratore {
     public String home(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
         gestoreAmministratori.setAmministratore(gestoreAccessi.homeAmministratore(email));
-        return "homeAmministratore";
+        return "home/homeAmministratore";
     }
 
     public void init() {

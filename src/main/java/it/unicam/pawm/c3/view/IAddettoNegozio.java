@@ -51,7 +51,7 @@ public class IAddettoNegozio {
     public String home(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
         gestoreAddetti.setNegozio(gestoreAccessi.homeAddetto(email));
-        return "homeAddetto";
+        return "home/homeAddetto";
     }
 
     //    public void startCarrello(){
@@ -442,13 +442,13 @@ public class IAddettoNegozio {
 
     @GetMapping("/ricercaCliente")
     public String clienteAssegnazioneCartaForm(){
-        return "formRicercaClienteAssegnazione";
+        return "addetto/formRicercaClienteAssegnazione";
     }
 
     @PostMapping("/getCliente")
     public String getClientiFiltered(String email, Model model){
         model.addAttribute("userList",gestoreAddetti.getCliente(email));
-        return "clienteAssegnazioneCarta";
+        return "addetto/clienteAssegnazioneCarta";
     }
 
     @PostMapping("/getCliente/{id}")
@@ -468,32 +468,32 @@ public class IAddettoNegozio {
     @GetMapping("/consultaInventarioAddetto")
     public String getInventario(Model model){
         model.addAttribute("inventario",gestoreAddetti.getInventario());
-        return "consultaInventarioAddetto";
+        return "addetto/consultaInventarioAddetto";
     }
 
     @GetMapping("/infoMerce/{id}")
     public String getInfoMerce(@PathVariable Long id, Model model){
         model.addAttribute("minList", gestoreAddetti.getInfoMerce(id));
-        return "infoMerceSingola";
+        return "addetto/infoMerceSingola";
     }
 
     /****************Interfaccia Consegna Vendita Assegnata**************/
 
     @GetMapping("/getVenditeAssegnate")
     public String venditeAssegnateForm(){
-        return "formVenditeAssegnate";
+        return "addetto/formVenditeAssegnate";
     }
 
     @PostMapping("/getVenditeAssegnate")
     public String showCliente(String email,Model model){
         model.addAttribute("clienteList", gestoreAddetti.getCliente(email));
-        return "clienteVenditaAssegnata";
+        return "addetto/clienteVenditaAssegnata";
     }
 
     @GetMapping("/getVenditeAssegnate/{id}")
     public String getAcquistiClienteDaRitirare(@PathVariable Long id,Model model){
         model.addAttribute("listaVendite", gestoreAddetti.getAcquistiClienteDaRitare(id));
-        return "consegnaVenditaAssegnata";
+        return "addetto/consegnaVenditaAssegnata";
     }
 
     @GetMapping("/consegnaAlCliente/{id}")
