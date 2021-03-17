@@ -46,11 +46,13 @@ public class IAmministratore {
 //        settoriList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 //        settoriList.getItems().addAll(Categoria.values());
     }
-
+    @GetMapping("/searchUserByEmail")
+    public String searchUserBbyEmail() {
+        return "searchUserByEmail";
+    }
 //    public Cliente ricercaCliente(String email) {
 //        return gestoreAmministratori.ricercaCliente(email);
 //    }
-
     public void registraCorriere(Cliente cliente,String nomeDitta,String piva,String indirizzoRegistrazione) {
         gestoreAmministratori.registraCorriere(cliente,nomeDitta,piva,indirizzoRegistrazione);
     }
