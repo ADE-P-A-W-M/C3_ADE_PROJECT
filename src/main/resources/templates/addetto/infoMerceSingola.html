@@ -1,48 +1,144 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
 </head>
+
+
 <body>
 
-<div class = "container">
-    <div class="row">
-        <div class = "col-md-12">
-
-            <h2>Info merce</h2>
-            <br>
-            <table class = "table table-responsive table-bordered .table-striped">
-                <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>ID</th>
-                    <th>Categoria</th>
-                    <th>Quantita</th>
-                    <th>Sconto</th>
-                    <th>Promozione</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="min : ${minList}">
-                    <td th:text="${min.merceAlPubblico.merce.nome}"></td>
-                    <td th:text="${min.id}"></td>
-                    <td th:text="${min.merceAlPubblico.merce.categoria}"></td>
-                    <td th:text="${min.quantita}"></td>
-                    <td th:text="${min.merceAlPubblico.sconto}"></td>
-                    <td>
-                        <span th:if="${min.merceAlPubblico.promozione.disponibile == 'true'}">Si trova in promozione</span>
-                        <span th:unless="${min.merceAlPubblico.promozione.disponibile == 'false'}">Non si trova in promozione</span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <a th:href="@{/addettonegozio/consultaInventarioAddetto}" class="btn btn-primary">Indietro<i class="fas fa-user-edit ml-2"></i></a>
-
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Registration and Login Module</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Select Role<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <th:block th:each="r, iter:${#authentication.getAuthorities()}">
+                                <div th:if="${iter.size}>1">
+                                    <li>
+                                        <a th:href="@{/{ruolo}/(ruolo=${r.authority.toLowerCase()})}" >
+                                            <span th:text="${r}"></span><th:block th:if="${!iter.last}">, </th:block>
+                                        </a>
+                                    </li>
+                                </div>
+                            </th:block>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+</nav>
+
+
+<br>
+<br>
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Menu addetto
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/addettonegozio}">Home</a>
+            </li>
+            <li>
+                <a th:href="@{/addettonegozio/}">Assegnazione carta</a>
+            </li>
+            <li>
+                <a  th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
+            </li>
+            <li>
+                <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
+            </li>
+            <li>
+                <a th:href="@{/addettonegozio}">Registra vendita</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Simple Sidebar</h1>
+                    <p>
+                        Welcome <span sec:authentication="principal.username" > User </span>
+                    </p>
+                    <div class="row">
+                        <div class = "col-md-12">
+
+                            <h2>Info merce</h2>
+                            <br>
+                            <table class = "table table-responsive table-bordered .table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>ID</th>
+                                    <th>Categoria</th>
+                                    <th>Quantita</th>
+                                    <th>Sconto</th>
+                                    <th>Promozione</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="min : ${minList}">
+                                    <td th:text="${min.merceAlPubblico.merce.nome}"></td>
+                                    <td th:text="${min.id}"></td>
+                                    <td th:text="${min.merceAlPubblico.merce.categoria}"></td>
+                                    <td th:text="${min.quantita}"></td>
+                                    <td th:text="${min.merceAlPubblico.sconto}"></td>
+                                    <td>
+                                        <span th:if="${min.merceAlPubblico.promozione.disponibile == 'true'}">Si trova in promozione</span>
+                                        <span th:unless="${min.merceAlPubblico.promozione.disponibile == 'false'}">Non si trova in promozione</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a th:href="@{/addettonegozio/consultaInventarioAddetto}" class="btn btn-primary">Indietro<i class="fas fa-user-edit ml-2"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+
+<div class = "container">
+
 </div>
 
 

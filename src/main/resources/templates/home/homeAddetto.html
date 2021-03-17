@@ -65,10 +65,10 @@
                 <a th:href="@{/addettonegozio}">Home</a>
             </li>
             <li>
-                <a th:href="@{/addettonegozio/}">Assegnazione carta</a>
+                <a th:href="@{/addettonegozio/ricercaCliente}">Assegnazione carta</a>
             </li>
             <li>
-                <a onclick="showpage()" th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
+                <a  th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
             </li>
             <li>
                 <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
@@ -107,11 +107,6 @@
 
 </div>
 
-<script>
-    function showpage() {
-        $("page-content-wrapper").load("consultaInventarioAddetto.html");
-    }
-</script>
 
 </body>
 </html>
