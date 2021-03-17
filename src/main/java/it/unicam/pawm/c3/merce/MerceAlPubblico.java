@@ -35,24 +35,11 @@ public class MerceAlPubblico {
         this.promozione = new Promozione(false);
     }
 
-    public MerceAlPubblico() {
-
-    }
+    public MerceAlPubblico() { }
 
     public Promozione getPromozione() {
         return promozione;
     }
-
-//    public void setPromozione(Promozione promozione) {
-//        this.promozione = promozione;
-//    }
-//
-//    public void setPromozione(LocalDate di, LocalDate df, double pp){
-//        this.promozione.setDisponibile(true);
-//        this.promozione.setDataInizio(di);
-//        this.promozione.setDataFine(df);
-//        this.promozione.setPercentualeSconto(pp);
-//    }
 
     public void setPromozione(LocalDate di, LocalDate df, double pp, double prezzo){
         this.promozione.setDisponibile(true);
@@ -97,13 +84,6 @@ public class MerceAlPubblico {
     public void setSconto(double sconto) {
         this.sconto = sconto;
     }
-
-    /*@Override
-    public String toString() {
-        return prezzo +
-                ", " + merce +
-                ", " + sconto;
-    }*/
 
     @Override
     public String toString() {
