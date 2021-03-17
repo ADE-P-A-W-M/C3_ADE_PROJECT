@@ -17,22 +17,6 @@
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <!--/*@thymesVar id="cliente" type="it.unicam.pawm.c3.personale.Cliente"*/-->
-                <!--              <form action="#" th:action="@{/addettonegozio/getVenditeAssegnate/{email}(email=${cliente.email})}" th:object="${cliente}" method="post">-->
-                <!--                    <div class="row">-->
-                <!--                        <div class="form-group col-md-8">-->
-                <!--                            <label for="email" class="col-form-label">Email</label>-->
-                <!--                            <input type="text" th:field="*{email}" class="form-control" id="email" placeholder="Email"> <span th:if="${#fields.hasErrors('email')}" class="text-danger"></span>-->
-                <!--                        </div>-->
-
-                <!--                        <div class="col-md-6">-->
-                <!--                        </div>-->
-                <!--                      <input type="submit" class="btn btn-primary" value="Submit">&ndash;&gt;-->
-                <!--                        <div class="form-group col-md-8"></div>-->
-
-                <!--                    </div>-->
-                <!--                </form>-->
-
                 <h4>Merce cliente</h4>
                 <table class = "table table-responsive table-bordered .table-striped">
                     <thead>
@@ -42,10 +26,11 @@
                         <th>Prezzo</th>
                         <th>Indirizzo</th>
                         <th>Stato</th>
-                        <th>Lista</th>
                     </tr>
                     </thead>
                     <tbody>
+<!--                    <tr th:each="user : ${user}">-->
+
                     <tr th:each="min : ${listaVendite}">
 
                         <!--/*@thymesVar id="merceAlPubblico" type="it.unicam.pawm.c3.merce.MerceAlPubblico"*/-->
@@ -54,9 +39,11 @@
                         <td th:text="${min.prezzo}"></td>
                         <td th:text="${min.indirizzoNegozioDiRitiro}"></td>
                         <td th:text="${min.statoConsegna}"></td>
-                        <td th:text="${min.listaMerceVendita}"></td>
                         <td><a th:href="@{/addettonegozio/consegnaAlCliente/{id}(id=${min.id})}" class="btn btn-primary">Consegna<i class="fas fa-user-edit ml-2"></i></a></td>
+<!--                        <td><a th:href="@{/addettonegozio/getVenditeAssegnate/{idu}/consegnaAlCliente/{id}(idu=${user.id},id=${min.id})}" class="btn btn-primary">Consegna<i class="fas fa-user-edit ml-2"></i></a></td>-->
                     </tr>
+
+<!--                    </tr>-->
                     </tbody>
                 </table>
 

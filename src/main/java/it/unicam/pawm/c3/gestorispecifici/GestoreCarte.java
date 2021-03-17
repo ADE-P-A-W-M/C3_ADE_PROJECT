@@ -3,8 +3,14 @@ package it.unicam.pawm.c3.gestorispecifici;
 import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.carta.Carta;
 import it.unicam.pawm.c3.carta.TipoScontoCliente;
+import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.CartaRepository;
+import it.unicam.pawm.c3.persistenza.ClienteRepository;
+import it.unicam.pawm.c3.persistenza.UserRepository;
 import it.unicam.pawm.c3.personale.Cliente;
+import it.unicam.pawm.c3.personale.Ruolo;
+import it.unicam.pawm.c3.personale.RuoloSistema;
+import it.unicam.pawm.c3.personale.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +23,21 @@ public class GestoreCarte {
 
     @Autowired
     private CartaRepository cartaRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    public GestoreCarte() {
 
+    }
 
 
     /**
      * Il metodo serve ad assegnare un nuova carta al cliente. La nuova carta viene create, viene assegnata al cliente
      * e ne viene assegnato il codice. La carta viene inoltre aggiunta al corrispettivo negozio.
      *
-     * @param cliente a cui verrà assegnata la carta
+     * @param cliente  cliente a cui verrà assegnata la carta
      * @param tsc tipo di sconto corrispettivo del cliente
      * @param negozio in cui si sta lavorando
      * @return codice della carta

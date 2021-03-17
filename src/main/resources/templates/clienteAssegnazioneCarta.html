@@ -36,25 +36,21 @@
                 </thead>
                 <tbody>
                 <tr th:each="user : ${userList}">
-                    <!--/*@thymesVar id="email" type="it.unicam.pawm.c3.personale.User"*/-->
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.nome}"></td>
                     <td th:text="${user.cognome}"></td>
-<!--                    <td><a th:href="@{/addettonegozio/getVenditeAssegnate/{id}(id=${cliente.id})}" class="btn btn-primary">Visualizza merci<i class="fas fa-user-edit ml-2"></i></a></td>-->
 
                 </tr>
                 </tbody>
             </table>
-            <!--/*@thymesVar id="tipoScontoCliente" type="it.unicam.pawm.c3.carta.Carta"*/-->
-            <!--/*@thymesVar id="carta" type="it.unicam.pawm.c3.carta"*/-->
-            <form th:action="@{/getCliente/{id}(id=cliente.id)}" method="post" th:object="${carta}">
+            <form th:action="@{/addettonegozio/getCliente/{id}(id=${userList[0].id})}" method="post">
 
                 <select name="tipoScontoCliente">
                     <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"
                             th:value="${tipoScontoCliente}" th:text="${tipoScontoCliente}"></option>
                 </select>
 
-<!--                <input type="submit" th:value="#{submit.button}"/>-->
+                <input type="submit" class="btn btn-primary" value="Assegna carta">
             </form>
         </div>
     </div>

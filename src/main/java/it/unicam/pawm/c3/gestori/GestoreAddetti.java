@@ -8,14 +8,14 @@ import it.unicam.pawm.c3.gestorispecifici.GestoreMerci;
 import it.unicam.pawm.c3.gestorispecifici.GestoreVendite;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.*;
-import it.unicam.pawm.c3.personale.Cliente;
-import it.unicam.pawm.c3.personale.Corriere;
-import it.unicam.pawm.c3.personale.User;
+import it.unicam.pawm.c3.personale.*;
 import it.unicam.pawm.c3.vendita.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +30,20 @@ public class GestoreAddetti {
     private NegozioRepository negozioRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
 
     private GestoreCheckout gestoreCheckout;
+    @Autowired
     private GestoreCarte gestoreCarte;
+    @Autowired
     private GestoreVendite gestoreVendite;
+    @Autowired
     private GestoreMerci gestoreMerci;
+
     private Negozio negozio;
 
+    @Autowired
     public GestoreAddetti() {
         this.gestoreCheckout = new GestoreCheckout();
         this.gestoreCarte = new GestoreCarte();
@@ -122,17 +129,34 @@ public class GestoreAddetti {
 
     /*****************Assegnazione Carta***************/
 
-    public User getCliente(String email){
-//        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
+    public List<User> getCliente(String email){
+        List<User> userList = new ArrayList<>();
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
-            return user.get();
+            userList.add(user.get());
+            return userList;
         }
+        negozioRepository.save(getNegozio());
         throw new IllegalStateException("cliente non presente");
     }
 
-    public long assegnaCarta(Cliente cliente, TipoScontoCliente tsc){
-        long cc = gestoreCarte.assegnaCarta(cliente,tsc, getNegozio());
+    public long assegnaCarta(Long id, TipoScontoCliente tsc){
+        long cc=0L;
+        Iterator<User> userList=userRepository.findAll().iterator();
+        while(userList.hasNext()) {
+            User user= userList.next();
+            if(user.getId()==id) {
+                Iterator<Ruolo> ruoloList=user.getRuolo().iterator();
+                while(ruoloList.hasNext()) {
+                    Ruolo ruolo= ruoloList.next();
+                    if(ruolo.getRuoloSistema()== RuoloSistema.CLIENTE) {
+                        Optional<Cliente> cliente=clienteRepository.findById(ruolo.getId());
+                        cc = gestoreCarte.assegnaCarta(cliente.get(),tsc, getNegozio());
+                    }
+                }
+            }
+        }
+        System.out.println(cc);
         negozioRepository.save(negozio);
         return cc;
     }
@@ -147,14 +171,29 @@ public class GestoreAddetti {
         return gestoreMerci.getInfoMerce(min);
     }
 
+    public List<MerceInventarioNegozio> getInfoMerce(Long id) {
+        MerceInventarioNegozio min = gestoreMerci.getInfoMerce(id);
+        List<MerceInventarioNegozio> minList = new ArrayList<>();
+        minList.add(min);
+        return minList;
+    }
+
     /************Consegna Vendita Assegnata******************/
 
-    public List<VenditaSpedita> getAcquistiClienteDaRitirare(String email) {
-        return gestoreVendite.getAcquistiClienteDaRitirare(email, getNegozio());
+//    public List<VenditaSpedita> getAcquistiClienteDaRitirare(String email) {
+//        return gestoreVendite.getAcquistiClienteDaRitirare(email, getNegozio());
+//    }
+
+    public List<VenditaSpedita> getAcquistiClienteDaRitare(Long id) {
+        return gestoreVendite.getAcquistiClienteDaRitirare(id,getNegozio());
     }
 
     public void confermaConsegnaVenditaAssegnata(List<VenditaSpedita> vendite) {
         gestoreVendite.confermaConsegnaVenditaAssegnata(vendite);
+    }
+
+    public void confermaConsegnaVenditaAssegnata(Long id){
+        gestoreVendite.confermaConsegnaVenditaAssegnata(id, getNegozio());
     }
 
 }

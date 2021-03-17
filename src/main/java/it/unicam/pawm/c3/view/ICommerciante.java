@@ -7,6 +7,7 @@ import it.unicam.pawm.c3.merce.Promozione;
 import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,14 +88,13 @@ public class ICommerciante {
 
     @GetMapping("merceNonInPromozione/formAddPromozione/{id}")
     public String addPromozioneForm(@PathVariable Long id,Model model) {
-        Promozione promozione= gestoreCommercianti.getPromozione(id);
-        model.addAttribute("promozione",promozione);
+        model.addAttribute("id",id);
         return "addPromozione";
     }
 
     @PostMapping("merceInPromozione/addPromozione/{id}")
-    public String addPromozione(@PathVariable("id") Long id, Promozione promozione,Model model) {
-        gestoreCommercianti.addPromozione(id,promozione.getDataInizio(),promozione.getDataFine(),promozione.getPrezzoPromozione());
+    public String addPromozione(@PathVariable("id") Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInizio,@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFine, Double percentualeSconto, Model model) {
+        gestoreCommercianti.addPromozione(id,dataInizio,dataFine,percentualeSconto);
         model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
         return "showPromozioni";
     }

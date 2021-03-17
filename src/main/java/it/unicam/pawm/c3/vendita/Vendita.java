@@ -1,6 +1,9 @@
 package it.unicam.pawm.c3.vendita;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +19,7 @@ public class Vendita {
     private double prezzo;
 
     @OneToMany(cascade = CascadeType.MERGE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name="vendita_fk", referencedColumnName = "id")
     private List<MerceVendita> listaMerceVendita;
 

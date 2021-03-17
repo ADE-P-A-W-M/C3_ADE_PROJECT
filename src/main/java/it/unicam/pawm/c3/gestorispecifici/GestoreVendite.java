@@ -2,12 +2,14 @@ package it.unicam.pawm.c3.gestorispecifici;
 
 import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.persistenza.ClienteRepository;
+import it.unicam.pawm.c3.persistenza.UserRepository;
 import it.unicam.pawm.c3.persistenza.VenditaSpeditaRepository;
-import it.unicam.pawm.c3.personale.Cliente;
-import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.*;
+import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
 import it.unicam.pawm.c3.vendita.StatoConsegna;
 import it.unicam.pawm.c3.vendita.Vendita;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +27,14 @@ public class GestoreVendite {
     private ClienteRepository clienteRepository;
     @Autowired
     private VenditaSpeditaRepository venditaSpeditaRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-//    public GestoreVendite(ClienteRepository clienteRepository, VenditaSpeditaRepository venditaSpeditaRepository) {
+    @Autowired
+    public GestoreVendite() {
+    }
+
+    //    public GestoreVendite(ClienteRepository clienteRepository, VenditaSpeditaRepository venditaSpeditaRepository) {
 //        this.clienteRepository = clienteRepository;
 //        this.venditaSpeditaRepository = venditaSpeditaRepository;
 //    }
@@ -96,15 +104,15 @@ public class GestoreVendite {
         return tot;
     }
 
-    /**
-     * Il metodo restituisce gli acquisti che il cliente deve ritirare in un determinato negozio
-     *
-     * @param email email del cliente
-     * @param negozio negozio dove sono presenti gli acquisti
-     * @return list degli acquisti da ritirare di un determinato cliente
-     */
-    public List<VenditaSpedita> getAcquistiClienteDaRitirare(String email, Negozio negozio) {
-        List<VenditaSpedita> list = new ArrayList<>();
+//    /**
+//     * Il metodo restituisce gli acquisti che il cliente deve ritirare in un determinato negozio
+//     *
+//     * @param email email del cliente
+//     * @param negozio negozio dove sono presenti gli acquisti
+//     * @return list degli acquisti da ritirare di un determinato cliente
+//     */
+//    public List<VenditaSpedita> getAcquistiClienteDaRitirare(String email, Negozio negozio) {
+//        List<VenditaSpedita> list = new ArrayList<>();
 //        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
 //        if(cliente.isPresent()){
 //            if(!cliente.get().getAcquisti().isEmpty()){
@@ -123,6 +131,29 @@ public class GestoreVendite {
 //                }
 //            }
 //        }
+//        return list;
+//    }
+
+    public List<VenditaSpedita> getAcquistiClienteDaRitirare(Long id,Negozio negozio){
+        List<VenditaSpedita> list = new ArrayList<>();
+        Optional<User> user = userRepository.findById(id);
+        Cliente cliente = (Cliente) user.get().getRuolo().get(0);
+        if(!cliente.getAcquisti().isEmpty()){
+            Iterator<VenditaSpedita> venditeNegozio = negozio.getVenditeNegozioRitiro().iterator();
+            while(venditeNegozio.hasNext()){
+                VenditaSpedita vs = venditeNegozio.next();
+                if(vs.getStatoConsegna().equals(StatoConsegna.CONSEGNATO_AL_NEGOZIO) && vs.getLuogoDiRitiro().equals(LuogoDiRitiro.NEGOZIO)){
+                    Iterator<Vendita> venditaIterator = cliente.getAcquisti().iterator();
+                    while(venditaIterator.hasNext()){
+                        Vendita vendita = venditaIterator.next();
+                        if(vendita.getId() == vs.getId()){
+                            list.add(vs);
+                        }
+                    }
+                }
+            }
+        }
+        clienteRepository.save(cliente);
         return list;
     }
 
@@ -134,6 +165,18 @@ public class GestoreVendite {
     public void confermaConsegnaVenditaAssegnata(List<VenditaSpedita> vendite) {
         aggiornaStatoVendita(vendite,StatoConsegna.CONSEGNATO_AL_CLIENTE);
         venditaSpeditaRepository.saveAll(vendite);
+    }
+
+    public void confermaConsegnaVenditaAssegnata(Long id, Negozio negozio){
+        Optional<VenditaSpedita> VS = venditaSpeditaRepository.findById(id);
+        if(VS.isPresent()) {
+            for(VenditaSpedita vs : negozio.getVenditeNegozioRitiro()){
+                if(vs.getId()==id){
+                    VS.get().setStatoConsegna(StatoConsegna.CONSEGNATO_AL_CLIENTE);
+                    venditaSpeditaRepository.save(VS.get());
+                }
+            }
+        }
     }
 
     /**

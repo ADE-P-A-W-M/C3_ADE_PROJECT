@@ -10,6 +10,7 @@ import it.unicam.pawm.c3.vendita.MerceVendita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,15 +32,7 @@ public class GestoreMerci {
     private NegozioRepository negozioRepository;
 
     @Autowired
-    public GestoreMerci() {
-    }
-
-    //    public GestoreMerci(MerceInventarioNegozioRepository merceInventarioNegozioRepository, MerceRepository merceRepository, MerceAlPubblicoRepository merceAlPubblicoRepository, NegozioRepository negozioRepository) {
-//        this.merceInventarioNegozioRepository = merceInventarioNegozioRepository;
-//        this.merceRepository = merceRepository;
-//        this.merceAlPubblicoRepository = merceAlPubblicoRepository;
-//        this.negozioRepository = negozioRepository;
-//    }
+    public GestoreMerci() {}
 
     /**
      * il metodo ricerca il prezzo dell'id merce inserito,se non viene trovata nessuna merce con quel id
@@ -127,6 +120,14 @@ public class GestoreMerci {
                 min.getMerceAlPubblico().getMerce().getID() + ", categoria: " + min.getMerceAlPubblico().getMerce().getCategoria() +
                 ", in quantita: " + min.getQuantita() + ", con uno sconto: " + min.getMerceAlPubblico().getSconto()
                 + promozione;
+    }
+
+    public MerceInventarioNegozio getInfoMerce(Long id){
+        Optional<MerceInventarioNegozio> min = merceInventarioNegozioRepository.findById(id);
+        if(min.isPresent()){
+            return min.get();
+        }
+        return null;
     }
 
     /**
