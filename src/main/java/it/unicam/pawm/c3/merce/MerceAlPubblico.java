@@ -63,10 +63,10 @@ public class MerceAlPubblico {
     }
 
     public double getPrezzo() {
-        if(getPromozione().isDisponibile()){
+        /*if(getPromozione().isDisponibile()){
             if(LocalDate.now().isAfter(getPromozione().getDataInizio()) && LocalDate.now().isBefore(getPromozione().getDataFine()))
                 return promozione.getPrezzoPromozione();
-        }
+        }*/
         return prezzo;
     }
 

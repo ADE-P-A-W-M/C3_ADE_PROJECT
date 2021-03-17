@@ -20,7 +20,7 @@ public class GestoreClienti {
 
     @Autowired
     private NegozioRepository negozioRepository;
-
+    @Autowired
     private GestoreMerci gestoreMerci;
     private Cliente cliente;
 
