@@ -32,27 +32,29 @@ public class ICliente {
     public String home(@AuthenticationPrincipal UserDetails userDetails){
         String email = userDetails.getUsername();
         gestoreClienti.setCliente(gestoreAccessi.homeCliente(email));
-        return "homeCliente";
+        return "home/homeCliente";
     }
     /*****************Consulta Promozioni******************/
     @GetMapping("promozione")
     public String selezionaCategoria(Model model) {
         model.addAttribute("minList",gestoreClienti.getPromozioni());
-        return "showCategoriePromozioni";
+        return "cliente/showCategoriePromozioni";
     }
+
     @PostMapping("promozioniFiltrate")
     public String filtraPromozioni(Categoria categoria, Model model){
         model.addAttribute("minList",gestoreClienti.filtraPromozioniPerCategoria(categoria));
-        return "promozioniPerCategoria";
+        return "cliente/promozioniPerCategoria";
     }
     /*****************Ricerca Prodotto******************/
     @GetMapping("ricercaProdottoForm")
     public String ricercaProdottoForm() {
-        return "ricercaProdottoForm";
+        return "cliente/ricercaProdottoForm";
     }
+
     @PostMapping("ricerca")
     public String filtraPromozioni(String nomeRicerca, Model model){
         model.addAttribute("negList",gestoreClienti.ricercaProdotto(nomeRicerca));
-        return "ricercaProdotto";
+        return "cliente/ricercaProdotto";
     }
 }
