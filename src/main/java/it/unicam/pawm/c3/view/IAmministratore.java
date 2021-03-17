@@ -14,9 +14,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -46,19 +47,44 @@ public class IAmministratore {
 //        settoriList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 //        settoriList.getItems().addAll(Categoria.values());
     }
-    @GetMapping("/searchUserByEmail")
-    public String searchUserBbyEmail() {
+    @GetMapping("/registrazioneNegozio/searchUserByEmail")
+    public String searchUserBbyEmailNegozio() {
         return "searchUserByEmail";
+    }
+    @PostMapping("/addNegozioForm")
+    public String addNegozioForm(String email, Model model) {
+        List<User> userList=new ArrayList<>();
+        userList.add(gestoreAmministratori.ricercaCliente(email));
+        model.addAttribute("userList",userList);
+        return "addNegozioForm";
+    }
+    @PostMapping("/addNegozio/{id}")
+    public String addNegozio(@PathVariable Long id,Categoria categoria,String nomeDitta, String piva, String indirizzoRegistrazione, Model model) {
+        gestoreAmministratori.registraNegozio(List.of(categoria),id,nomeDitta,piva,indirizzoRegistrazione);
+        return "home/homeAmministratore";
+    }
+    @GetMapping("/registrazioneCorriere/searchUserByEmail")
+    public String searchUserBbyEmailCorriere() {
+        return "searchUserByEmailCorriere";
+    }
+    @PostMapping("/addCorriereForm")
+    public String addCorriereForm(String email, Model model) {
+        List<User> userList=new ArrayList<>();
+        userList.add(gestoreAmministratori.ricercaCliente(email));
+        model.addAttribute("userList",userList);
+        return "addCorriereForm";
+    }
+    @PostMapping("/addCorriere/{id}")
+    public String addCorriere(@PathVariable Long id,String nomeDitta, String piva, String indirizzo, Model model) {
+        gestoreAmministratori.registraCorriere(id,nomeDitta,piva,indirizzo);
+        return "home/homeAmministratore";
     }
 //    public Cliente ricercaCliente(String email) {
 //        return gestoreAmministratori.ricercaCliente(email);
 //    }
-    public void registraCorriere(Cliente cliente,String nomeDitta,String piva,String indirizzoRegistrazione) {
-        gestoreAmministratori.registraCorriere(cliente,nomeDitta,piva,indirizzoRegistrazione);
-    }
-    public void registraNegozio(List<Categoria> categorie, Cliente cliente, String nomeDitta, String piva, String indirizzoRegistrazione) {
-        gestoreAmministratori.registraNegozio(categorie,cliente,nomeDitta,piva,indirizzoRegistrazione);
-    }
+  //  public void registraNegozio(List<Categoria> categorie, Cliente cliente, String nomeDitta, String piva, String indirizzoRegistrazione) {
+   //     gestoreAmministratori.registraNegozio(categorie,cliente,nomeDitta,piva,indirizzoRegistrazione);
+  //  }
 //    @FXML
     void confermaRegistraCorriereEvent() {
 //        registraCorriere(listClientiRegistrazioneCorriere.getSelectionModel().getSelectedItem(),nomeDittaRegistrazioneCorriere.getText(),pivaRegistrazioneCorriere.getText(),indirizzoRegistrazioneCorriere.getText());

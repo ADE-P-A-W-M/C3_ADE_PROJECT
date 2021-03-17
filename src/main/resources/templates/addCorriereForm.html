@@ -6,12 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-<form th:action="@{/amministratore/addNegozio/{id}(id=${userList[0].id})}" method="post">
-    <label>Scegli le categorie:</label>
-    <select name="categoria">
-        <option th:each="categoria : ${T(it.unicam.pawm.c3.merce.Categoria).values()}"
-                th:value="${categoria}" th:text="${categoria}"></option>
-    </select>
+<form th:action="@{/amministratore/addCorriere/{id}(id=${userList[0].id})}" method="post">
     <div class="form-group col-md-6">
         <label for="nomeDitta" class="col-form-label">Nome ditta</label> <input type="text" name="nomeDitta" class="form-control" id="nomeDitta">
     </div>
@@ -19,7 +14,7 @@
         <label for="piva" class="col-form-label">Partita IVA</label> <input type="text" name="piva" class="form-control" id="piva">
     </div>
     <div class="form-group col-md-6">
-        <label for="indirizzoRegistrazione" class="col-form-label">Indirizzo negozio</label> <input type="text" name="indirizzoRegistrazione" class="form-control" id="indirizzoRegistrazione">
+        <label for="indirizzo" class="col-form-label">Indirizzo Corrire</label> <input type="text" name="indirizzo" class="form-control" id="indirizzo">
     </div>
     <input type="submit" class="btn btn-primary" value="Aggiungi negozio">
 </form>
