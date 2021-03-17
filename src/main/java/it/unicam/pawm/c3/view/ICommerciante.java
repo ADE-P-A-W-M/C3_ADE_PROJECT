@@ -3,9 +3,6 @@ package it.unicam.pawm.c3.view;
 import it.unicam.pawm.c3.gestori.GestoreCommercianti;
 import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.merce.Categoria;
-import it.unicam.pawm.c3.merce.Promozione;
-import it.unicam.pawm.c3.personale.Cliente;
-import it.unicam.pawm.c3.personale.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/commerciante")
@@ -78,11 +73,11 @@ public class ICommerciante {
     /******************Interfaccia Gestione Corriere***************/
 
     @GetMapping("showCorrieriDaAggiungere")
-    public String showCorrieriDaAggiunguere(Model model)
-    {
+    public String showCorrieriDaAggiunguere(Model model) {
         model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
         return "showCorrieriDaAggiungere";
     }
+
     @GetMapping("showCorrieriDaAggiungere/add/{id}")
     public String addCorriere(@PathVariable Long id,Model model) {
         gestoreCommercianti.addCorriere(id);
@@ -99,28 +94,29 @@ public class ICommerciante {
 
     @PostMapping ("assunzioneAddetto")
     public String assumiCliente(String email,Model model) {
-        User user = gestoreCommercianti.getCliente(email);
-        List<User> userList =new ArrayList<>();
-        userList.add(user);
-        model.addAttribute("userList",userList);
+        model.addAttribute("userList",gestoreCommercianti.getCliente(email));
         return "clienteDaAssumere";
     }
+
     @GetMapping("assunzioneAddetto/{id}")
     public String assunzioneFinita(@PathVariable Long id) {
          gestoreCommercianti.assunzioneAddetto(id);
         return "assunzioneAddetto";
     }
+
     /****************Gestione inventario**************/
     @GetMapping("showInventario")
     public String showInventario(Model model) {
         model.addAttribute("minList",gestoreCommercianti.getInventario());
         return "showInventario";
     }
+
     @GetMapping("showInventario/removeForm/{id}")
     public String removeForm(@PathVariable Long id,Model model) {
         model.addAttribute("id",id);
         return "rimuoviMerce";
     }
+
     @GetMapping("showInventario/addMerceIdForm")
     public String addMerceIdForm() {
         return "addMerceIdForm";
@@ -131,12 +127,14 @@ public class ICommerciante {
         model.addAttribute("id",id);
         return "modificaMerceForm";
     }
+
     @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
         gestoreCommercianti.removeMerce(id,quantita);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
         return "showInventario";
     }
+
     @PostMapping("showInventario/addMerceId")
     public String checkIfMerceExists(Long id,Model model) {
         model.addAttribute("id",id);
@@ -146,12 +144,14 @@ public class ICommerciante {
             return "addNewMerce";
         }
     }
+
     @PostMapping("showInventario/addMerce/{id}")
     public String addMerce(@PathVariable Long id,String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
         gestoreCommercianti.addMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
         return "showInventario";
     }
+
     @PostMapping("showInventario/modificaMerce/{id}")
     public String modificaMerce(@PathVariable Long id,Model model,Double quantita,Double prezzo,Double sconto) {
         gestoreCommercianti.modificaMerce(id,prezzo,sconto,quantita);
