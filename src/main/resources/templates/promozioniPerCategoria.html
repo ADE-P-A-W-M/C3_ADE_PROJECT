@@ -12,12 +12,16 @@
             <table class = "table table-responsive table-bordered .table-striped">
                 <thead>
                 <tr>
+                    <th>nome</th>
+                    <th>prezzo</th>
                     <th>quantita</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="mino : ${min}">
-                    <td th:text="${mino.quantita}"></td>
+                <tr th:each="min : ${minList}">
+                    <td th:text="${min.merceAlPubblico.merce.nome}"></td>
+                    <td th:text="${min.merceAlPubblico.prezzo}"></td>
+                    <td th:text="${min.quantita}"></td>
                 </tr>
                 </tbody>
             </table>
