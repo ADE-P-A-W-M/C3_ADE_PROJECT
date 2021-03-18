@@ -10,6 +10,7 @@
     <!-- Bootstrap JS -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
+    <script src="../../js/main.js"></script>
 
 </head>
 <body>
@@ -102,14 +103,15 @@
                         </div>
                     </form>
                     <div class="container-fluid">
-                        <div>
-                            <form th:action="@{/addettonegozio/ricercaCliente}">
-                                <input type="submit" class="btn btn-primary" onclick="$('ricercaClientePerAssegnaCarta'.toggle();">
-                            </form>
-                        </div>
+                        <!-- <div>
+                            -<form>
+                                 <input type="submit" class="btn btn-primary" onclick="toggler('ricercaClientePerAssegnaCarta');">
+                             </form>
+                        </div>-->
+                        <a href="#" class="btn btn-primary" onclick="toggler('ricercaClientePerAssegnaCarta');">Invia</a>
                         <br>
                         <br>
-                        <div id="ricercaClientePerAssegnaCarta" style="display:none">
+                        <div id="ricercaClientePerAssegnaCarta" style="display: none">
                             <form action="#" th:action="@{/addettonegozio/getCliente}" method="post">
                                 <div class="row">
                                     <div class="form-group col-md-6">
@@ -127,7 +129,6 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>
 
