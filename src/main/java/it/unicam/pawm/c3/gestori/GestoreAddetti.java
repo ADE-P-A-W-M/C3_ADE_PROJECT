@@ -151,8 +151,6 @@ public class GestoreAddetti {
         throw new IllegalStateException("cliente non presente");
     }
 
-
-
     public long assegnaCarta(Long id, TipoScontoCliente tsc){
         long cc=0L;
         Iterator<User> userList=userRepository.findAll().iterator();
@@ -172,7 +170,6 @@ public class GestoreAddetti {
         negozioRepository.save(negozio);
         return cc;
     }
-
 
     /*********Consulta Inventario****************/
 
