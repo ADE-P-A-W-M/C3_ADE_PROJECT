@@ -67,7 +67,7 @@ public class IAddettoNegozio {
 //    }
     @GetMapping("/loadCheckout")
     public String blankCheckoutForm() {
-        return "checkoutForm";
+        return "addetto/checkout/checkoutForm";
     }
     @PostMapping(value="/checkout",params="action=TrovaMerce")
     public String getCheckoutForm(Model model,Long id,Double quantita,Double prezzoCarrello) {
@@ -79,47 +79,18 @@ public class IAddettoNegozio {
         model.addAttribute("sconto",sconto);
         model.addAttribute("prezzoCarrello",prezzoCarrello);
         //model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
-        return "checkoutForm";
+        return "addetto/checkout/checkoutForm";
     }
     @PostMapping(value="/checkout",params="action=AggiungiAlCarrello")
     public String getCheckout(Model model,Long id,Double quantita,Double prezzo,Double sconto) {
         model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
-        return "checkoutForm";
+        return "addetto/checkout/checkoutForm";
     }
 
-
-    void trovaPrezzoEScontoButtonEvent() {
-//        try{
-//            prezzoMerce.setText(String.valueOf(getPrezzo(Long.parseLong(idMerce.getText()), Double.parseDouble(quantitaMerce.getText()))));
-//        } catch (Exception e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR, "Inserire quantita", ButtonType.OK);
-//            alert.show();
-//        }
-//        if(prezzoMerce.getText()=="0"){
-//            Alert alert = new Alert(Alert.AlertType.ERROR,"Merce inserita non presente, inserire il prezzo manualmente", ButtonType.OK);
-//            alert.show();
-//        }
-//        scontoMerce.setText(String.valueOf(getSconto(Long.parseLong(idMerce.getText()))));
-//        if(scontoMerce.getText()=="0"){
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Merce inserita non ha uno sconto, puoi inserire sconto manualmente", ButtonType.OK);
-//            alert.show();
-//        }
-    }
-
-//    public double aggiuntaMerceNelCarrello(double prezzo, double sconto, long id, double quantita){
-//        return gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita);
-//    }
-
-    void inserisciButtonEvent() {
-//        prezzoCarrello.setText(String.valueOf(aggiuntaMerceNelCarrello(Double.parseDouble(prezzoMerce.getText()),Double.parseDouble(scontoMerce.getText()),Integer.parseInt(idMerce.getText()),Double.parseDouble(quantitaMerce.getText()))));
-//        clearCheckoutFields();
-    }
-
-    private void clearCheckoutFields() {
-//        idMerce.clear();
-//        quantitaMerce.clear();
-//        prezzoMerce.clear();
-//        scontoMerce.clear();
+    @PostMapping(value="/checkout", params = "action=PassaggioCarta")
+    public String getCheckoutPassaggioCarta(Model model, Long codiceCarta){
+        model.addAttribute("codiceCarta", codiceCarta);
+        return "addetto/checkout/checkoutForm";
     }
 
     /********************Richiesta Carta******************/
@@ -457,17 +428,17 @@ public class IAddettoNegozio {
 //            alert.show();
 //        }
     }
+//
+//    @GetMapping("/checkout")
+//    public String homecheckout(){
+//        return "addetto/checkout/checkout";
+//    }
 
-    @GetMapping("/checkout")
-    public String homecheckout(){
-        return "addetto/checkout/checkout";
-    }
-
-    @PostMapping("/checkout")
-    public String getCheckoutForm(Model model, Long codiceCarta) {
-        model.addAttribute("codiceCarta", codiceCarta);
-        return "addetto/checkout/checkout";
-    }
+//    @PostMapping("/checkout")
+//    public String getCheckoutForm(Model model, Long codiceCarta) {
+//        model.addAttribute("codiceCarta", codiceCarta);
+//        return "addetto/checkout/checkout";
+//    }
 
     /***********************Assegnazione Carta****************************/
 

@@ -96,8 +96,32 @@
                             <label for="prezzoCarrello" class="col-form-label">Prezzo Carrello</label> <input type="text" name="prezzoCarrello" th:value="*{prezzoCarrello}" class="form-control" id="prezzoCarrello">
                         </div>
                         <input type="submit" class="btn btn-primary" name="action" value="AggiungiAlCarrello">
+                        <div class="form-group col-md-6">
+                            <label for="codiceCarta" class="col-form-label">Codice Carta</label>
+                            <input type="text" name="codiceCarta" th:value="*{codiceCarta}" class="form-control" id="codiceCarta" >
+                        </div>
                     </form>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <div class="container-fluid">
+                        <div>
+                            <form th:action="@{/addettonegozio/ricercaCliente}">
+                                <input type="submit" class="btn btn-primary" onclick="$('ricercaClientePerAssegnaCarta'.toggle();">
+                            </form>
+                        </div>
+                        <br>
+                        <br>
+                        <div id="ricercaClientePerAssegnaCarta" style="display:none">
+                            <form action="#" th:action="@{/addettonegozio/getCliente}" method="post">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="email" class="col-form-label">Email</label> <input type="text" name="email" class="form-control" id="email">
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
