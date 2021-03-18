@@ -438,6 +438,17 @@ public class IAddettoNegozio {
 //        }
     }
 
+    @GetMapping("/checkout")
+    public String homecheckout(){
+        return "addetto/checkout/checkout";
+    }
+
+    @PostMapping("/checkout")
+    public String getCheckoutForm(Model model, Long codiceCarta) {
+        model.addAttribute("codiceCarta", codiceCarta);
+        return "addetto/checkout/checkout";
+    }
+
     /***********************Assegnazione Carta****************************/
 
     @GetMapping("/ricercaCliente")
@@ -453,8 +464,11 @@ public class IAddettoNegozio {
 
     @PostMapping("/getCliente/{id}")
     public String assegnaCarta(@PathVariable Long id, TipoScontoCliente tipoScontoCliente, Model model) {
-        gestoreAddetti.assegnaCarta(id, tipoScontoCliente);
-        return "home/homeAddetto";
+//        gestoreAddetti.assegnaCarta(id, tipoScontoCliente);
+        model.addAttribute("userList", gestoreAddetti.getCliente(id));
+        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(id, tipoScontoCliente));
+        return "addetto/clienteAssegnazioneCarta";
+//        return new ModelAndView("redirect:/addettoNegozio/getCliente/"+id, model);
     }
 
 //    void inviaCodiceAlCheckoutButtonEvent() {
