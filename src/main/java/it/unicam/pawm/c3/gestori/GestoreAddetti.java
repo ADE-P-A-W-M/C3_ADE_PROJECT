@@ -173,6 +173,7 @@ public class GestoreAddetti {
         return cc;
     }
 
+
     /*********Consulta Inventario****************/
 
     public List<MerceInventarioNegozio> getInventario() {

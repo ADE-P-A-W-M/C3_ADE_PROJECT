@@ -7,6 +7,7 @@ import it.unicam.pawm.c3.gestori.GestoreAddetti;
 import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.User;
 import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
 import it.unicam.pawm.c3.vendita.TipoDiRitiro;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/addettonegozio")
@@ -81,6 +84,7 @@ public class IAddettoNegozio {
         //model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
         return "addetto/checkout/checkoutForm";
     }
+
     @PostMapping(value="/checkout",params="action=AggiungiAlCarrello")
     public String getCheckout(Model model,Long id,Double quantita,Double prezzo,Double sconto) {
         model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
@@ -90,6 +94,21 @@ public class IAddettoNegozio {
     @PostMapping(value="/checkout", params = "action=PassaggioCarta")
     public String getCheckoutPassaggioCarta(Model model, Long codiceCarta){
         model.addAttribute("codiceCarta", codiceCarta);
+        return "addetto/checkout/checkoutForm";
+    }
+
+    @PostMapping(value="/checkout", params ="action=CercaUserPerAssegnaCarta")
+    public String getClienti(String email, Model model){
+        model.addAttribute("userList",gestoreAddetti.getCliente(email));
+        return "addetto/checkout/checkoutForm";
+    }
+
+    @PostMapping(value="/checkout", params="action=GeneraCartaInCheckout")
+    public String assegnaCartaInCheckout(String email1, TipoScontoCliente tipoScontoCliente, Model model) {
+        System.out.println(email1);
+//        model.addAttribute("userList", gestoreAddetti.getCliente(email));
+//        Optional<User> user = userRepository.findByEmail(email);
+//        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
         return "addetto/checkout/checkoutForm";
     }
 
