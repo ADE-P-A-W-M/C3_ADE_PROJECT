@@ -65,7 +65,27 @@ public class IAddettoNegozio {
 //    public double getSconto(long id) {
 //        return gestoreAddetti.getSconto(id);
 //    }
-
+    @GetMapping("/loadCheckout")
+    public String blankCheckoutForm() {
+        return "checkoutForm";
+    }
+    @PostMapping(value="/checkout",params="action=TrovaMerce")
+    public String getCheckoutForm(Model model,Long id,Double quantita,Double prezzoCarrello) {
+        double prezzo=gestoreAddetti.getPrezzo(id,quantita);
+        double sconto=gestoreAddetti.getSconto(id);
+        model.addAttribute("id",id);
+        model.addAttribute("quantita",quantita);
+        model.addAttribute("prezzo",prezzo);
+        model.addAttribute("sconto",sconto);
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        //model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
+        return "checkoutForm";
+    }
+    @PostMapping(value="/checkout",params="action=AggiungiAlCarrello")
+    public String getCheckout(Model model,Long id,Double quantita,Double prezzo,Double sconto) {
+        model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
+        return "checkoutForm";
+    }
 
 
     void trovaPrezzoEScontoButtonEvent() {
