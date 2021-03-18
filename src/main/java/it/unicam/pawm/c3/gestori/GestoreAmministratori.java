@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +54,13 @@ public class GestoreAmministratori {
         } else {
             throw new IllegalStateException("cliente non presente");
         }
+    }
+
+    public List<User> searchCliente(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        List<User> list = new ArrayList<>();
+        list.add(user.get());
+        return list;
     }
 
     /**
