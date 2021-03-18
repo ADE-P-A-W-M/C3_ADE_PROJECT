@@ -98,17 +98,19 @@ public class IAddettoNegozio {
     }
 
     @PostMapping(value="/checkout", params ="action=CercaUserPerAssegnaCarta")
-    public String getClienti(String email, Model model){
+    public String getClienti(String email,Double prezzoCarrello, Model model){
         model.addAttribute("userList",gestoreAddetti.getCliente(email));
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        System.out.println("prezzoooo  :  "+prezzoCarrello);
         return "addetto/checkout/checkoutForm";
     }
 
     @PostMapping(value="/checkout", params="action=GeneraCartaInCheckout")
-    public String assegnaCartaInCheckout(String email1, TipoScontoCliente tipoScontoCliente, Model model) {
-        System.out.println(email1);
-//        model.addAttribute("userList", gestoreAddetti.getCliente(email));
-//        Optional<User> user = userRepository.findByEmail(email);
-//        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
+    public String assegnaCartaInCheckout(String email1, TipoScontoCliente tipoScontoCliente,Double prezzoCarrello,Model model) {
+        model.addAttribute("userList", gestoreAddetti.getCliente(email1));
+        Optional<User> user = userRepository.findByEmail(email1);
+        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
         return "addetto/checkout/checkoutForm";
     }
 
