@@ -32,7 +32,7 @@ public class GestoreAddetti {
     private UserRepository userRepository;
     @Autowired
     private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
-
+    @Autowired
     private GestoreCheckout gestoreCheckout;
     @Autowired
     private GestoreCarte gestoreCarte;
