@@ -86,6 +86,10 @@ public class GestoreAddetti {
         gestoreCheckout.checkoutCompletato();
     }
 
+    public void checkoutCompletato(long cc) {
+        gestoreCheckout.checkoutCompletato(cc, getNegozio());
+    }
+
     public void annullaCheckout() {
         gestoreCheckout.annullaCheckout(getNegozio());
     }
@@ -198,4 +202,8 @@ public class GestoreAddetti {
         gestoreVendite.confermaConsegnaVenditaAssegnata(id, getNegozio());
     }
 
+
+    public Long getClienteFromCodiceCarta(Long codiceCarta) {
+        return gestoreCarte.getClienteFromCodiceCarta(codiceCarta, getNegozio());
+    }
 }

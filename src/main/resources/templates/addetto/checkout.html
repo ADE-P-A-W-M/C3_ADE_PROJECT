@@ -10,8 +10,6 @@
         <!-- Bootstrap JS -->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
-
-    </head>
     </head>
     <body>
     <!--NAVBAR-->
@@ -93,8 +91,6 @@
                                 <br>
                                 <br>
                                 <label for="prezzoCarrello" class="col-form-label">Prezzo Carrello</label> <input type="text" name="prezzoCarrello" th:value="*{prezzoCarrello}" class="form-control" id="prezzoCarrello">
-                                <br>
-                                <br>
                                 <label for="codiceCarta" class="col-form-label">Codice Carta</label>
                                 <input type="text" name="codiceCarta" th:value="*{codiceCarta}" class="form-control" id="codiceCarta" >
                                 <br>
@@ -103,13 +99,30 @@
                                         <input type="submit" class="btn btn-primary" name="action" value="VerificaCodice">
                                     </div>
                                     <div style="float: right; width: 225px">
-                                        <input type="submit" class="btn btn-primary" name="action" value="ProcediSenzaCarta">
+                                        <input type="submit" class="btn btn-primary" name="action" value="ApplicaScontoCarta">
                                     </div>
                                 </div>
                                 <br>
                                 <div class="alert">
                                     <strong><span onclick="this.parentElement.style.display='none';" th:if="${resultVerifica}" th:text="${resultVerifica}" th:class="${'resultVerifica ' + resultVerifica}"></span></strong>
                                 </div>
+                                <label for="denaroRicevuto" class="col-form-label">Denaro Ricevuto</label> <input type="text" th:value="*{denaroRicevuto}" name="denaroRicevuto" class="form-control" id="denaroRicevuto" >
+                                <br>
+                                <input type="submit" class="btn btn-primary" name="action" value="CalcolaResto">
+                                <br>
+                                <br>
+                                <label for="resto" class="col-form-label">Resto</label> <input type="text" th:value="*{resto}" name="resto" class="form-control" id="resto" >
+                                <br>
+                                <div id="completaOannullaCheckout" style="width:400px;">
+                                    <div style="float: left; width: 130px">
+                                        <input type="submit" class="btn btn-primary" name="action" value="CompletaCheckout">
+                                    </div>
+                                    <div style="float: right; width: 225px">
+                                        <input type="submit" class="btn btn-primary" name="action" value="AnnullaCheckout">
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
                                 <hr class="divider">
                                 <h4>Parte Assegnazione Carta Al Cliente</h4>
                                 <label for="email" class="col-form-label">Email</label>

@@ -152,4 +152,15 @@ public class GestoreCarte {
         }
         return 0;
     }
+
+    public Long getClienteFromCodiceCarta(Long codiceCarta, Negozio negozio) {
+        Iterator<Carta> cartaIterator = negozio.getCarte().iterator();
+        while(cartaIterator.hasNext()){
+            Carta carta = cartaIterator.next();
+            if(carta.getCodice()==codiceCarta){
+                return carta.getCliente().getId();
+            }
+        }
+        return 0L;
+    }
 }

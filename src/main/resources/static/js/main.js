@@ -1,3 +1,4 @@
-function toggler(divId) {
-    $("#" + divId).toggle();
-}
+// function toggler(divId) {
+//     $("#" + divId).toggle();
+// }
+

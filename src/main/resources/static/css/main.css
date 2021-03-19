@@ -120,6 +120,10 @@ p {
     background-color: #2B2B2B;
 }
 
+.table tbody tr.highlight td {
+    background-color: #ddd;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
