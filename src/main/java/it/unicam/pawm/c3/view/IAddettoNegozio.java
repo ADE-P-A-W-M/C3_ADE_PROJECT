@@ -88,16 +88,27 @@ public class IAddettoNegozio {
     }
 
     @PostMapping(value = "/checkout", params = "action=CompletaCheckout")
-    public String completaCheckout(Long codiceCarta){
+    public String completaCheckout(Long codiceCarta,@RequestParam(value = "checkboxName", required = false) String checkboxValue){
         gestoreAddetti.checkoutCompletato(codiceCarta);
-        Long id = gestoreAddetti.getClienteFromCodiceCarta(codiceCarta);
-        return "redirect:"+id;
+        if(checkboxValue != null)
+        {
+            Long id = gestoreAddetti.getClienteFromCodiceCarta(codiceCarta);
+            return "redirect:"+id;
+        }
+        else
+        {
+            return "home/homeAddetto";
+        }
     }
-
     @PostMapping(value = "/checkout", params = "action=AnnullaCheckout")
     public String annullaCheckout(){
         gestoreAddetti.annullaCheckout();
         return "home/homeAddetto";
+    }
+    @GetMapping("/checkout/{id}")
+    public String askForRegistraVendita(@PathVariable Long id) {
+
+        return "addetto/askForRegistraVendita";
     }
 
     /*************************Richiesta Carta*****************************/
