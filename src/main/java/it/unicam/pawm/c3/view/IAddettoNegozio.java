@@ -7,6 +7,7 @@ import it.unicam.pawm.c3.gestori.GestoreAddetti;
 import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.persistenza.*;
 import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.User;
 import it.unicam.pawm.c3.vendita.LuogoDiRitiro;
 import it.unicam.pawm.c3.vendita.TipoDiRitiro;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/addettonegozio")
@@ -43,7 +42,6 @@ public class IAddettoNegozio {
     @Autowired
     private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
 
-
     @Autowired
     public IAddettoNegozio() {
         this.gestoreAddetti = new GestoreAddetti();
@@ -57,208 +55,110 @@ public class IAddettoNegozio {
         return "home/homeAddetto";
     }
 
-    //    public void startCarrello(){
-//        gestoreAddetti.startCarrello();
-//    }
-
-//    public double getPrezzo(long id, double quantita){
-//        return gestoreAddetti.getPrezzo(id, quantita);
-//    }
-
-//    public double getSconto(long id) {
-//        return gestoreAddetti.getSconto(id);
-//    }
-
-
-
-    void trovaPrezzoEScontoButtonEvent() {
-//        try{
-//            prezzoMerce.setText(String.valueOf(getPrezzo(Long.parseLong(idMerce.getText()), Double.parseDouble(quantitaMerce.getText()))));
-//        } catch (Exception e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR, "Inserire quantita", ButtonType.OK);
-//            alert.show();
-//        }
-//        if(prezzoMerce.getText()=="0"){
-//            Alert alert = new Alert(Alert.AlertType.ERROR,"Merce inserita non presente, inserire il prezzo manualmente", ButtonType.OK);
-//            alert.show();
-//        }
-//        scontoMerce.setText(String.valueOf(getSconto(Long.parseLong(idMerce.getText()))));
-//        if(scontoMerce.getText()=="0"){
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Merce inserita non ha uno sconto, puoi inserire sconto manualmente", ButtonType.OK);
-//            alert.show();
-//        }
+    @GetMapping("/checkout")
+    public String blankCheckoutForm(Model model) {
+        gestoreAddetti.startCarrello();
+        model.addAttribute("message", "hello");
+        return "addetto/checkout";
     }
 
-//    public double aggiuntaMerceNelCarrello(double prezzo, double sconto, long id, double quantita){
-//        return gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita);
-//    }
-
-    void inserisciButtonEvent() {
-//        prezzoCarrello.setText(String.valueOf(aggiuntaMerceNelCarrello(Double.parseDouble(prezzoMerce.getText()),Double.parseDouble(scontoMerce.getText()),Integer.parseInt(idMerce.getText()),Double.parseDouble(quantitaMerce.getText()))));
-//        clearCheckoutFields();
+    @PostMapping(value="/checkout",params="action=TrovaMerce")
+    public String getCheckoutForm(Model model,Long id,Double quantita,Double prezzoCarrello) {
+        double prezzo=gestoreAddetti.getPrezzo(id,quantita);
+        double sconto=gestoreAddetti.getSconto(id);
+        model.addAttribute("id",id);
+        model.addAttribute("quantita",quantita);
+        model.addAttribute("prezzo",prezzo);
+        model.addAttribute("sconto",sconto);
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        return "addetto/checkout";
     }
 
-    private void clearCheckoutFields() {
-//        idMerce.clear();
-//        quantitaMerce.clear();
-//        prezzoMerce.clear();
-//        scontoMerce.clear();
+    @PostMapping(value="/checkout",params="action=AggiungiAlCarrello")
+    public String getCheckout(Model model,Long id,Double quantita,Double prezzo,Double sconto) {
+        model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
+        return "addetto/checkout";
     }
 
-    /********************Richiesta Carta******************/
-
-    public void initRichiestaCartField() {
-//        tabRegistraVendita.setDisable(true);
-//        siCartaDisponibile.setVisible(false);
-//        noCartaDisponibile.setVisible(false);
-//        cdLabel.setVisible(false);
-//        cartaDisponibileButton.setVisible(false);
-//        codiceCarta.setVisible(false);
-//        codiceFiscale.setVisible(false);
-//        confermaCF.setVisible(false);
-//        verificaCodice.setVisible(false);
-//        iscrizioneClienteCheckout.setVisible(false);
-//        codiceCartaLabel.setVisible(false);
-//        codiceFiscaleLabel.setVisible(false);
-//        applyScontoCartaButton.setVisible(false);
-//        answerRegistraVenditaLabel.setVisible(false);
-//        siRegistraVendita.setVisible(false);
-//        noRegistraVendita.setVisible(false);
-//        registraVenditaButton.setVisible(false);
-//        noScontoCartaButton.setVisible(false);
-//        denaroRicevutoLabel.setVisible(false);
-//        denaroRicevuto.setVisible(false);
-//        calcolaRestoButton.setVisible(false);
-//        resto.setVisible(false);
-//        restoLabel.setVisible(false);
-//        checkoutCompletedButton.setVisible(false);
-//        annullaCheckoutButton.setVisible(false);
-//        idMerce.clear();
-//        quantitaMerce.clear();
-//        prezzoMerce.clear();
-//        prezzoCarrello.clear();
-//        prezzoTotale.clear();
-//        codiceFiscale.clear();
-//        codiceCarta.clear();
-//        denaroRicevuto.clear();
-//        resto.clear();
+    @PostMapping(value = "/checkout", params = "action=CalcolaResto")
+    public String calcolaResto(Model model, Double denaroRicevuto, Double prezzoCarrello, Long codiceCarta){
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        model.addAttribute("denaroRicevuto", denaroRicevuto);
+        model.addAttribute("codiceCarta", codiceCarta);
+        model.addAttribute("resto", gestoreAddetti.calcoraResto(denaroRicevuto));
+        return "addetto/checkout";
     }
 
-    /********************Richiesta Carta******************/
-
-    private void possessoCarta(boolean flag){
-//        if(flag){
-//            siCartaDisponibile.setVisible(true);
-//            noCartaDisponibile.setVisible(true);
-//            cartaDisponibileButton.setVisible(true);
-//            cdLabel.setVisible(true);
-//        } else {
-//            codiceCarta.setText("0");
-//            iscrizioneClienteCheckout.setVisible(true);
-//            codiceCarta.setVisible(true);
-//            codiceCartaLabel.setVisible(true);
-//            noScontoCartaButton.setVisible(true);
-//        }
+    @PostMapping(value = "/checkout", params = "action=CompletaCheckout")
+    public String completaCheckout(Long codiceCarta){
+        gestoreAddetti.checkoutCompletato(codiceCarta);
+        Long id = gestoreAddetti.getClienteFromCodiceCarta(codiceCarta);
+        return "redirect:"+id;
     }
 
-    void possessoCartaButtonEvent() {
-//        if(siCarta.isSelected()){
-//            possessoCarta(true);
-//        } else {
-//            if(noCarta.isSelected()){
-//                possessoCarta(false);
-//            }
-//        }
+    @PostMapping(value = "/checkout", params = "action=AnnullaCheckout")
+    public String annullaCheckout(){
+        gestoreAddetti.annullaCheckout();
+        return "home/homeAddetto";
     }
 
-    private void disponibilitaCarta(boolean disponibilita){
-//        if(disponibilita){
-//            codiceCarta.setVisible(true);
-//            verificaCodice.setVisible(true);
-//            codiceCartaLabel.setVisible(true);
-//        } else {
-//            codiceFiscale.setVisible(true);
-//            confermaCF.setVisible(true);
-//            codiceFiscaleLabel.setVisible(true);
-//        }
+    /*************************Richiesta Carta*****************************/
+
+    @PostMapping(value="/checkout", params ="action=CercaUserPerAssegnaCarta")
+    public String getClienti(String email,Double prezzoCarrello, Model model){
+        model.addAttribute("userList",gestoreAddetti.getCliente(email));
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        return "addetto/checkout";
     }
 
-    void cartaDisponibileButton() {
-//        if(siCartaDisponibile.isSelected()) {
-//            disponibilitaCarta(true);
-//        } else {
-//            if(noCartaDisponibile.isSelected()) {
-//                disponibilitaCarta(false);
-//            }
-//        }
+    @PostMapping(value="/checkout", params="action=GeneraCartaInCheckout")
+    public String assegnaCartaInCheckout(String email1, TipoScontoCliente tipoScontoCliente,Double prezzoCarrello,Model model) {
+        model.addAttribute("userList", gestoreAddetti.getCliente(email1));
+        Optional<User> user = userRepository.findByEmail(email1);
+        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        return "addetto/checkout";
     }
 
-//    public boolean verificaCodiceCarta(long cc) {
-//        return gestoreAddetti.verificaCodiceCarta(cc);
-//    }
-
-//    public long searchCodiceCartaByEmail(String email) {
-//        return gestoreAddetti.searchCodiceCartaFromEmail(email);
-//    }
-
-    void verificaCodiceCartaButton() {
-//        if(verificaCodiceCarta(Long.parseLong(codiceCarta.getText()))) {
-//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Codice Carta valido!", ButtonType.OK);
-//            alert.show();
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR,"Codice Carta non valido!", ButtonType.OK);
-//            alert.show();
-//        }
-//        applyScontoCartaButton.setVisible(true);
+    @PostMapping(value="/checkout", params = "action=RecuperaCodiceCartaDaEmail")
+    public String recuperaCodiceCartaByEmail(String email2, Model model,Double prezzoCarrello ){
+        model.addAttribute("codiceCarta", gestoreAddetti.searchCodiceCartaFromEmail(email2));
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        return "addetto/checkout";
     }
 
-    void confermaCFButton() {
-//        codiceCarta.setVisible(true);
-//        codiceCartaLabel.setVisible(true);
-//        codiceCarta.setText(String.valueOf(searchCodiceCartaByEmail(codiceFiscale.getText())));
-//        if(codiceFiscale.getText()=="0") {
-//            Alert alert = new Alert(Alert.AlertType.ERROR,"Codice Carta non trovato!", ButtonType.OK);
-//            alert.show();
-//        }
-//        applyScontoCartaButton.setVisible(true);
+    @PostMapping(value="/checkout", params = "action=VerificaCodice")
+    public String verificaCodice(Long codiceCarta, Model model, Double prezzoCarrello){
+        if(gestoreAddetti.verificaCodiceCarta(codiceCarta)){
+            model.addAttribute("resultVerifica", "codice corretto");
+            model.addAttribute("codiceCarta", codiceCarta);
+        } else {
+            model.addAttribute("resultVerifica", "codice non valido");
+        }
+        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        return "addetto/checkout";
     }
 
-    private void richiestaAssegnazioneCarta(boolean flag){
-//        if(flag){
-//            applyScontoCartaButton.setVisible(true);
-//            noScontoCartaButton.setVisible(false);
-//            inviaCodiceAlCheckoutButton.setVisible(true);
-//            tabPaneAddetto.getSelectionModel().select(assegnaCartaTab);
-//        } else {
-//            codiceCarta.setText("0");
-//        }
+    @PostMapping(value="/checkout", params = "action=ApplicaScontoCarta")
+    public String applicaScontoCarta(Long codiceCarta, Model model, Double prezzoCarrello){
+        if(codiceCarta!=null){
+            model.addAttribute("prezzoCarrello", gestoreAddetti.applyScontoCarta(codiceCarta));
+            model.addAttribute("codiceCarta", codiceCarta);
+        } else {
+            model.addAttribute("codiceCarta", 0);
+            model.addAttribute("prezzoCarrello", prezzoCarrello);
+        }
+        return "addetto/checkout";
+
     }
 
-    void iscrizioneClienteCheckoutButtonEvent() {
-        richiestaAssegnazioneCarta(true);
+    @PostMapping(value = "/checkout", params = "action=ProcediSenzaCarta")
+    public String procediSenzaCodice(Double prezzoCarrello, Model model){
+        model.addAttribute("prezzoCarrello", prezzoCarrello);
+        model.addAttribute("codiceCarta", 0);
+        return "addetto/checkout";
     }
 
-    /********************Fine Richiesta Carta*******************/
-
-//    public double applyScontoCarta(long cc){
-//        return gestoreAddetti.applyScontoCarta(cc);
-//    }
-
-    void applyScontoCartaButtonEvent() {
-//        prezzoTotale.setText(String.valueOf(applyScontoCarta(Long.parseLong(codiceCarta.getText()))));
-//        answerRegistraVenditaLabel.setVisible(true);
-//        siRegistraVendita.setVisible(true);
-//        noRegistraVendita.setVisible(true);
-//        registraVenditaButton.setVisible(true);
-    }
-
-    void noScontoCartaButtonEvent() {
-//        prezzoTotale.setText(String.valueOf(applyScontoCarta(Long.parseLong(codiceCarta.getText()))));
-//        answerRegistraVenditaLabel.setVisible(true);
-//        siRegistraVendita.setVisible(true);
-//        noRegistraVendita.setVisible(true);
-//        registraVenditaButton.setVisible(true);
-    }
 
     private void registraVendita(boolean flag,long cc){
         if(flag && cc==0){
@@ -506,6 +406,17 @@ public class IAddettoNegozio {
 //            alert.show();
 //        }
     }
+//
+//    @GetMapping("/checkout")
+//    public String homecheckout(){
+//        return "addetto/checkout/checkout";
+//    }
+
+//    @PostMapping("/checkout")
+//    public String getCheckoutForm(Model model, Long codiceCarta) {
+//        model.addAttribute("codiceCarta", codiceCarta);
+//        return "addetto/checkout/checkout";
+//    }
 
     /***********************Assegnazione Carta****************************/
 
@@ -522,15 +433,10 @@ public class IAddettoNegozio {
 
     @PostMapping("/getCliente/{id}")
     public String assegnaCarta(@PathVariable Long id, TipoScontoCliente tipoScontoCliente, Model model) {
-        gestoreAddetti.assegnaCarta(id, tipoScontoCliente);
+        model.addAttribute("userList", gestoreAddetti.getCliente(id));
+        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(id, tipoScontoCliente));
         return "home/homeAddetto";
     }
-
-//    void inviaCodiceAlCheckoutButtonEvent() {
-//    }
-
-//    void inviaCodiceAllaRegistrazioneButtonEvent(){
-//    }
 
     /******************Interfaccia Consulta Inventario*********************/
 

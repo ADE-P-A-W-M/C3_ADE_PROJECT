@@ -164,6 +164,10 @@ public class GestoreCheckout {
         svuotaCarrello();
     }
 
+    public void checkoutCompletato(long cc, Negozio negozio){
+        registraAcquistoCliente(cc, negozio);
+    }
+
     public void reinserimentoQuantita(Negozio negozio){
         gestoreMerci.reinserimentoQuantita(negozio, getMerciCarrello());
     }
@@ -279,13 +283,13 @@ public class GestoreCheckout {
      * @param negozio in cui si lavora
      */
     public void registraAcquistoCliente(long cc, Negozio negozio) {
-//        Carta carta = searchCarta(cc, negozio);
-//        Vendita v = new Vendita(getPrezzoCarrello(), getMerciCarrello());
-//        venditaRepository.save(v);
-//        carta.getCliente().getAcquisti().add(v);
-//        clienteRepository.save(carta.getCliente());
-//        negozio.addVendita(v);
-//        negozioRepository.save(negozio);
+        Carta carta = searchCarta(cc, negozio);
+        Vendita v = new Vendita(getPrezzoCarrello(), getMerciCarrello());
+        venditaRepository.save(v);
+        carta.getCliente().getAcquisti().add(v);
+        clienteRepository.save(carta.getCliente());
+        negozio.addVendita(v);
+        negozioRepository.save(negozio);
     }
 
     public Carta searchCarta(long cc, Negozio negozio) {

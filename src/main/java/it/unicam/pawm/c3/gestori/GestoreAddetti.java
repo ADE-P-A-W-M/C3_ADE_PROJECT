@@ -86,6 +86,10 @@ public class GestoreAddetti {
         gestoreCheckout.checkoutCompletato();
     }
 
+    public void checkoutCompletato(long cc) {
+        gestoreCheckout.checkoutCompletato(cc, getNegozio());
+    }
+
     public void annullaCheckout() {
         gestoreCheckout.annullaCheckout(getNegozio());
     }
@@ -140,6 +144,17 @@ public class GestoreAddetti {
         throw new IllegalStateException("cliente non presente");
     }
 
+    public List<User> getCliente(Long id){
+        List<User> userList = new ArrayList<>();
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            userList.add(user.get());
+            return userList;
+        }
+        negozioRepository.save(getNegozio());
+        throw new IllegalStateException("cliente non presente");
+    }
+
     public long assegnaCarta(Long id, TipoScontoCliente tsc){
         long cc=0L;
         Iterator<User> userList=userRepository.findAll().iterator();
@@ -166,10 +181,6 @@ public class GestoreAddetti {
         return getNegozio().getMerceInventarioNegozio();
     }
 
-    public String getInfoMerce(MerceInventarioNegozio min) {
-        return gestoreMerci.getInfoMerce(min);
-    }
-
     public List<MerceInventarioNegozio> getInfoMerce(Long id) {
         MerceInventarioNegozio min = gestoreMerci.getInfoMerce(id);
         List<MerceInventarioNegozio> minList = new ArrayList<>();
@@ -178,10 +189,6 @@ public class GestoreAddetti {
     }
 
     /************Consegna Vendita Assegnata******************/
-
-//    public List<VenditaSpedita> getAcquistiClienteDaRitirare(String email) {
-//        return gestoreVendite.getAcquistiClienteDaRitirare(email, getNegozio());
-//    }
 
     public List<VenditaSpedita> getAcquistiClienteDaRitare(Long id) {
         return gestoreVendite.getAcquistiClienteDaRitirare(id,getNegozio());
@@ -195,4 +202,8 @@ public class GestoreAddetti {
         gestoreVendite.confermaConsegnaVenditaAssegnata(id, getNegozio());
     }
 
+
+    public Long getClienteFromCodiceCarta(Long codiceCarta) {
+        return gestoreCarte.getClienteFromCodiceCarta(codiceCarta, getNegozio());
+    }
 }

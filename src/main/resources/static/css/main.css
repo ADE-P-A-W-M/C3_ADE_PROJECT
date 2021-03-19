@@ -107,6 +107,23 @@ p {
     background: none;
 }
 
+.hidden {
+    display:none;
+}
+
+.divider {
+    height: 3px;
+    width:100%;
+    display:block; /* for use on default inline elements like span */
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #2B2B2B;
+}
+
+.table tbody tr.highlight td {
+    background-color: #ddd;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;

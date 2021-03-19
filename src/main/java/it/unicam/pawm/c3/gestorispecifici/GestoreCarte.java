@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Iterator;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -96,15 +97,20 @@ public class GestoreCarte {
      * @return il codice della carta del cliente o in mancanza di risultato positivo verà ritornato zero
      */
     public long searchCodiceCartaFromEmail(String email,Negozio negozio) {
-//        if(!negozio.getCarte().isEmpty()) {
-//            Iterator<Carta> it = negozio.getCarte().iterator();
-//            while (it.hasNext()) {
-//                Carta c = it.next();
-//                if (c.getCliente().getEmail().equals(email)) {
-//                    return c.getCodice();
-//                }
-//            }
-//        }
+        if(!negozio.getCarte().isEmpty()) {
+            Iterator<Carta> it = negozio.getCarte().iterator();
+            while (it.hasNext()) {
+                Carta c = it.next();
+                Optional<User> user = userRepository.findByEmail(email);
+                for(Ruolo ruolo : user.get().getRuolo()){
+                    if(ruolo.getRuoloSistema().equals(RuoloSistema.CLIENTE)){
+                        if(ruolo.getId()==c.getCliente().getId()){
+                            return c.getCodice();
+                        }
+                    }
+                }
+            }
+        }
         return 0;
     }
 
@@ -145,5 +151,16 @@ public class GestoreCarte {
             }
         }
         return 0;
+    }
+
+    public Long getClienteFromCodiceCarta(Long codiceCarta, Negozio negozio) {
+        Iterator<Carta> cartaIterator = negozio.getCarte().iterator();
+        while(cartaIterator.hasNext()){
+            Carta carta = cartaIterator.next();
+            if(carta.getCodice()==codiceCarta){
+                return carta.getCliente().getId();
+            }
+        }
+        return 0L;
     }
 }
