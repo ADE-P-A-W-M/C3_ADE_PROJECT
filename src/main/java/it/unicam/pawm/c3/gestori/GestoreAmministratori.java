@@ -2,8 +2,6 @@ package it.unicam.pawm.c3.gestori;
 
 import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.merce.Categoria;
-import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
-import it.unicam.pawm.c3.persistenza.ClienteRepository;
 import it.unicam.pawm.c3.persistenza.NegozioRepository;
 import it.unicam.pawm.c3.persistenza.RuoloRepository;
 import it.unicam.pawm.c3.persistenza.UserRepository;
@@ -12,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -94,7 +89,7 @@ public class GestoreAmministratori {
      * @param piva del nuovo negozio
      * @param indirizzo del nuovo negozio
      */
-    public void registraNegozio(List<Categoria> categorie, Long id, String nome, String piva, String indirizzo) {
+    public void registraNegozio(Set<Categoria> categorie, Long id, String nome, String piva, String indirizzo) {
         Iterator<User> userIterator=userRepository.findAll().iterator();
         while(userIterator.hasNext()) {
             User user= userIterator.next();

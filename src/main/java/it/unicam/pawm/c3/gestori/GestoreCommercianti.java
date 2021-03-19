@@ -121,8 +121,8 @@ public class GestoreCommercianti {
     public void addCorriere(Long id) {
         Corriere corriere = corriereRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid corriere Id:" + id));
-        negozio.addCorriere(corriere);
-        negozioRepository.save(negozio);
+        getNegozio().addCorriere(corriere);
+        negozioRepository.save(getNegozio());
     }
 
     /****************Assunzione Addetto*******************/

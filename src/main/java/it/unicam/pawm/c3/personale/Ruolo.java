@@ -9,7 +9,8 @@ import javax.persistence.*;
 public abstract class Ruolo{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Enumerated(value = EnumType.STRING)

@@ -12,14 +12,17 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "negozio")
 public class Negozio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
     private String indirizzo;
@@ -28,15 +31,22 @@ public class Negozio {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "categorie_negozi", joinColumns = @JoinColumn(name = "id"))
     @Enumerated(EnumType.STRING)
-    private List<Categoria> settori;
+    private Set<Categoria> settori;
 
     @OneToMany(cascade = CascadeType.MERGE)
     @JoinColumn(name = "negozio_fk", referencedColumnName = "id")
     private List<AddettoNegozio> addettiNegozio;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "negozio_corriere", joinColumns = @JoinColumn(name = "negozio_id"),inverseJoinColumns = @JoinColumn(name = "corriere_id"))
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @JoinTable(name = "negozio_corriere", joinColumns = @JoinColumn(name = "negozio_id"),inverseJoinColumns = @JoinColumn(name = "corriere_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "negozio_corriere",
+            joinColumns = @JoinColumn(
+                    name = "negozio_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "corriere_id", referencedColumnName = "id"))
     private List<Corriere> corrieri;
 
     @OneToMany(targetEntity = Carta.class, cascade = CascadeType.MERGE)
@@ -61,7 +71,7 @@ public class Negozio {
 
     private boolean disponibilitaRitiro;
 
-    public Negozio(String nome, String indirizzo, String p_iva, List<Categoria> categorie){
+    public Negozio(String nome, String indirizzo, String p_iva, Set<Categoria> categorie){
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.p_iva = p_iva;
@@ -118,7 +128,7 @@ public class Negozio {
         return p_iva;
     }
 
-    public List<Categoria> getCategorie() {
+    public Set<Categoria> getCategorie() {
         return this.settori;
     }
 

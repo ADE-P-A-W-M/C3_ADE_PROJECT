@@ -9,10 +9,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 
@@ -78,13 +80,17 @@ public class ICommerciante {
         return "commerciante/showCorrieriDaAggiungere";
     }
 
+//    @GetMapping("showCorrieriDaAggiungere/add/{id}")
+//    public String addCorriere(@PathVariable Long id,Model model) {
+//        gestoreCommercianti.addCorriere(id);
+//        model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
+//        return "home/homeCommerciante";
+//    }
+
     @GetMapping("showCorrieriDaAggiungere/add/{id}")
-    public String addCorriere(@PathVariable Long id,Model model) {
-        System.out.println(id);
+    public ModelAndView addCorriere(@PathVariable Long id, ModelMap model) {
         gestoreCommercianti.addCorriere(id);
-        System.out.println(gestoreCommercianti.getCorrieri());
-        model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
-        return "commerciante/showCorrieriDaAggiungere";
+        return new ModelAndView("redirect:/commerciante/");
     }
 
     /******************Interfaccia assunzione addetto***************/

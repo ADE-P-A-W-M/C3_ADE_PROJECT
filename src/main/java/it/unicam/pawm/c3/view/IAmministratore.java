@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping(path = "/amministratore")
@@ -49,7 +49,7 @@ public class IAmministratore {
 
     @PostMapping("/addNegozio/{id}")
     public String addNegozio(@PathVariable Long id,Categoria categoria,String nomeDitta, String piva, String indirizzoRegistrazione, Model model) {
-        gestoreAmministratori.registraNegozio(List.of(categoria),id,nomeDitta,piva,indirizzoRegistrazione);
+        gestoreAmministratori.registraNegozio(Set.of(categoria),id,nomeDitta,piva,indirizzoRegistrazione);
         return "home/homeAmministratore";
     }
 
