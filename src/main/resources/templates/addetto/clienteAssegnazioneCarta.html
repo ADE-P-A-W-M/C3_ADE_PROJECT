@@ -106,28 +106,28 @@
                                         </tr>
                                         </tbody>
                                     </table>
-<!--                                    <form th:action="@{/addettonegozio/getCliente/{id}(id=${userList[0].id})}" method="post">-->
+                                    <form th:action="@{/addettonegozio/getCliente/{id}(id=${userList[0].id})}" method="post">
 
-<!--                                        <select name="tipoScontoCliente">-->
-<!--                                            <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"-->
-<!--                                                    th:value="${tipoScontoCliente}" th:text="${tipoScontoCliente}"></option>-->
-<!--                                        </select>-->
+                                        <select name="tipoScontoCliente">
+                                            <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"
+                                                    th:value="${tipoScontoCliente}" th:text="${tipoScontoCliente}"></option>
+                                        </select>
 
-<!--                                        <input type="submit" class="btn btn-primary" value="Assegna carta">-->
+                                        <input type="submit" class="btn btn-primary" value="Assegna carta">
 
-<!--                                    </form>-->
+                                    </form>
 
                                     <br>
 
-                                    <form th:action="@{/addettonegozio/checkout}" method="post">
-                                        <div class="form-group col-md-6">
-                                            <label for="codiceCarta" class="col-form-label">Codice Carta</label>
-                                            <input type="text" name="codiceCarta" th:value="*{codiceCarta}" class="form-control" id="codiceCarta" >
-                                        </div>
-                                        <div>
-                                            <input type="submit" class="btn btn-primary" name="action" value="PassaggioCarta">
-                                        </div>
-                                    </form>
+<!--                                    <form th:action="@{/addettonegozio/checkout}" method="post">-->
+<!--                                        <div class="form-group col-md-6">-->
+<!--                                            <label for="codiceCarta" class="col-form-label">Codice Carta</label>-->
+<!--                                            <input type="text" name="codiceCarta" th:value="*{codiceCarta}" class="form-control" id="codiceCarta" >-->
+<!--                                        </div>-->
+<!--                                        <div>-->
+<!--                                            <input type="submit" class="btn btn-primary" name="action" value="PassaggioCarta">-->
+<!--                                        </div>-->
+<!--                                    </form>-->
                                 </div>
                             </div>
                         </div>

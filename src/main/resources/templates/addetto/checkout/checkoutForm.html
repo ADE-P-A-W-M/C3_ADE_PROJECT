@@ -94,12 +94,23 @@
                                 <br>
                                 <label for="prezzoCarrello" class="col-form-label">Prezzo Carrello</label> <input type="text" name="prezzoCarrello" th:value="*{prezzoCarrello}" class="form-control" id="prezzoCarrello">
                                 <br>
-                                <hr class="divider">
                                 <br>
                                 <label for="codiceCarta" class="col-form-label">Codice Carta</label>
                                 <input type="text" name="codiceCarta" th:value="*{codiceCarta}" class="form-control" id="codiceCarta" >
                                 <br>
-                                <input type="submit" class="btn btn-primary" name="action" value="VerificaCodice">
+                                <div id="bottoniVerificaCodiceEProcediNoCodice" style="width:400px;">
+                                    <div style="float: left; width: 130px">
+                                        <input type="submit" class="btn btn-primary" name="action" value="VerificaCodice">
+                                    </div>
+                                    <div style="float: right; width: 225px">
+                                        <input type="submit" class="btn btn-primary" name="action" value="ProcediSenzaCarta">
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="alert">
+                                    <strong><span onclick="this.parentElement.style.display='none';" th:if="${resultVerifica}" th:text="${resultVerifica}" th:class="${'resultVerifica ' + resultVerifica}"></span></strong>
+                                </div>
+                                <br>
                                 <hr class="divider">
                                 <h4>Parte Assegnazione Carta Al Cliente</h4>
                                 <label for="email" class="col-form-label">Email</label>
