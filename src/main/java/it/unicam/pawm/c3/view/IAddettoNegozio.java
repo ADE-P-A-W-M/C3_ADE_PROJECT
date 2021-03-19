@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/addettonegozio")
 public class IAddettoNegozio {
@@ -341,6 +344,72 @@ public class IAddettoNegozio {
 
     /***********************Interfaccia registrazione vendita************************/
 
+    @GetMapping("/registrazioneVendita")
+    public String loadFormRegistrazione(){
+        return "addetto/formRegistraVendita";
+    }
+
+//    @PostMapping("/getRitiro")
+//    public String getRitiro(String ritiro,Model model){
+//        switch(ritiro){
+//            case "IN_LOCO":
+//                break;
+//            case "CORRIERE_DOMICILIO":
+//
+//                break;
+//            case "CORRIERE_NEGOZIO":
+//                break;
+//        }
+//        return "";
+//    }
+
+    @GetMapping("/getAll")
+    public String getAll(Model model){
+//        List<Corriere> corrieriList;
+//        corrieriList = gestoreAddetti.getCorrieriDisponibili();
+//        List<Negozio> negoziList;
+//        negoziList = gestoreAddetti.getNegoziDisponibili();
+//        model.addAttribute("corrieriList",corrieriList);
+//        model.addAttribute("negoziList",negoziList);
+
+        return "addetto/formRegistraVendita";
+    }
+
+    @PostMapping(value="/getAll",params = "action=iniziaRegistraVendita")
+    public String fillTables(Model model){
+
+        model.addAttribute("corrieriList",gestoreAddetti.getCorrieriDisponibili());
+
+        model.addAttribute("negoziList",gestoreAddetti.getNegoziDisponibili());
+
+
+        return "addetto/formRegistraVendita";
+    }
+
+    @PostMapping("/getCorrieriDisponibili")
+    public String getCorrieriDisponibili(TipoDiRitiro tipoDiRitiro,Model model){
+        List<Corriere> corrieriList = new ArrayList<>();
+        if(tipoDiRitiro.equals(TipoDiRitiro.CORRIERE)){
+            corrieriList = gestoreAddetti.getCorrieriDisponibili();
+        }
+        model.addAttribute("corrieriList",corrieriList);
+        return "addetto/formRegistraVendita";
+    }
+
+    @PostMapping("/getNegoziDisponibili")
+    public String getNegoziDisponibili(LuogoDiRitiro luogoDiRitiro,Model model){
+        List<Negozio> negoziList = new ArrayList<>();
+        if(luogoDiRitiro.equals(LuogoDiRitiro.NEGOZIO)){
+            negoziList = gestoreAddetti.getNegoziDisponibili();
+        }
+        model.addAttribute("negoziList",negoziList);
+        return "addetto/formRegistraVendita";
+
+    }
+
+
+
+
     private void initRegistrazioneVenditaField() {
 //        corrieriDisponibili.getItems().clear();
 //        puntiDiRitiroDisponibili.getItems().clear();
@@ -409,9 +478,9 @@ public class IAddettoNegozio {
 //        venditaButton.setVisible(true);
     }
 
-    void confermaLuogoDiRitiroButtonEvent() {
+//    void confermaLuogoDiRitiroButtonEvent() {
 //        selectLuogoDiRitiro(luogoDiRitiro.getSelectionModel().getSelectedItem());
-    }
+//    }
 
     private void registraAcquistoCliente(long cc, Negozio pdr, String indirizzo , Corriere corriere){
 //        gestoreAddetti.registraAcquistoCliente(cc,pdr,indirizzo, corriere);

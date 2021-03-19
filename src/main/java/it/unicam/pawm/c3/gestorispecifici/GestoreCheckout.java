@@ -32,9 +32,11 @@ public class GestoreCheckout {
     private ClienteRepository clienteRepository;
     @Autowired
     private RuoloRepository ruoloRepository;
-
+    @Autowired
     private GestoreCarte gestoreCarte;
+    @Autowired
     private GestoreMerci gestoreMerci;
+
     private List<MerceVendita> merciCarrello;
     private double prezzoCarrello;
 //    public GestoreCheckout(MerceVenditaRepository merceVenditaRepository, VenditaRepository venditaRepository, VenditaSpeditaRepository venditaSpeditaRepository, NegozioRepository negozioRepository, ClienteRepository clienteRepository, RuoloRepository ruoloRepository, GestoreCarte gestoreCarte, GestoreMerci gestoreMerci) {
@@ -49,7 +51,7 @@ public class GestoreCheckout {
 //        merciCarrello = new ArrayList<>();
 //        prezzoCarrello = 0;
 //    }
-
+    @Autowired
     public GestoreCheckout() {
         merciCarrello = new ArrayList<>();
         prezzoCarrello = 0;
