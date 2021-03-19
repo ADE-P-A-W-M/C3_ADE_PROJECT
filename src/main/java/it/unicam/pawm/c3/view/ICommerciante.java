@@ -80,7 +80,9 @@ public class ICommerciante {
 
     @GetMapping("showCorrieriDaAggiungere/add/{id}")
     public String addCorriere(@PathVariable Long id,Model model) {
+        System.out.println(id);
         gestoreCommercianti.addCorriere(id);
+        System.out.println(gestoreCommercianti.getCorrieri());
         model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
         return "commerciante/showCorrieriDaAggiungere";
     }

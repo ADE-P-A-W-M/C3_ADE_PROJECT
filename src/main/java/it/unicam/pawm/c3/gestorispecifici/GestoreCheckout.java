@@ -36,6 +36,7 @@ public class GestoreCheckout {
     private GestoreCarte gestoreCarte;
     @Autowired
     private GestoreMerci gestoreMerci;
+
     private List<MerceVendita> merciCarrello;
     private double prezzoCarrello;
 //    public GestoreCheckout(MerceVenditaRepository merceVenditaRepository, VenditaRepository venditaRepository, VenditaSpeditaRepository venditaSpeditaRepository, NegozioRepository negozioRepository, ClienteRepository clienteRepository, RuoloRepository ruoloRepository, GestoreCarte gestoreCarte, GestoreMerci gestoreMerci) {

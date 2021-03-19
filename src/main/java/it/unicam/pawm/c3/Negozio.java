@@ -134,8 +134,8 @@ public class Negozio {
         return corrieri;
     }
 
-    public void addCorriere(Corriere corriere2) {
-        corrieri.add(corriere2);
+    public void addCorriere(Corriere corriere) {
+        corrieri.add(corriere);
     }
 
     public void addMerceInventarioNegozio(MerceInventarioNegozio merceInventarioNegozio) {
