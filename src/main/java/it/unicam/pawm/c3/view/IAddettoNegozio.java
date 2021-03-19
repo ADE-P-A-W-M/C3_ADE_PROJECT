@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.management.modelmbean.ModelMBeanOperationInfo;
 import java.util.Optional;
 
 @Controller
@@ -60,7 +59,7 @@ public class IAddettoNegozio {
     @GetMapping("/checkout")
     public String blankCheckoutForm() {
         gestoreAddetti.startCarrello();
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout",params="action=TrovaMerce")
@@ -72,13 +71,13 @@ public class IAddettoNegozio {
         model.addAttribute("prezzo",prezzo);
         model.addAttribute("sconto",sconto);
         model.addAttribute("prezzoCarrello",prezzoCarrello);
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout",params="action=AggiungiAlCarrello")
     public String getCheckout(Model model,Long id,Double quantita,Double prezzo,Double sconto) {
         model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     /*************************Richiesta Carta*****************************/
@@ -87,7 +86,7 @@ public class IAddettoNegozio {
     public String getClienti(String email,Double prezzoCarrello, Model model){
         model.addAttribute("userList",gestoreAddetti.getCliente(email));
         model.addAttribute("prezzoCarrello",prezzoCarrello);
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout", params="action=GeneraCartaInCheckout")
@@ -96,14 +95,14 @@ public class IAddettoNegozio {
         Optional<User> user = userRepository.findByEmail(email1);
         model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
         model.addAttribute("prezzoCarrello",prezzoCarrello);
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout", params = "action=RecuperaCodiceCartaDaEmail")
     public String recuperaCodiceCartaByEmail(String email2, Model model,Double prezzoCarrello ){
         model.addAttribute("codiceCarta", gestoreAddetti.searchCodiceCartaFromEmail(email2));
         model.addAttribute("prezzoCarrello",prezzoCarrello);
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout", params = "action=VerificaCodice")
@@ -116,14 +115,14 @@ public class IAddettoNegozio {
             model.addAttribute("prezzoCarrello",prezzoCarrello);
             model.addAttribute("resultVerifica", "codice non valido");
         }
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
     @PostMapping(value = "/checkout", params = "action=ProcediSenzaCarta")
     public String procediSenzaCodice(Double prezzoCarrello, Model model){
         model.addAttribute("prezzoCarrello", prezzoCarrello);
         model.addAttribute("codiceCarta", 0);
-        return "addetto/checkout/checkoutForm";
+        return "addetto/checkout";
     }
 
 
