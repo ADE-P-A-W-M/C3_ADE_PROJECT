@@ -75,10 +75,12 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Simple Sidebar</h1>
-                            <p>contenuto <code>#page-content-wrapper</code>.</p>
-                            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                            <h1>Home amministratore</h1>
+                            <p>
+                                Welcome <span sec:authentication="principal.username" > User </span>
+                            </p>
                         </div>
+
                     </div>
                 </div>
             </div>
