@@ -1,6 +1,5 @@
 package it.unicam.pawm.c3.personale;
 
-import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.vendita.StatoConsegna;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
 import org.hibernate.annotations.LazyCollection;

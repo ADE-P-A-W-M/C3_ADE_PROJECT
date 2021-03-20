@@ -324,27 +324,26 @@ public class GestoreCheckout {
         negozioRepository.save(negozio);
     }
 
+    @Transactional
     public void registraAcquistoCliente(Long idCliente, Long idCorriere, Long idNegozioRitiro, Negozio negozio) {
         Cliente cliente=clienteRepository.findById(idCliente).get();
         Negozio negozioDiRitiro=negozioRepository.findById(idNegozioRitiro).get();
         Corriere corriere=corriereRepository.findById(idCorriere).get();
-        Vendita v=cliente.getAcquisti().get((cliente.getAcquisti().size() - 1));
+        Vendita v = cliente.getAcquisti().get(0);
+        System.out.println(v.getId());
+        System.out.println("ci son cascato di nuovo");
+        venditaRepository.deleteById(v.getId());
+        System.out.println(v.getId());
         VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(),negozioDiRitiro.getIndirizzo(),v.getListaMerceVendita());
-        cliente.getAcquisti().remove(v);
-        clienteRepository.save(cliente);
-        venditaRepository.delete(v);
         venditaSpeditaRepository.save(vs);
+        System.out.println("id vs: " + vs.getId());
         negozio.addVendita(vs);
         negozioRepository.save(negozio);
+        cliente.addAcquisto(vs);
+        clienteRepository.save(cliente);
         corriere.addMerceDaSpedire(vs);
         corriereRepository.save(corriere);
-        venditaSpeditaRepository.save(vs);
-        cliente.getAcquisti().add(vs);
-        clienteRepository.save(cliente);
-        venditaSpeditaRepository.save(vs);
         negozioDiRitiro.addVenditaInNegozioRitiro(vs);
         negozioRepository.save(negozioDiRitiro);
-        venditaSpeditaRepository.save(vs);
-
     }
 }
