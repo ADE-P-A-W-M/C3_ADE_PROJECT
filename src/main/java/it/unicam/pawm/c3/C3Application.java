@@ -122,6 +122,7 @@ public class C3Application {
 //			venditaSpeditaRepository.save(vs1);
 
 
+
 //			Merce merce2 = new Merce("Macbook", Categoria.TECNOLOGIA, "macbook m1");
 //			merceRepository.save(merce2);
 //			MerceAlPubblico merceAlPubblico2 = new MerceAlPubblico(1599, merce2);
