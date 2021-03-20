@@ -74,14 +74,18 @@
             <div id="page-content-wrapper">
                 <form th:action="@{/cliente/promozioniFiltrate}" method="post">
 
+                    <h2>Consulta promozioni...</h2>
+
                     <select name="categoria">
                         <option th:each="categoria : ${T(it.unicam.pawm.c3.merce.Categoria).values()}"
                                 th:value="${categoria}" th:text="${categoria}"></option>
                     </select>
 
                     <input type="submit" class="btn btn-primary" value="Filtra promozioni">
+                    <br>
                 </form>
                 <table class = "table table-responsive table-bordered .table-striped">
+                    <br>
                     <thead>
                     <tr>
                         <th>nome</th>
