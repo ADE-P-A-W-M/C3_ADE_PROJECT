@@ -31,10 +31,6 @@ public class GestoreAddetti {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CorriereRepository corriereRepository;
-    @Autowired
-    private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
-    @Autowired
     private GestoreCheckout gestoreCheckout;
     @Autowired
     private GestoreCarte gestoreCarte;
@@ -84,10 +80,6 @@ public class GestoreAddetti {
         return gestoreCheckout.calcoraResto(denaro);
     }
 
-    public void checkoutCompletato() {
-        gestoreCheckout.checkoutCompletato();
-    }
-
     public void checkoutCompletato(long cc) {
         gestoreCheckout.checkoutCompletato(cc, getNegozio());
     }
@@ -98,10 +90,6 @@ public class GestoreAddetti {
 
     public double applyScontoCarta(long cc) {
         return gestoreCheckout.applyScontoCarta(cc, getNegozio());
-    }
-
-    public void addVenditaInventario() {
-        gestoreCheckout.addVenditaInventario(getNegozio());
     }
 
     /****************Richiesta Carta*******************/
@@ -125,14 +113,12 @@ public class GestoreAddetti {
         return gestoreCheckout.getNegoziDisponibili(getNegozio());
     }
 
-    public void registraAcquistoCliente(long cc, Negozio pdr, String indirizzo, Corriere cr) {
-        gestoreCheckout.registraAcquistoCliente(cc, pdr, indirizzo, cr, getNegozio());
+    public void registraAcquistoCliente(Long idCliente, Long idCorriere, Long idNegozioRitiro) {
+        gestoreCheckout.registraAcquistoCliente(idCliente,idCorriere,idNegozioRitiro,getNegozio());
     }
-
-    public void registraAcquistoCliente(long cc) {
-        gestoreCheckout.registraAcquistoCliente(cc, getNegozio());
+    public void registraAcquistoCliente(Long idCliente, Long idCorriere, String indirizzoDomicilio) {
+        gestoreCheckout.registraAcquistoCliente(idCliente,idCorriere,indirizzoDomicilio,getNegozio());
     }
-
     /*****************Assegnazione Carta***************/
 
     public List<User> getCliente(String email){
@@ -196,10 +182,6 @@ public class GestoreAddetti {
         return gestoreVendite.getAcquistiClienteDaRitirare(id,getNegozio());
     }
 
-    public void confermaConsegnaVenditaAssegnata(List<VenditaSpedita> vendite) {
-        gestoreVendite.confermaConsegnaVenditaAssegnata(vendite);
-    }
-
     public void confermaConsegnaVenditaAssegnata(Long id){
         gestoreVendite.confermaConsegnaVenditaAssegnata(id, getNegozio());
     }
@@ -209,7 +191,4 @@ public class GestoreAddetti {
         return gestoreCarte.getClienteFromCodiceCarta(codiceCarta, getNegozio());
     }
 
-    public void registraAcquistoCliente(Long idCliente, Long idCorriere, Long idNegozioRitiro) {
-        gestoreCheckout.registraAcquistoCliente(idCliente,idCorriere,idNegozioRitiro,getNegozio());
-    }
 }
