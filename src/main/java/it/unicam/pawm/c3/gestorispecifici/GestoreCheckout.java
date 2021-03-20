@@ -294,7 +294,7 @@ public class GestoreCheckout {
         Carta carta = searchCarta(cc, negozio);
         Vendita v = new Vendita(getPrezzoCarrello(), getMerciCarrello());
         venditaRepository.save(v);
-        carta.getCliente().getAcquisti().add(v);
+        carta.getCliente().addAcquisto(v);
         clienteRepository.save(carta.getCliente());
         negozio.addVendita(v);
         negozioRepository.save(negozio);

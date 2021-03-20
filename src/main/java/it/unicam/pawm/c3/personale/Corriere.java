@@ -25,33 +25,17 @@ public class Corriere extends Ruolo{
     @JoinColumn(name = "corriere_fk", referencedColumnName = "id")
     private List<VenditaSpedita> vendite;
 
-//    @ManyToMany(mappedBy = "corrieri")
-//    private List<Negozio> negozi;
-
     public Corriere(RuoloSistema ruolo, String nomeDitta, String indirizzo, String p_iva) {
         super(ruolo);
         this.nomeDitta = nomeDitta;
         this.indirizzo = indirizzo;
         this.p_iva = p_iva;
         this.vendite = new ArrayList<>();
-//        this.negozi = new ArrayList<>();
         this.disponibilitaRitiro = true;
         disponibilitaAssociazione = true;
     }
 
     public Corriere (){}
-
-//    public List<Negozio> getNegozi() {
-//        return negozi;
-//    }
-//
-//    public void addNegozio(Negozio negozio) {
-//        this.negozi.add(negozio);
-//    }
-//
-//    public void removeNegozio(Negozio negozio) {
-//        this.negozi.remove(negozio);
-//    }
 
     public String getNomeDitta() {
         return nomeDitta;

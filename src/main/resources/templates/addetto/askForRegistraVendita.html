@@ -79,32 +79,33 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <form th:action="@{/addettonegozio/checkout/{id}(id=${id})}" method="post">
+            <br>
             <h4>Lista Corrieri</h4>
             <table id="corrieretable" class = "table table-responsive table-bordered .table-striped">
                 <thead>
                 <tr>
                     <th>Corriere</th>
+                    <th>Spedizione</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="corriere : ${corrieriList}">
                     <td th:text="${corriere}"></td>
+                    <form id="selezioneCorriere" ACTION="#" th:action="@{/addettonegozio/checkout/{id}(id=${id})}" th:object="${corriere}" method="POST">
                     <td>
-                        <form id="selezioneCorriere" ACTION="#" th:action="@{/addettonegozio/checkout/{id}(id=${id})}" th:object="${corriere}" method="POST">
-                            <input type="hidden" id="idCorriere" name="idCorriere" th:value="${corriere.id}"/>
-                            <button type="submit" name="action" value="sceltaCorriere">Scegli corriere</button>
-                        </form>
+                        <input type="checkbox" id="checkboxShop" name="checkboxShop"/>
+                        <label for="checkboxShop">In Negozio</label>
+                        <input type="checkbox" id="checkboxDomicile" name="checkboxDomicile"/>
+                        <label for="checkboxShop">A Domicilio</label>
+                    <td>
+                        <input type="hidden" id="idCorriere" name="idCorriere" th:value="${corriere.id}"/>
+                        <button type="submit" name="action" value="sceltaCorriere">Scegli corriere</button>
                     </td>
+                    </form>
                 </tr>
                 </tbody>
             </table>
-            <input type="checkbox" id="checkboxNegozio" name="checkboxNegozio" form="selezioneCorriere"/>
-            <label for="checkboxNegozio">Negozio</label>
-            <br>
-            <input type="checkbox" id="checkboxDomicilio" name="checkboxDomicilio" form="selezioneCorriere"/>
-            <label for="checkboxDomicilio">Domicilio</label>
-            <br>
         </form>
     </div>
 </div>

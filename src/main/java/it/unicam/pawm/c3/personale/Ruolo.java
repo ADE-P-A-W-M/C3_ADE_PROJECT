@@ -15,9 +15,6 @@ public abstract class Ruolo{
 
     @Enumerated(value = EnumType.STRING)
     private RuoloSistema ruolo;
-//
-//    @OneToOne(mappedBy = "ruolo")
-//    private Cliente cliente;
 
     public Ruolo(RuoloSistema ruolo) {
         this.ruolo = ruolo;
@@ -34,11 +31,4 @@ public abstract class Ruolo{
         return ruolo;
     }
 
-//    public Cliente getCliente() {
-//        return cliente;
-//    }
-//
-//    public void setCliente(Cliente cliente) {
-//        this.cliente = cliente;
-//    }
 }

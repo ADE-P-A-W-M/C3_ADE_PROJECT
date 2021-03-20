@@ -41,17 +41,32 @@ public class UserServiceImpl implements UserService {
                 passwordEncoder.encode(registrationDto.getPassword()));
         Cliente cliente  = new Cliente(RuoloSistema.CLIENTE);
         user.setRuolo(cliente);
-        AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
-        user.setRuolo(addettoNegozio);
         if(user.getEmail().equals("danielepelosi99@gmail.com")){
+            AddettoNegozio addettoNegozio = new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
+            user.setRuolo(addettoNegozio);
             negozioRepository.findAll().get(0).addAddettoNegozio(addettoNegozio);
             Commerciante commerciante = new Commerciante(RuoloSistema.COMMERCIANTE);
             user.setRuolo(commerciante);
-        } else {
+        } else if(user.getEmail().equals("edoardoiommi99@gmail.com")){
             Amministratore amministratore = new Amministratore(RuoloSistema.AMMINISTRATORE);
             user.setRuolo(amministratore);
-            negozioRepository.findAll().get(1).addAddettoNegozio(addettoNegozio);
-            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "Bartoini ", "Via della rimembranza", "435436");
+            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "Bartolini ", "Via della rimembranza", "435436");
+            user.setRuolo(corriere);
+        } else if(user.getEmail().equals("avdilmehmeti@gmail.com")) {
+            Amministratore amministratore = new Amministratore(RuoloSistema.AMMINISTRATORE);
+            user.setRuolo(amministratore);
+            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "Ups ", "Via della gioia", "56484");
+            user.setRuolo(corriere);
+        } else if(user.getEmail().equals("nicoasciutti@gmail.com")) {
+            Amministratore amministratore = new Amministratore(RuoloSistema.AMMINISTRATORE);
+            user.setRuolo(amministratore);
+            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "SDA ", "Via eremita", "6798646");
+            user.setRuolo(corriere);
+        }
+        else if(user.getEmail().equals("luzilorenzo@gmail.com")) {
+            Amministratore amministratore = new Amministratore(RuoloSistema.AMMINISTRATORE);
+            user.setRuolo(amministratore);
+            Corriere corriere = new Corriere(RuoloSistema.CORRIERE, "GLS ", "Via carlo", "73547");
             user.setRuolo(corriere);
         }
         return userRepository.save(user);

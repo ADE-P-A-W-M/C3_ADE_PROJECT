@@ -99,7 +99,9 @@ public class C3Application {
 //			merceAlPubblicoRepository.save(merceAlPubblico1);
 //			MerceInventarioNegozio min1 = new MerceInventarioNegozio(20, merceAlPubblico1);
 //			merceInventarioNegozioRepository.save(min1);
-//			negozioRepository.findAll().get(0).addMerceInventarioNegozio(min1);
+//			Negozio negozio = negozioRepository.findAll().get(0);
+//			negozio.addMerceInventarioNegozio(min1);
+//			negozioRepository.save(negozio);
 //			List<MerceVendita> merceVenditaList1 = new ArrayList<>();
 //			MerceVendita mv1 = new MerceVendita(12,3,merceAlPubblico1);
 //			merceVenditaList1.add(mv1);
@@ -129,6 +131,9 @@ public class C3Application {
 //			merceAlPubblicoRepository.save(merceAlPubblico2);
 //			MerceInventarioNegozio min2 = new MerceInventarioNegozio(10, merceAlPubblico2);
 //			merceInventarioNegozioRepository.save(min2);
+//			Negozio negozio = negozioRepository.findAll().get(0);
+//			negozio.addMerceInventarioNegozio(min2);
+//			negozioRepository.save(negozio);
 //			negozioRepository.findAll().get(0).addMerceInventarioNegozio(min2);
 //			List<MerceVendita> merceVenditaList2 = new ArrayList<>();
 //			MerceVendita mv2 = new MerceVendita(12,1,merceAlPubblico2);

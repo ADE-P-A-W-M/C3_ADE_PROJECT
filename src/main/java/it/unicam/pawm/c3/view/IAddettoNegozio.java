@@ -114,37 +114,28 @@ public class IAddettoNegozio {
         return "addetto/askForRegistraVendita";
     }
     @PostMapping(value="/checkout/{id}",params = "action=sceltaCorriere")
-    public String askForRegistraVendita(@PathVariable Long id,Long idCorriere,@RequestParam(value = "checkboxNegozio", required = false) String checkboxNegozio,@RequestParam(value = "checkboxDomicilio", required = false) String checkboxDomicilio,Model model) {
-        if(checkboxNegozio != null)
-        {
+    public String askForRegistraVendita(@PathVariable Long id,Long idCorriere,@RequestParam(value = "checkboxShop", required = false) String checkboxShop, @RequestParam(value = "checkboxDomicile", required = false) String checkboxDomicile, Model model) {
+        if(checkboxShop != null) {
             model.addAttribute("idCliente",id);
             model.addAttribute("idCorriere",idCorriere);
             model.addAttribute("negoziList",gestoreAddetti.getNegoziDisponibili());
             return "addetto/registraVenditaNegozio";
-        }
-        else if(checkboxDomicilio !=null)
-        {
+        } else if(checkboxDomicile != null){
             model.addAttribute("idCliente",id);
             model.addAttribute("idCorriere",idCorriere);
             return "addetto/askForIndirizzoDomicilio";
         }
         return "home/homeAddetto";
     }
+
     @PostMapping(value="/checkout/{idCliente}",params = "action=sceltaNegozio")
     public ModelAndView askForRegistraVenditaNegozio(@PathVariable Long idCliente,Long idCorriere,Long idNegozio,ModelMap model) {
-        System.out.println("diobestione");
-        System.out.println(idCliente);
-        System.out.println(idCorriere);
-        System.out.println(idNegozio);
         gestoreAddetti.registraAcquistoCliente(idCliente,idCorriere,idNegozio);
         return new ModelAndView("redirect:/addettonegozio/");
     }
+
     @PostMapping(value="/checkout/{idCliente}",params = "action=confermaIndirizzo")
     public String askForRegistraVenditaDomicilio(@PathVariable Long idCliente,Long idCorriere,String indirizzoDomicilio,Model model) {
-        System.out.println("bestiamadonna");
-        System.out.println(idCliente);
-        System.out.println(idCorriere);
-        System.out.println(indirizzoDomicilio);
         return "home/homeAddetto";
     }
 
