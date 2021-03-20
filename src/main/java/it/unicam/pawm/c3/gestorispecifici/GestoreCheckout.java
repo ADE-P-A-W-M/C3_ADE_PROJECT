@@ -154,7 +154,12 @@ public class GestoreCheckout {
      */
     public double calcoraResto(double denaro) {
         double resto = denaro - getPrezzoCarrello();
-        return resto;
+        return arrotonda(resto, 2);
+    }
+
+    public double arrotonda(double value, int numeroCifreDecimali) {
+        double temp = Math.pow(10, numeroCifreDecimali);
+        return Math.round(value*temp)/temp;
     }
 
     /**
