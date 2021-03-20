@@ -31,6 +31,8 @@ public class GestoreAddetti {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private CorriereRepository corriereRepository;
+    @Autowired
     private MerceInventarioNegozioRepository merceInventarioNegozioRepository;
     @Autowired
     private GestoreCheckout gestoreCheckout;
@@ -205,5 +207,9 @@ public class GestoreAddetti {
 
     public Long getClienteFromCodiceCarta(Long codiceCarta) {
         return gestoreCarte.getClienteFromCodiceCarta(codiceCarta, getNegozio());
+    }
+
+    public void registraAcquistoCliente(Long idCliente, Long idCorriere, Long idNegozioRitiro) {
+        gestoreCheckout.registraAcquistoCliente(idCliente,idCorriere,idNegozioRitiro,getNegozio());
     }
 }

@@ -4,6 +4,7 @@ import it.unicam.pawm.c3.Negozio;
 import it.unicam.pawm.c3.carta.Carta;
 import it.unicam.pawm.c3.merce.MerceAlPubblico;
 import it.unicam.pawm.c3.persistenza.*;
+import it.unicam.pawm.c3.personale.Cliente;
 import it.unicam.pawm.c3.personale.Corriere;
 import it.unicam.pawm.c3.vendita.MerceVendita;
 import it.unicam.pawm.c3.vendita.Vendita;
@@ -26,6 +27,8 @@ public class GestoreCheckout {
     private VenditaRepository venditaRepository;
     @Autowired
     private VenditaSpeditaRepository venditaSpeditaRepository;
+    @Autowired
+    private CorriereRepository corriereRepository;
     @Autowired
     private NegozioRepository negozioRepository;
     @Autowired
@@ -314,5 +317,29 @@ public class GestoreCheckout {
         negozio.addVendita(v);
         venditaRepository.save(v);
         negozioRepository.save(negozio);
+    }
+
+    public void registraAcquistoCliente(Long idCliente, Long idCorriere, Long idNegozioRitiro, Negozio negozio) {
+        Cliente cliente=clienteRepository.findById(idCliente).get();
+        Negozio negozioDiRitiro=negozioRepository.findById(idNegozioRitiro).get();
+        Corriere corriere=corriereRepository.findById(idCorriere).get();
+        Vendita v=cliente.getAcquisti().get((cliente.getAcquisti().size() - 1));
+        VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(),negozioDiRitiro.getIndirizzo(),v.getListaMerceVendita());
+        cliente.getAcquisti().remove(v);
+        clienteRepository.save(cliente);
+        venditaRepository.delete(v);
+        venditaSpeditaRepository.save(vs);
+        negozio.addVendita(vs);
+        negozioRepository.save(negozio);
+        corriere.addMerceDaSpedire(vs);
+        corriereRepository.save(corriere);
+        venditaSpeditaRepository.save(vs);
+        cliente.getAcquisti().add(vs);
+        clienteRepository.save(cliente);
+        venditaSpeditaRepository.save(vs);
+        negozioDiRitiro.addVenditaInNegozioRitiro(vs);
+        negozioRepository.save(negozioDiRitiro);
+        venditaSpeditaRepository.save(vs);
+
     }
 }

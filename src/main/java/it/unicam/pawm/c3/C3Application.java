@@ -1,12 +1,21 @@
 package it.unicam.pawm.c3;
 
 import it.unicam.pawm.c3.merce.Categoria;
+import it.unicam.pawm.c3.merce.Merce;
+import it.unicam.pawm.c3.merce.MerceAlPubblico;
+import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.*;
+import it.unicam.pawm.c3.personale.Cliente;
+import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.vendita.MerceVendita;
+import it.unicam.pawm.c3.vendita.VenditaSpedita;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -110,6 +119,7 @@ public class C3Application {
 //			corriere.addMerceDaSpedire(vs1);
 //			corriereRepository.save(corriere);
 //			venditaSpeditaRepository.save(vs1);
+
 
 
 //			Merce merce2 = new Merce("Macbook", Categoria.TECNOLOGIA, "macbook m1");
