@@ -79,30 +79,31 @@
             </div>
             <!-- Page Content -->
             <div id="page-content-wrapper">
-                <div class = "container">
+                <div class="container-fluid">
                     <div class="row">
-                        <h4>Cliente trovato:</h4>
-                        <div class = "col-md-1">
-                            <table class = "table table-responsive table-bordered .table-striped">
-                                <thead>
-                                <tr>
-                                    <th>nome</th>
-                                    <th>cognome</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="user : ${userList}">
-                                    <td th:text="${user.nome}"></td>
-                                    <td th:text="${user.cognome}"></td>
-                                    <td><a th:href="@{/commerciante/assunzioneAddetto/{id}(id=${user.id})}" class="btn btn-primary">Assumi</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
+                        <div class="col-lg-12">
+                            <div>
+                                <table class="table table-responsive table-bordered .table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Cognome</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="user : ${userList}">
+                                            <td th:text="${user.nome}"></td>
+                                            <td th:text="${user.cognome}"></td>
+                                            <td ><a th:href="@{/commerciante/assunzioneAddetto/{id}(id=${user.id})}" class="btn btn-primary">Assumi</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
     </body>

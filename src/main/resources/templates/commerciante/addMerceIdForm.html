@@ -79,23 +79,18 @@
                 </ul>
             </div>
             <!-- Page Content -->
-            <div class="container my-5">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="col-md-8">
-                            <br>
-                            <br>
-                            <p>Inserire l'id della merce se se ne dispone altrimenti procedere senza inserirne alcuno</p>
-                            <form action="#" th:action="@{/commerciante/showInventario/addMerceId}" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="id" class="col-form-label">ID :</label> <input type="text" name="id" class="form-control" id="id">
-                                    </div>
-                                    <div class="form-group col-md-8">
-                                        <input type="submit" class="btn btn-primary" value="Aggiungi merce">
-                                    </div>
-                                </div>
-                            </form>
+            <div id="page-content-wrapper">
+                <div class = "container-fluid">
+                    <div class="row">
+                        <div class = "col-lg-12">
+                            <div>
+                                <form action="#" th:action="@{/commerciante/showInventario/addMerceId}" method="post">
+                                    <p>Inserire l'id della merce se se ne dispone altrimenti procedere senza inserirne alcuno</p>
+                                    <label for="id" class="col-form-label">ID :</label>
+                                    <input type="text" name="id" class="form-control" id="id">
+                                    <input type="submit" class="btn btn-primary" value="Aggiungi merce">
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
