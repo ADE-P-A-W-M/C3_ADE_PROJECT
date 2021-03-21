@@ -168,8 +168,15 @@ public class IAddettoNegozio {
     @PostMapping(value="/checkout", params = "action=ApplicaScontoCarta")
     public String applicaScontoCarta(Long codiceCarta, Model model, Double prezzoCarrello){
         if(codiceCarta!=null){
-            model.addAttribute("prezzoCarrello", gestoreAddetti.applyScontoCarta(codiceCarta));
-            model.addAttribute("codiceCarta", codiceCarta);
+            if(gestoreAddetti.verificaCodiceCarta(codiceCarta)){
+                model.addAttribute("prezzoCarrello", gestoreAddetti.applyScontoCarta(codiceCarta));
+                model.addAttribute("codiceCarta", codiceCarta);
+                model.addAttribute("resultVerifica", "codice corretto");
+            } else {
+                model.addAttribute("resultVerifica", "codice non valido");
+                model.addAttribute("codiceCarta", 0);
+                model.addAttribute("prezzoCarrello", prezzoCarrello);
+            }
         } else {
             model.addAttribute("codiceCarta", 0);
             model.addAttribute("prezzoCarrello", prezzoCarrello);
