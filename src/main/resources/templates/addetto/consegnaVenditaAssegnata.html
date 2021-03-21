@@ -53,26 +53,29 @@
         <div id="wrapper">
             <!--SIDEBAR ADDETTO-->
             <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Menu addetto
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/addettonegozio/}">Home</a>
-                </li>
-                <li>
-                    <a th:href="@{/addettonegozio/}">Assegnazione carta</a>
-                </li>
-                <li>
-                    <a  th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
-                </li>
-                <li>
-                    <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
-                </li>
-            </ul>
-        </div>
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                            Menu addetto
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/addettonegozio/}">Home</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/addettonegozio/ricercaCliente}">Assegnazione carta</a>
+                    </li>
+                    <li>
+                        <a  th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/addettonegozio/checkout}">Checkout</a>
+                    </li>
+                </ul>
+            </div>
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <div class="container my-5">

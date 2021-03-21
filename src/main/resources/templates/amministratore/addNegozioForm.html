@@ -73,22 +73,34 @@
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <div class="container-fluid">
-                    <form th:action="@{/amministratore/addNegozio/{id}(id=${userList[0].id})}" method="post">
+
+                    <form class="form-group col-lg-10" th:action="@{/amministratore/addNegozio/{id}(id=${userList[0].id})}" method="post">
+
+                    <div class="form-group col-lg-10">
                         <label>Scegli le categorie:</label>
                         <select name="categoria">
                             <option th:each="categoria : ${T(it.unicam.pawm.c3.merce.Categoria).values()}"
                                     th:value="${categoria}" th:text="${categoria}"></option>
                         </select>
-                        <div class="form-group col-md-6">
+                    </div>
+
+
+                        <div class="form-group col-lg-10">
                             <label for="nomeDitta" class="col-form-label">Nome ditta</label> <input type="text" name="nomeDitta" class="form-control" id="nomeDitta">
                         </div>
-                        <div class="form-group col-md-6">
+
+                        <div class="form-group col-lg-10">
                             <label for="piva" class="col-form-label">Partita IVA</label> <input type="text" name="piva" class="form-control" id="piva">
                         </div>
-                        <div class="form-group col-md-6">
+
+                        <div class="form-group col-lg-10">
                             <label for="indirizzoRegistrazione" class="col-form-label">Indirizzo negozio</label> <input type="text" name="indirizzoRegistrazione" class="form-control" id="indirizzoRegistrazione">
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Aggiungi negozio">
+
+                        <div class="form-group col-md-8">
+                              <input type="submit" class="btn btn-primary" value="Aggiungi negozio">
+                        </div>
+
                     </form>
                 </div>
             </div>
