@@ -308,6 +308,7 @@ public class GestoreCheckout {
         if(cc!=0){
             this.prezzoCarrello = prezzoCarrello-((gestoreCarte.calcolaScontoCarta(cc, negozio)/100) * prezzoCarrello);
         }
+        this.prezzoCarrello=arrotonda(prezzoCarrello,2);
         return prezzoCarrello;
     }
 
@@ -329,13 +330,9 @@ public class GestoreCheckout {
         Negozio negozioDiRitiro=negozioRepository.findById(idNegozioRitiro).get();
         Corriere corriere=corriereRepository.findById(idCorriere).get();
         Vendita v = cliente.getAcquisti().get(0);
-        System.out.println(v.getId());
-        System.out.println("ci son cascato di nuovo");
         venditaRepository.deleteById(v.getId());
-        System.out.println(v.getId());
         VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(),negozioDiRitiro.getIndirizzo(),v.getListaMerceVendita());
         venditaSpeditaRepository.save(vs);
-        System.out.println("id vs: " + vs.getId());
         negozio.addVendita(vs);
         negozioRepository.save(negozio);
         cliente.addAcquisto(vs);
@@ -350,13 +347,9 @@ public class GestoreCheckout {
         Cliente cliente=clienteRepository.findById(idCliente).get();
         Corriere corriere=corriereRepository.findById(idCorriere).get();
         Vendita v = cliente.getAcquisti().get(0);
-        //System.out.println(v.getId());
-        //System.out.println("ci son cascato di nuovo");
         venditaRepository.deleteById(v.getId());
-        //System.out.println(v.getId());
         VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(),v.getListaMerceVendita(),indirizzoDomicilio);
         venditaSpeditaRepository.save(vs);
-        //System.out.println("id vs: " + vs.getId());
         negozio.addVendita(vs);
         negozioRepository.save(negozio);
         cliente.addAcquisto(vs);

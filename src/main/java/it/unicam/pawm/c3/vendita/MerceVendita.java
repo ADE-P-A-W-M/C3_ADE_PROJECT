@@ -60,6 +60,6 @@ public class MerceVendita {
     }
     @Override
     public String toString() {
-        return prezzoTotaleVendita + ", " + quantitaVenduta + ", " + merceAlPubblico;
+        return merceAlPubblico.getMerce().getNome()+" prezzo: "+prezzoTotaleVendita + " quantita:" + quantitaVenduta;
     }
 }
