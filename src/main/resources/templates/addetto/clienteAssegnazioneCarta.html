@@ -9,6 +9,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Bootstrap JS -->
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
         <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
 
     </head>
@@ -84,31 +85,39 @@
                                 <div class="card-body">
 
                                     <h4>Cliente selezionato</h4>
-                                    <table class = "table table-responsive table-bordered .table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Email</th>
-                                            <th>Nome</th>
-                                            <th>Cognome</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="user : ${userList}">
-                                            <td th:text="${user.email}"></td>
-                                            <td th:text="${user.nome}"></td>
-                                            <td th:text="${user.cognome}"></td>
 
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                    <form th:action="@{/addettonegozio/getCliente/{id}(id=${userList[0].id})}" method="post">
+                                    <form class="col-md-8" th:action="@{/addettonegozio/getCliente/{id}(id=${userList[0].id})}" method="post">
 
-                                        <select name="tipoScontoCliente">
-                                            <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"
-                                                    th:value="${tipoScontoCliente}" th:text="${tipoScontoCliente}"></option>
-                                        </select>
+                                        <table class = "table table-responsive table-bordered .table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>Nome</th>
+                                                <th>Cognome</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="user : ${userList}">
+                                                <td th:text="${user.email}"></td>
+                                                <td th:text="${user.nome}"></td>
+                                                <td th:text="${user.cognome}"></td>
+                                                <td>
+                                                    <select name="tipoScontoCliente">
+                                                        <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"
+                                                                th:value="${tipoScontoCliente}" th:text="${tipoScontoCliente}"></option>
+                                                    </select>
+                                                </td>
+                                            </tr>
 
-                                        <input type="submit" class="btn btn-primary" value="Assegna carta">
+                                            </tbody>
+                                        </table>
+
+                                        <br>
+                                        <div class="col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Assegna carta">
+                                        </div>
+
 
                                     </form>
 
