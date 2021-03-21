@@ -81,20 +81,23 @@
             <div id="page-content-wrapper">
                 <div class = "container">
                     <div class="row">
-                        <div class = "col-md-6">
+                        <div class="col-md-5">
+                            <h4>Corrieri disponibili all'aggiunta</h4>
                             <table class = "table table-responsive table-bordered .table-striped">
                                 <thead>
                                 <tr>
-                                    <th>corriere</th>
+                                    <th>Nome</th>
+                                    <th>Partita IVA</th>
+                                    <th>Indirizzo</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="corriere : ${corrieriList}">
                                     <td th:text="${corriere.nomeDitta}"></td>
-                                    <td>
-                                    <td><a th:href="@{/commerciante/showCorrieriDaAggiungere/add/{id}(id=${corriere.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i>Aggiungi</a></td>
-                                    </td>
+                                    <td th:text="${corriere.p_iva}"></td>
+                                    <td th:text="${corriere.indirizzo}"></td>
+                                    <td><a th:href="@{/commerciante/showCorrieriDaAggiungere/add/{id}(id=${corriere.id})}" class="btn btn-primary">Aggiungi</a></td>
                                 </tr>
                                 </tbody>
                             </table>

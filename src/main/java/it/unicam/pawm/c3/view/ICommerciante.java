@@ -146,7 +146,9 @@ public class ICommerciante {
     @PostMapping("showInventario/addMerceId")
     public String checkIfMerceExists(Long id,Model model) {
         model.addAttribute("id",id);
-        if(gestoreCommercianti.verificaIdMerce(id)) {
+        if(id == null) {
+            return "commerciante/addNewMerce";
+        } else if(gestoreCommercianti.verificaIdMerce(id)) {
             return "commerciante/addMerceAlreadyExisting";
         } else {
             return "commerciante/addNewMerce";

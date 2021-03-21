@@ -75,7 +75,7 @@ public class GestoreCommercianti {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
             MerceInventarioNegozio min= minList.next();
-            if(min.getId()==id) {
+            if(min.getId().equals(id)) {
                 gestoreMerci.addPromozione(min, di, df, pp);
             }
         }
@@ -85,7 +85,7 @@ public class GestoreCommercianti {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
             MerceInventarioNegozio min= minList.next();
-            if(min.getId()==id) {
+            if(min.getId().equals(id)) {
                 gestoreMerci.rimuoviPromozione(min);
             }
         }
@@ -165,7 +165,7 @@ public class GestoreCommercianti {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
             MerceInventarioNegozio min= minList.next();
-            if(min.getId()==id) {
+            if(min.getId().equals(id)) {
                 gestoreMerci.removeMerce(min, quantita, getNegozio());
             }
         }
@@ -176,7 +176,7 @@ public class GestoreCommercianti {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
             MerceInventarioNegozio min= minList.next();
-            if(min.getId()==id) {
+            if(min.getId().equals(id)) {
                 gestoreMerci.modificaMerce(getNegozio(),min, prezzo,sconto,quantita);
             }
         }

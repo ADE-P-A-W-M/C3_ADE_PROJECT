@@ -85,17 +85,23 @@
                             <table class = "table table-responsive table-bordered .table-striped">
                                 <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>nome</th>
+                                    <th>descrizione</th>
+                                    <th>prezzo</th>
+                                    <th>sconto</th>
                                     <th>quantita</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="min : ${minList}">
-                                    <td th:text="${min.merceAlPubblico.merce}"></td>
+                                    <td th:text="${min.merceAlPubblico.merce.ID}"></td>
+                                    <td th:text="${min.merceAlPubblico.merce.nome}"></td>
+                                    <td th:text="${min.merceAlPubblico.merce.descrizione}"></td>
+                                    <td th:text="${min.merceAlPubblico.prezzo}"></td>
+                                    <td th:text="${min.merceAlPubblico.sconto}"></td>
                                     <td th:text="${min.quantita}"></td>
-                                    <td>
                                     <td><a th:href="@{/commerciante/merceInPromozione/delete/{id}(id=${min.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i>Elimina</a></td>
-                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
