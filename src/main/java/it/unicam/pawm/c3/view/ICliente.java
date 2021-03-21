@@ -3,6 +3,7 @@ package it.unicam.pawm.c3.view;
 import it.unicam.pawm.c3.gestori.GestoreClienti;
 import it.unicam.pawm.c3.gestorispecifici.GestoreAccessi;
 import it.unicam.pawm.c3.merce.Categoria;
+import it.unicam.pawm.c3.vendita.VenditaSpedita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -56,5 +59,11 @@ public class ICliente {
     public String filtraPromozioni(String nomeRicerca, Model model){
         model.addAttribute("negList",gestoreClienti.ricercaProdotto(nomeRicerca));
         return "cliente/ricercaProdotto";
+    }
+    /*****************Consulta Acquisti******************/
+    @GetMapping("consultaAcquisti")
+    public String consultaAcquisti(Model model) {
+        model.addAttribute("vendite",gestoreClienti.getCliente().getAcquisti());
+        return "cliente/consultaAcquisti";
     }
 }
