@@ -74,16 +74,36 @@
             <div id="page-content-wrapper">
                 <div class="container-fluid">
                     <form th:action="@{/amministratore/addCorriere/{id}(id=${userList[0].id})}" method="post">
-                        <div class="form-group col-md-6">
-                            <label for="nomeDitta" class="col-form-label">Nome ditta</label> <input type="text" name="nomeDitta" class="form-control" id="nomeDitta">
+
+                        <p>
+                            <div class="form-group col-lg-10">
+                                <label for="nomeDitta" class="col-form-label">Nome ditta</label> <input type="text" name="nomeDitta" class="form-control" id="nomeDitta">
+                            </div>
+                        </p>
+                        <br>
+
+                        <p>
+                            <div class="form-group col-lg-10">
+                                <label for="piva" class="col-form-label">Partita IVA</label> <input type="text" name="piva" class="form-control" id="piva">
+                            </div>
+                        </p>
+                       <p>
+                        <br>
+                            <div class="form-group col-lg-10">
+                                <label for="indirizzo" class="col-form-label">Indirizzo Corriere</label> <input type="text" name="indirizzo" class="form-control" id="indirizzo">
+                            </div>
+                       </p>
+
+                        <br>
+
+                        <p>
+
+                        <div class="form-group col-md-8">
+                            <input type="submit" class="btn btn-primary" value="Aggiungi corriere">
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="piva" class="col-form-label">Partita IVA</label> <input type="text" name="piva" class="form-control" id="piva">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="indirizzo" class="col-form-label">Indirizzo Corriere</label> <input type="text" name="indirizzo" class="form-control" id="indirizzo">
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Aggiungi negozio">
+
+                        </p>
+
                     </form>
                 </div>
             </div>
