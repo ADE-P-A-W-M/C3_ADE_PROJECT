@@ -157,7 +157,6 @@ public class GestoreCommercianti {
     }
 
     public void addMerce(Long id, String nome, String descrizione, Categoria categoria, double quantita, double prezzo, double sconto) {
-        System.out.println(getNegozio());
         gestoreMerci.addMerce(id, nome,descrizione, categoria, quantita, prezzo , sconto , getNegozio());
     }
 
@@ -180,6 +179,10 @@ public class GestoreCommercianti {
                 gestoreMerci.modificaMerce(getNegozio(),min, prezzo,sconto,quantita);
             }
         }
+    }
+
+    public void addMerce(String nome, String descrizione, Categoria categoria, Double quantita, Double prezzo, Double sconto) {
+        gestoreMerci.addMerce(nome,descrizione, categoria, quantita, prezzo , sconto , getNegozio());
     }
 
     /************************** Metodi Accessori ******************************/

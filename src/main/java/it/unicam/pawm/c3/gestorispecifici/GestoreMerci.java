@@ -169,6 +169,16 @@ public class GestoreMerci {
         negozioRepository.save(negozio);
     }
 
+    public void addMerce(String nome, String descrizione, Categoria categoria, Double quantita, Double prezzo, Double sconto, Negozio negozio) {
+        Merce m = new Merce(nome, categoria, descrizione);
+        merceRepository.save(m);
+        MerceAlPubblico map = new MerceAlPubblico(prezzo, m, sconto);
+        MerceInventarioNegozio min = new MerceInventarioNegozio(quantita, map);
+        merceInventarioNegozioRepository.save(min);
+        negozio.addMerceInventarioNegozio(min);
+        negozioRepository.save(negozio);
+    }
+
     /**
      * Il metodo serve per modificare una merce nel prezzo,quantita, e sconto
      *

@@ -97,6 +97,8 @@ public class GestoreAmministratori {
                 User user1=user;
                 Negozio negozio=new Negozio(nome,indirizzo,piva,categorie);
                 Commerciante commerciante=new Commerciante(RuoloSistema.COMMERCIANTE);
+                AddettoNegozio addetto=new AddettoNegozio(RuoloSistema.ADDETTONEGOZIO);
+                user1.setRuolo(addetto);
                 user1.setRuolo(commerciante);
                 negozio.addAddettoNegozio(commerciante);
                 ruoloRepository.save(commerciante);

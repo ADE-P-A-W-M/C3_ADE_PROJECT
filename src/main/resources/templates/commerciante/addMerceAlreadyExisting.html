@@ -80,7 +80,7 @@
             <div id="page-content-wrapper">
                 <div class = "container-fluid">
                     <div class="row">
-                        <div class = "col-lg-12">
+                        <div class = "col-lg-6">
                             <div>
                                 <form action="#" th:action="@{/commerciante/showInventario/addMerce/{id}(id=${id})}" method="post">
                                     <label for="quantita" class="col-form-label">Quantita</label>
@@ -89,6 +89,7 @@
                                     <input type="text" name="prezzo" class="form-control" id="prezzo">
                                     <label for="sconto" class="col-form-label">Sconto</label>
                                     <input type="text" name="sconto" class="form-control" id="sconto">
+                                    <br>
                                     <input type="submit" class="btn btn-primary" value="Aggiungi merce">
                                 </form>
                             </div>

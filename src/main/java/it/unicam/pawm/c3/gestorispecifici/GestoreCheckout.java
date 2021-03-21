@@ -331,7 +331,7 @@ public class GestoreCheckout {
         Corriere corriere=corriereRepository.findById(idCorriere).get();
         Vendita v = cliente.getAcquisti().get(0);
         venditaRepository.deleteById(v.getId());
-        VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(),negozioDiRitiro.getIndirizzo(),v.getListaMerceVendita());
+        VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(), negozio.getIndirizzo(), negozioDiRitiro.getIndirizzo(),v.getListaMerceVendita());
         venditaSpeditaRepository.save(vs);
         negozio.addVendita(vs);
         negozioRepository.save(negozio);
@@ -348,7 +348,7 @@ public class GestoreCheckout {
         Corriere corriere=corriereRepository.findById(idCorriere).get();
         Vendita v = cliente.getAcquisti().get(0);
         venditaRepository.deleteById(v.getId());
-        VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(),v.getListaMerceVendita(),indirizzoDomicilio);
+        VenditaSpedita vs=new VenditaSpedita(v.getPrezzo(), negozio.getIndirizzo(), v.getListaMerceVendita(),indirizzoDomicilio);
         venditaSpeditaRepository.save(vs);
         negozio.addVendita(vs);
         negozioRepository.save(negozio);

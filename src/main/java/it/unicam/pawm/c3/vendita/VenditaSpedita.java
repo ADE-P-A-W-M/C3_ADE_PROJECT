@@ -12,19 +12,22 @@ public class VenditaSpedita extends Vendita{
     private StatoConsegna statoConsegna;
     @Enumerated(value = EnumType.STRING)
     private LuogoDiRitiro luogoDiRitiro;
-    private String indirizzoDiDomicilio;
-    private String indirizzoNegozioDiRitiro;
+    //private String indirizzoDiDomicilio;
+    private String indirizzoDiConsegna;
+    private String indirizzoDiRitiro;
 
-    public VenditaSpedita(double prezzo, String indirizzoNegozioDiRitiro,  List<MerceVendita> listaMerceVendita) {
+    public VenditaSpedita(double prezzo,String indirizzoDiRitiro, String indirizzoDiConsegna, List<MerceVendita> listaMerceVendita) {
         super(prezzo, listaMerceVendita);
+        this.indirizzoDiRitiro=indirizzoDiRitiro;
         this.statoConsegna = StatoConsegna.IN_ATTESA_DI_RITIRO;
-        this.indirizzoNegozioDiRitiro = indirizzoNegozioDiRitiro;
+        this.indirizzoDiConsegna = indirizzoDiConsegna;
         this.luogoDiRitiro = LuogoDiRitiro.NEGOZIO;
     }
 
-    public VenditaSpedita(double prezzo, List<MerceVendita> listMerceVendita, String indirizzoDiDomicilio){
+    public VenditaSpedita(double prezzo,String indirizzoDiRitiro, List<MerceVendita> listMerceVendita, String indirizzoDiConsegna){
         super(prezzo,listMerceVendita);
-        this.indirizzoDiDomicilio = indirizzoDiDomicilio;
+        this.indirizzoDiRitiro=indirizzoDiRitiro;
+        this.indirizzoDiConsegna = indirizzoDiConsegna;
         this.statoConsegna = StatoConsegna.IN_ATTESA_DI_RITIRO;
         this.luogoDiRitiro = LuogoDiRitiro.DOMICILIO;
     }
@@ -49,22 +52,19 @@ public class VenditaSpedita extends Vendita{
         this.luogoDiRitiro = luogoDiRitiro;
     }
 
-    public String getIndirizzoDiDomicilio() {
-        return indirizzoDiDomicilio;
+    public String getIndirizzoDiConsegna() {
+        return indirizzoDiConsegna;
     }
 
-    public String getIndirizzoNegozioDiRitiro() {
-        return indirizzoNegozioDiRitiro;
+    public void setIndirizzoDiConsegna(String indirizzoNegozioDiRitiro) {
+        this.indirizzoDiConsegna = indirizzoNegozioDiRitiro;
     }
 
-    public void setIndirizzoNegozioDiRitiro(String indirizzoNegozioDiRitiro) {
-        this.indirizzoNegozioDiRitiro = indirizzoNegozioDiRitiro;
+    public String getIndirizzoDiRitiro() {
+        return indirizzoDiRitiro;
     }
 
-    public void setIndirizzoDiDomicilio(String indirizzoDiDomicilio) {
-        this.indirizzoDiDomicilio = indirizzoDiDomicilio;
+    public void setIndirizzoDiRitiro(String indirizzoDiRitiro) {
+        this.indirizzoDiRitiro = indirizzoDiRitiro;
     }
-
-
-
 }

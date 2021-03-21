@@ -145,10 +145,10 @@ public class ICommerciante {
 
     @PostMapping("showInventario/addMerceId")
     public String checkIfMerceExists(Long id,Model model) {
-        model.addAttribute("id",id);
         if(id == null) {
             return "commerciante/addNewMerce";
         } else if(gestoreCommercianti.verificaIdMerce(id)) {
+            model.addAttribute("id",id);
             return "commerciante/addMerceAlreadyExisting";
         } else {
             return "commerciante/addNewMerce";
@@ -158,6 +158,12 @@ public class ICommerciante {
     @PostMapping("showInventario/addMerce/{id}")
     public String addMerce(@PathVariable Long id,String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
         gestoreCommercianti.addMerce(id,nome,descrizione,categoria,quantita,prezzo,sconto);
+        model.addAttribute("minList",gestoreCommercianti.getInventario());
+        return "commerciante/showInventario";
+    }
+    @PostMapping("showInventario/addMerce")
+    public String addMerceNew(String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
+        gestoreCommercianti.addMerce(nome,descrizione,categoria,quantita,prezzo,sconto);
         model.addAttribute("minList",gestoreCommercianti.getInventario());
         return "commerciante/showInventario";
     }

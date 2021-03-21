@@ -89,9 +89,9 @@ public class IAddettoNegozio {
         }
     }
     @PostMapping(value = "/checkout", params = "action=AnnullaCheckout")
-    public String annullaCheckout(){
+    public ModelAndView annullaCheckout(){
         gestoreAddetti.annullaCheckout();
-        return "home/homeAddetto";
+        return new ModelAndView("redirect:/addettonegozio/");
     }
     /***********************Interfaccia registrazione vendita************************/
 

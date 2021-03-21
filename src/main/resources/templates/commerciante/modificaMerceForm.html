@@ -84,24 +84,26 @@
                 <div class = "container-fluid">
                     <div class="row">
                         <div class = "col-lg-12">
-                            <div  style="width: 800px">
-                                <div>
-                                    <label for="quantita" class="col-form-label">Quantita</label>
-                                    <input type="text" name="quantita" class="form-control" id="quantita">
+                            <form action="#" th:action="@{/commerciante/showInventario/modificaMerce/{id}(id=${id})}" method="post">
+                                <div  style="width: 800px">
+                                    <div>
+                                        <label for="quantita" class="col-form-label">Quantita</label>
+                                        <input type="text" name="quantita" class="form-control" id="quantita">
+                                    </div>
+                                    <div>
+                                        <label for="prezzo" class="col-form-label">Prezzo</label>
+                                        <input type="text" name="prezzo" class="form-control" id="prezzo">
+                                    </div>
+                                    <div>
+                                        <label for="sconto" class="col-form-label">Sconto</label>
+                                        <input type="text" name="sconto" class="form-control" id="sconto">
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <input type="submit" class="btn btn-primary" value="Modifica merce">
+                                    </div>
                                 </div>
-                                <div>
-                                    <label for="prezzo" class="col-form-label">Prezzo</label>
-                                    <input type="text" name="prezzo" class="form-control" id="prezzo">
-                                </div>
-                                <div>
-                                    <label for="sconto" class="col-form-label">Sconto</label>
-                                    <input type="text" name="sconto" class="form-control" id="sconto">
-                                </div>
-                                <br>
-                                <div>
-                                    <input type="submit" class="btn btn-primary" value="Modifica merce">
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

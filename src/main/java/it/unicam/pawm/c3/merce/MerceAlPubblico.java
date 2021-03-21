@@ -10,14 +10,11 @@ public class MerceAlPubblico {
     private long id;
     private double prezzo;
 
-    //TODO forse c'è da cambiare in ALL
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "merce_fk", referencedColumnName = "id")
     private Merce merce;
     private double sconto;
 
-    //TODO forse c'è da cambiare in ALL
-//    @OneToOne
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "promozione_fk", referencedColumnName = "id")
     private Promozione promozione;
@@ -50,10 +47,11 @@ public class MerceAlPubblico {
     }
 
     public double getPrezzo() {
-        /*if(getPromozione().isDisponibile()){
+        double temp = Math.pow(10,2.0);
+        if(getPromozione().isDisponibile()){
             if(LocalDate.now().isAfter(getPromozione().getDataInizio()) && LocalDate.now().isBefore(getPromozione().getDataFine()))
-                return promozione.getPrezzoPromozione();
-        }*/
+                return (Math.round(promozione.getPrezzoPromozione())*temp)/temp;
+        }
         return prezzo;
     }
 

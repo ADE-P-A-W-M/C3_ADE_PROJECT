@@ -102,7 +102,7 @@
                                         <td th:text="${min.id}"></td>
                                         <td th:text="${min.data}"></td>
                                         <td th:text="${min.prezzo}"></td>
-                                        <td th:text="${min.indirizzoNegozioDiRitiro}"></td>
+                                        <td th:text="${min.indirizzoDiConsegna}"></td>
                                         <td th:text="${min.statoConsegna}"></td>
                                         <td><a th:href="@{/addettonegozio/consegnaAlCliente/{id}(id=${min.id})}" class="btn btn-primary">Consegna<i class="fas fa-user-edit ml-2"></i></a></td>
                                         <!--                        <td><a th:href="@{/addettonegozio/getVenditeAssegnate/{idu}/consegnaAlCliente/{id}(idu=${user.id},id=${min.id})}" class="btn btn-primary">Consegna<i class="fas fa-user-edit ml-2"></i></a></td>-->

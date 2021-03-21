@@ -5,8 +5,7 @@ import it.unicam.pawm.c3.merce.Merce;
 import it.unicam.pawm.c3.merce.MerceAlPubblico;
 import it.unicam.pawm.c3.merce.MerceInventarioNegozio;
 import it.unicam.pawm.c3.persistenza.*;
-import it.unicam.pawm.c3.personale.Cliente;
-import it.unicam.pawm.c3.personale.Corriere;
+import it.unicam.pawm.c3.personale.*;
 import it.unicam.pawm.c3.vendita.MerceVendita;
 import it.unicam.pawm.c3.vendita.VenditaSpedita;
 import org.springframework.boot.CommandLineRunner;
@@ -35,11 +34,11 @@ public class C3Application {
 										VenditaSpeditaRepository venditaSpeditaRepository,
 										VenditaRepository venditaRepository,
 										MerceVenditaRepository merceVenditaRepository,
-										CorriereRepository corriereRepository){
+										CorriereRepository corriereRepository,
+	UserRepository userRepository){
 		return args -> {
 
 			/*********Parte del personale********************/
-
 
 //			Cliente cliente1 = new Cliente("Andrea", "Rossi", "andrearossi@gmail.com", "rossi");
 //			Cliente cliente2 = new Cliente("Davide", "Bianchi", "davidebianchi@gmail.com", "bianchi");
@@ -60,10 +59,12 @@ public class C3Application {
 
 //			Negozio negozio = new Negozio("MadStore","Via Palmiro Togliatti", "2141234314", Set.of(Categoria.ABBIGLIAMENTO));
 //			negozioRepository.save(negozio);
-//
+
 //			Negozio negozio1 = new Negozio("Jeans & Co", "Via Campglione", "3525235", Set.of(Categoria.ABBIGLIAMENTO));
 //			negozioRepository.save(negozio1);
 
+//			Negozio negozio2 = new Negozio("Comet","Viale di tarlazzi","345678",Set.of(Categoria.ALIMENTI));
+//			negozioRepository.save(negozio2);
 //			Merce merce = new Merce("Iphone", Categoria.TECNOLOGIA, "iphone di dodicesima generazione");
 //			merceRepository.save(merce);
 //			MerceAlPubblico merceAlPubblico = new MerceAlPubblico(799, merce);
@@ -122,8 +123,6 @@ public class C3Application {
 //			corriere.addMerceDaSpedire(vs1);
 //			corriereRepository.save(corriere);
 //			venditaSpeditaRepository.save(vs1);
-
-
 
 //			Merce merce2 = new Merce("Macbook", Categoria.TECNOLOGIA, "macbook m1");
 //			merceRepository.save(merce2);

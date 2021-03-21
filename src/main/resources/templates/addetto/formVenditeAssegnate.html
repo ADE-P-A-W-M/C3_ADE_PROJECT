@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Aggiungi Promozione</title>
+    <title>HOME ADDETTO</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -52,69 +51,59 @@
 <br>
 
 <div id="wrapper">
-    <!--SIDEBAR COMMERCIANTE-->
+    <!--SIDEBAR ADDETTO-->
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <a href="#">
-                    Menu commerciante
+                    Menu addetto
                 </a>
             </li>
             <li>
-                <a th:href="@{/commerciante/}">Home</a>
+                <a th:href="@{/addettonegozio/}">Home</a>
             </li>
             <li>
-                <a th:href="@{/commerciante/showInventario}">Gestione inventario</a>
+                <a th:href="@{/addettonegozio/ricercaCliente}">Assegnazione carta</a>
             </li>
             <li>
-                <a th:href="@{/commerciante/merceInPromozione}">Gestione promozioni</a>
+                <a  th:href="@{/addettonegozio/consultaInventarioAddetto}">Consulta inventario</a>
             </li>
             <li>
-                <a th:href="@{/commerciante/showCorrieriDaAggiungere}">Gestione corrieri</a>
+                <a th:href="@{/addettonegozio/getVenditeAssegnate}">Consegna vendita assegnata</a>
             </li>
             <li>
-                <a th:href="@{/commerciante/assunzioneAddetto}">Assunzione addetto</a>
+                <a th:href="@{/addettonegozio/checkout}">Checkout</a>
             </li>
-
         </ul>
     </div>
     <!-- Page Content -->
-    <div class="container my-5">
-        <h3> Update Student</h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-8">
-                    <form action="#" th:action="@{/commerciante/showInventario/addMerce}" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="nome" class="col-form-label">Nome</label> <input type="text" name="nome" class="form-control" id="nome">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="descrizione" class="col-form-label">Descrizione</label> <input type="text" name="descrizione" class="form-control" id="descrizione">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="categoria" class="col-form-label">Categoria</label> <input type="text" name="categoria" class="form-control" id="categoria">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="quantita" class="col-form-label">Quantita</label> <input type="text" name="quantita" class="form-control" id="quantita">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="prezzo" class="col-form-label">prezzo</label> <input type="text" name="prezzo" class="form-control" id="prezzo">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="sconto" class="col-form-label">Sconto</label> <input type="text" name="sconto" class="form-control" id="sconto">
-                            </div>
-                            <br>
-                            <div class="form-group col-md-8">
-                                <input type="submit" class="btn btn-primary" value="Aggiungi merce">
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h2>Consegna vendita assegnata</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-md-10">
+                                <!--/*@thymesVar id="cliente" type="it.unicam.pawm.c3.personale.Cliente"*/-->
+                                <form action="#" th:action="@{/addettonegozio/getVenditeAssegnate}" method="post">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="email" class="col-form-label">Email</label> <input type="text" name="email" class="form-control" id="email">
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

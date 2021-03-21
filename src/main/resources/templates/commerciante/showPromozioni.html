@@ -88,20 +88,20 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>Descrizione</th>
                                         <th>Prezzo</th>
                                         <th>Sconto</th>
-                                        <th>Quantita</th>
+                                        <th>Data inizio</th>
+                                        <th>Data fine</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="min : ${minList}">
                                         <td th:text="${min.merceAlPubblico.merce.ID}"></td>
                                         <td th:text="${min.merceAlPubblico.merce.nome}"></td>
-                                        <td th:text="${min.merceAlPubblico.merce.descrizione}"></td>
                                         <td th:text="${min.merceAlPubblico.prezzo}"></td>
                                         <td th:text="${min.merceAlPubblico.sconto}"></td>
-                                        <td th:text="${min.quantita}"></td>
+                                        <td th:text="${min.merceAlPubblico.promozione.dataInizio}"></td>
+                                        <td th:text="${min.merceAlPubblico.promozione.dataFine}"></td>
                                         <td><a th:href="@{/commerciante/merceInPromozione/delete/{id}(id=${min.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i>Elimina</a></td>
                                     </tr>
                                     </tbody>
