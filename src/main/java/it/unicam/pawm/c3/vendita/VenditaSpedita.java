@@ -12,7 +12,6 @@ public class VenditaSpedita extends Vendita{
     private StatoConsegna statoConsegna;
     @Enumerated(value = EnumType.STRING)
     private LuogoDiRitiro luogoDiRitiro;
-    //private String indirizzoDiDomicilio;
     private String indirizzoDiConsegna;
     private String indirizzoDiRitiro;
 

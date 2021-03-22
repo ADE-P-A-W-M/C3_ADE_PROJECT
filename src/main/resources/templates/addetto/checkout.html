@@ -92,7 +92,17 @@
                             <br>
                             <br>
                             <br>
-                            <input type="submit" class="btn btn-primary" name="action" value="TrovaMerce">
+                            <div id="containerButtonTrovaMerceAndALertRelativo" style="width:500px;">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" name="action" value="TrovaMerce">
+                                </div>
+                                <div style="float: right; width: 350px;">
+                                    <input type="hidden" id="alertMerceOQuantitaMancante" name="alertMerceOQuantitaMancante" value="alertMerceOQuantitaMancante">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertMerceOQuantitaMancante}" th:text="${alertMerceOQuantitaMancante}" th:class="${'alertMerceOQuantitaMancante ' + alertMerceOQuantitaMancante}"></span>
+                                    </input>
+                                </div >
+                            </div>
+                            <br>
                             <br>
                             <br>
                             <div id="containerPriceDiscount">
@@ -110,7 +120,17 @@
                             <br>
                             <br>
                             <br>
-                            <input type="submit" class="btn btn-primary" name="action" value="AggiungiAlCarrello">
+                            <div id="containerButtonAddCarrelloAndALertRelativo" style="width:500px;">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" name="action" value="AggiungiAlCarrello">
+                                </div>
+                                <div style="float: right; width: 350px;">
+                                    <input type="hidden" id="alertCarrello" name="alertCarrello" value="alertCarrello">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertCarrello}" th:text="${alertCarrello}" th:class="${'alertCarrello ' + alertCarrello}"></span>
+                                    </input>
+                                </div>
+                            </div>
+                            <br>
                             <br>
                             <br>
                             <div id="containerShoppingCartPrice">
@@ -153,7 +173,17 @@
                             <br>
                             <br>
                             <br>
-                            <input type="submit" class="btn btn-primary" name="action" value="CalcolaResto">
+                            <div id="containerCalcolaRestoEAlertRelativo" style="width:500px;">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" name="action" value="CalcolaResto">
+                                </div>
+                                <div style="float: right; width: 350px">
+                                    <input type="hidden" id="alertCalcolaResto" name="alertCalcolaResto" value="alertCalcolaResto">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertCalcolaResto}" th:text="${alertCalcolaResto}" th:class="${'alertCalcolaResto ' + alertCalcolaResto}"></span>
+                                    </input>
+                                </div>
+                            </div>
+                            <br>
                             <br>
                             <br>
                             <div id="containerRest">
@@ -167,7 +197,7 @@
                             <br>
                             <div id="completamentoCheckout" style="width:600px;">
                                 <div style="float: left; width: 180px">
-                                     <input type="checkbox" id="checkboxName" name="checkboxName"/><label for="checkboxName">Spedisci Vendita</label>
+                                    <input type="checkbox" id="checkboxName" name="checkboxName"/><label for="checkboxName">Spedisci Vendita</label>
                                 </div>
                                 <div style="float: right; width: 400px">
                                     <div style="width:400px;">
@@ -193,7 +223,16 @@
                             <br>
                             <br>
                             <br>
-                            <input type="submit" class="btn btn-primary" name="action" value="CercaUserPerAssegnaCarta">
+                            <div id="containerCercaUserAssegnaCartaEAlertRelativo" style="width: 600px">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" name="action" value="CercaUserPerAssegnaCarta">
+                                </div>
+                                <div style="float: right; width: 350px">
+                                    <input type="hidden" id="alertUserCartaErrato" name="alertUserCartaErrato" value="alertUserCartaErrato">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertUserCartaErrato}" th:text="${alertUserCartaErrato}" th:class="${'alertUserCartaErrato ' + alertUserCartaErrato}"></span>
+                                    </input>
+                                </div>
+                            </div>
                             <br>
                             <br>
                             <div id="containerTableUserSearched">
@@ -229,7 +268,17 @@
                             <br>
                             <br>
                             <br>
-                            <input type="submit" class="btn btn-primary" name="action" value="GeneraCartaInCheckout">
+                            <div id="generaCartaERelativoAlert" style="width: 600px">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" name="action" value="GeneraCartaInCheckout">
+                                </div>
+                                <div style="float: right; width: 350px">
+                                    <input type="hidden" id="alertGenerazioneCartaErrata" name="alertGenerazioneCartaErrata" value="alertGenerazioneCartaErrata">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertGenerazioneCartaErrata}" th:text="${alertGenerazioneCartaErrata}" th:class="${'alertGenerazioneCartaErrata ' + alertGenerazioneCartaErrata}"></span>
+                                    </input>
+                                </div>
+                            </div>
+                            <br>
                             <br>
                             <hr class="divider">
                             <h4>Parte Recupero Carta A Partire Da Email</h4>
@@ -242,8 +291,17 @@
                             <br>
                             <br>
                             <br>
-                            <input type="submit" class="btn btn-primary" name="action"
-                                   value="RecuperaCodiceCartaDaEmail">
+                            <div id="containerReuperaCCEAlertRelativo" style="width: 600px">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" name="action"
+                                           value="RecuperaCodiceCartaDaEmail">
+                                </div>
+                                <div style="float: right; width: 350px">
+                                    <input type="hidden" id="alertRecuperoCC" name="alertRecuperoCC" value="alertRecuperoCC">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertRecuperoCC}" th:text="${alertRecuperoCC}" th:class="${'alertRecuperoCC ' + alertRecuperoCC}"></span>
+                                    </input>
+                                </div>
+                            </div>
                             <br>
                             <hr class="divider">
                         </form>

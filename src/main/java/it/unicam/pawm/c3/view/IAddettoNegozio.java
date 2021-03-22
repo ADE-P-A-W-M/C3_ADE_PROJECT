@@ -50,19 +50,27 @@ public class IAddettoNegozio {
 
     @PostMapping(value="/checkout",params="action=TrovaMerce")
     public String getCheckoutForm(Model model,Long id,Double quantita,Double prezzoCarrello) {
-        double prezzo=gestoreAddetti.getPrezzo(id,quantita);
-        double sconto=gestoreAddetti.getSconto(id);
+        try{
+            double prezzo=gestoreAddetti.getPrezzo(id,quantita);
+            double sconto=gestoreAddetti.getSconto(id);
+            model.addAttribute("prezzo",prezzo);
+            model.addAttribute("sconto",sconto);
+        } catch (Exception e){
+            model.addAttribute("alertMerceOQuantitaMancante", "merce o quantita non inserita");
+        }
         model.addAttribute("id",id);
         model.addAttribute("quantita",quantita);
-        model.addAttribute("prezzo",prezzo);
-        model.addAttribute("sconto",sconto);
         model.addAttribute("prezzoCarrello",prezzoCarrello);
         return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout",params="action=AggiungiAlCarrello")
     public String getCheckout(Model model,Long id,Double quantita,Double prezzo,Double sconto) {
-        model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
+        try {
+            model.addAttribute("prezzoCarrello",gestoreAddetti.aggiuntaMerceNelCarrello(prezzo,sconto,id,quantita));
+        } catch (Exception e) {
+            model.addAttribute("alertCarrello", "inserie merce, quantita e poi aggiungere");
+        }
         return "addetto/checkout";
     }
 
@@ -71,13 +79,19 @@ public class IAddettoNegozio {
         model.addAttribute("prezzoCarrello",prezzoCarrello);
         model.addAttribute("denaroRicevuto", denaroRicevuto);
         model.addAttribute("codiceCarta", codiceCarta);
-        model.addAttribute("resto", gestoreAddetti.calcoraResto(denaroRicevuto));
+        try{
+            model.addAttribute("resto", gestoreAddetti.calcoraResto(denaroRicevuto));
+        } catch (Exception e ) {
+            model.addAttribute("alertCalcolaResto", "denaro non inserito o inserito incorrettamente");
+        }
         return "addetto/checkout";
     }
 
     @PostMapping(value = "/checkout", params = "action=CompletaCheckout")
-    public String completaCheckout(Long codiceCarta,@RequestParam(value = "checkboxName", required = false) String checkboxValue){
-        gestoreAddetti.checkoutCompletato(codiceCarta);
+    public String completaCheckout(Long codiceCarta,@RequestParam(value = "checkboxName", required = false) String checkboxValue, Model model){
+        try{
+            gestoreAddetti.checkoutCompletato(codiceCarta);
+        } catch (Exception e) { }
         if(checkboxValue != null)
         {
             Long id = gestoreAddetti.getClienteFromCodiceCarta(codiceCarta);
@@ -88,6 +102,7 @@ public class IAddettoNegozio {
             return "home/homeAddetto";
         }
     }
+
     @PostMapping(value = "/checkout", params = "action=AnnullaCheckout")
     public ModelAndView annullaCheckout(){
         gestoreAddetti.annullaCheckout();
@@ -132,34 +147,34 @@ public class IAddettoNegozio {
 
     @PostMapping(value="/checkout", params ="action=CercaUserPerAssegnaCarta")
     public String getClienti(String email,Double prezzoCarrello, Model model){
-        model.addAttribute("userList",gestoreAddetti.getCliente(email));
+        try{
+            model.addAttribute("userList",gestoreAddetti.getCliente(email));
+        } catch (Exception e) {
+            model.addAttribute("alertUserCartaErrato", "utente non presente o incorretto");
+        }
         model.addAttribute("prezzoCarrello",prezzoCarrello);
         return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout", params="action=GeneraCartaInCheckout")
     public String assegnaCartaInCheckout(String email1, TipoScontoCliente tipoScontoCliente,Double prezzoCarrello,Model model) {
-        model.addAttribute("userList", gestoreAddetti.getCliente(email1));
-        Optional<User> user = userRepository.findByEmail(email1);
-        model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
-        model.addAttribute("prezzoCarrello",prezzoCarrello);
+        try{
+            model.addAttribute("userList", gestoreAddetti.getCliente(email1));
+            Optional<User> user = userRepository.findByEmail(email1);
+            model.addAttribute("codiceCarta", gestoreAddetti.assegnaCarta(user.get().getId(), tipoScontoCliente));
+            model.addAttribute("prezzoCarrello",prezzoCarrello);
+        } catch (Exception e) {
+            model.addAttribute("alertGenerazioneCartaErrata", "utente non selezionato o incorretto");
+        }
         return "addetto/checkout";
     }
 
     @PostMapping(value="/checkout", params = "action=RecuperaCodiceCartaDaEmail")
     public String recuperaCodiceCartaByEmail(String email2, Model model,Double prezzoCarrello ){
-        model.addAttribute("codiceCarta", gestoreAddetti.searchCodiceCartaFromEmail(email2));
-        model.addAttribute("prezzoCarrello",prezzoCarrello);
-        return "addetto/checkout";
-    }
-
-    @PostMapping(value="/checkout", params = "action=VerificaCodice")
-    public String verificaCodice(Long codiceCarta, Model model, Double prezzoCarrello){
-        if(gestoreAddetti.verificaCodiceCarta(codiceCarta)){
-            model.addAttribute("resultVerifica", "codice corretto");
-            model.addAttribute("codiceCarta", codiceCarta);
-        } else {
-            model.addAttribute("resultVerifica", "codice non valido");
+        try {
+            model.addAttribute("codiceCarta", gestoreAddetti.searchCodiceCartaFromEmail(email2));
+        } catch (Exception e) {
+            model.addAttribute("alertRecuperoCC", "utente errato o carta non associata");
         }
         model.addAttribute("prezzoCarrello",prezzoCarrello);
         return "addetto/checkout";
