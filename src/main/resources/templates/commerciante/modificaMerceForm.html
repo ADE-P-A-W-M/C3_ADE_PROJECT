@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8-8">
-        <title>Aggiungi Promozione</title>
+        <title>MODIFICA MERCE</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -91,25 +91,27 @@
                                 <div  style="width: 800px">
                                     <div>
                                         <label for="quantita" class="col-form-label">Quantita</label>
-                                        <input type="number" step="0.1" name="quantita" class="form-control" id="quantita">
+                                        <input type="number" step="0.1" name="quantita" class="form-control" id="quantita" required autofocus="autofocus">
                                     </div>
                                     <div>
                                         <label for="prezzo" class="col-form-label">Prezzo</label>
-                                        <input type="number" step="0.1" name="prezzo" class="form-control" id="prezzo">
+                                        <input type="number" step="0.1" name="prezzo" class="form-control" id="prezzo" required autofocus="autofocus">
                                     </div>
                                     <div>
                                         <label for="sconto" class="col-form-label">Sconto</label>
-                                        <input type="number" step=0.1 name="sconto" class="form-control" id="sconto">
+                                        <input type="number" step=0.1 name="sconto" class="form-control" id="sconto" required autofocus="autofocus">
                                     </div>
                                     <br>
                                     <div id="containerModificaMerce" style="width:500px;">
                                         <div style="float: left; width: 150px">
                                             <input type="submit" class="btn btn-primary" value="Modifica merce">
                                         </div>
-                                        <div style="float: right; width: 350px;">
-                                            <input type="hidden" id="alertModificaMerce" name="alertModificaMerce" value="alertModificaMerce">
-                                            <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertModificaMerce}" th:text="${alertModificaMerce}" th:class="${'alertModificaMerce ' + alertModificaMerce}"></span>
-                                            </input>
+                                        <div class="divAlert" style="float: right; width: 350px;">
+                                            <div th:if="${alertModificaMerce}">
+                                                <div class="alert alert-danger" >
+                                                    <span th:text="${alertModificaMerce}"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

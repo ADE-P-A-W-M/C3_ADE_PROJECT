@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
         <meta charset="UTF-8">
-        <title>Aggiungi Merce</title>
+        <title>AGGIUNGI MERCE</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
@@ -82,16 +82,13 @@
                     <div class="row">
                         <div class = "col-lg-6">
                             <div>
-
-                                <h2>Aggiungi merce</h2>
-
                                 <form action="#" th:action="@{/commerciante/showInventario/addMerce/{id}(id=${id})}" method="post">
                                     <label for="quantita" class="col-form-label">Quantita</label>
-                                    <input type="text" name="quantita" class="form-control" id="quantita">
+                                    <input type="text" name="quantita" class="form-control" id="quantita" required autofocus="autofocus">
                                     <label for="prezzo" class="col-form-label">prezzo</label>
-                                    <input type="text" name="prezzo" class="form-control" id="prezzo">
+                                    <input type="text" name="prezzo" class="form-control" id="prezzo" required autofocus="autofocus">
                                     <label for="sconto" class="col-form-label">Sconto</label>
-                                    <input type="text" name="sconto" class="form-control" id="sconto">
+                                    <input type="text" name="sconto" class="form-control" id="sconto" required autofocus="autofocus">
                                     <br>
                                     <input type="submit" class="btn btn-primary" value="Aggiungi merce">
                                 </form>

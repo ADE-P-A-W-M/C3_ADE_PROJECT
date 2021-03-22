@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Aggiungi Promozione</title>
+        <title>AGGIUNGI PROMOZIONE</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -84,33 +84,32 @@
                     <div class="row">
                         <div class = "col-lg-8">
                             <div>
-
-                                <h2>Aggiungi promozione</h2>
-
                                 <form action="#" th:action="@{/commerciante/merceInPromozione/addPromozione/{id}(id=${id})}"
                                       method="post">
                                     <div>
                                         <div>
                                             <label for="dataInizio" class="col-form-label">Data inizio</label>
-                                            <input type="date" name="dataInizio" class="form-control" id="dataInizio">
+                                            <input type="date" name="dataInizio" class="form-control" id="dataInizio" required autofocus="autofocus">
                                         </div>
                                         <div>
                                             <label for="dataFine" class="col-form-label">Data fine</label>
-                                            <input type="date" name="dataFine" class="form-control" id="dataFine">
+                                            <input type="date" name="dataFine" class="form-control" id="dataFine" required autofocus="autofocus">
                                         </div>
                                         <div>
                                             <label for="percentualeSconto" class="col-form-label">percentuale sconto</label>
-                                            <input type="number" name="percentualeSconto" class="form-control" id="percentualeSconto">
+                                            <input type="number" name="percentualeSconto" class="form-control" id="percentualeSconto" required autofocus="autofocus">
                                         </div>
                                         <br>
                                         <div id="containerAggiungiPromozione" style="width:500px;">
                                             <div style="float: left; width: 150px">
                                                 <input type="submit" class="btn btn-primary" value="Aggiungi">
                                             </div>
-                                            <div style="float: right; width: 350px;">
-                                                <input type="hidden" id="alertAddPromozione" name="alertAddPromozione" value="alertAddPromozione">
-                                                <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertAddPromozione}" th:text="${alertAddPromozione}" th:class="${'alertAddPromozione ' + alertAddPromozione}"></span>
-                                                </input>
+                                            <div class="divAlert" style="float: right; width: 350px;">
+                                                <div th:if="${alertAddPromozione}">
+                                                    <div class="alert alert-danger" >
+                                                        <span th:text="${alertAddPromozione}"></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -119,34 +118,7 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="container my-5">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-body">-->
-<!--                            <div>-->
-<!--                                <form action="#" th:action="@{/commerciante/merceInPromozione/addPromozione/{id}(id=${id})}" method="post">-->
-<!--                                    <div style="width:500px">-->
-<!--                                        <div>-->
-<!--                                            <label for="dataInizio" class="col-form-label">Data inizio</label> <input type="date" name="dataInizio" class="form-control" id="dataInizio">-->
-<!--                                        </div>-->
-<!--                                        <div>-->
-<!--                                            <label for="dataFine" class="col-form-label" >Data fine</label> <input type="date" name="dataFine" class="form-control" id="dataFine">-->
-<!--                                        </div>-->
-<!--                                        <div>-->
-<!--                                            <label for="percentualeSconto" class="col-form-label">percentuale sconto</label> <input type="text" name="percentualeSconto" class="form-control" id="percentualeSconto">-->
-<!--                                        </div>-->
-<!--                                        <br>-->
-<!--                                        <div>-->
-<!--                                            <input type="submit" class="btn btn-primary" value="Aggiungi Promozione">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
         </div>
-
     </body>
-
 </html>

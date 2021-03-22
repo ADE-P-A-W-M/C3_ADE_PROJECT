@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Aggiungi Promozione</title>
+        <title>AGGINGI MERCE</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -84,12 +84,9 @@
                     <div class="row">
                         <div class = "col-lg-6">
                             <div>
-
-                                <h2>Aggiungi merce </h2>
-
                                 <form action="#" th:action="@{/commerciante/showInventario/addMerceId}" method="post">
                                     <label for="id" class="col-form-label">Inserire l'id della merce se se ne dispone altrimenti procedere senza inserirne alcuno :</label>
-                                    <input type="text" name="id" class="form-control" id="id">
+                                    <input type="text" name="id" class="form-control" id="id" required autofocus="autofocus">
                                     <br>
                                     <input type="submit" class="btn btn-primary" value="Aggiungi merce">
                                 </form>

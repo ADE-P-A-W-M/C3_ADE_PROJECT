@@ -216,8 +216,13 @@ public class IAddettoNegozio {
 
     @PostMapping("/getCliente")
     public String getClientiFiltered(String email, Model model){
-        model.addAttribute("userList",gestoreAddetti.getCliente(email));
-        return "addetto/clienteAssegnazioneCarta";
+        try{
+            model.addAttribute("userList",gestoreAddetti.getCliente(email));
+            return "addetto/clienteAssegnazioneCarta";
+        } catch (Exception e) {
+            model.addAttribute("alertUtente", "utente inserito non valido");
+            return "addetto/formRicercaClienteAssegnazione";
+        }
     }
 
     @PostMapping("/getCliente/{id}")
@@ -250,8 +255,13 @@ public class IAddettoNegozio {
 
     @PostMapping("/getVenditeAssegnate")
     public String showCliente(String email,Model model){
-        model.addAttribute("clienteList", gestoreAddetti.getCliente(email));
-        return "addetto/clienteVenditaAssegnata";
+        try{
+            model.addAttribute("clienteList", gestoreAddetti.getCliente(email));
+            return "addetto/clienteVenditaAssegnata";
+        } catch (Exception e) {
+            model.addAttribute("alertUtente", "utente inserito non valido");
+            return "addetto/formVenditeAssegnate";
+        }
     }
 
     @GetMapping("/getVenditeAssegnate/{id}")

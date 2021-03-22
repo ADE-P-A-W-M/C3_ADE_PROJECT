@@ -96,7 +96,16 @@
                                             <input type="text" name="email" class="form-control" id="email">
                                         </div>
                                         <div class="form-group col-md-8">
-                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                            <div class="divAlert" style="float: left;">
+                                                <input type="submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                            <div class="divAlert" style="float: right;">
+                                                <div th:if="${alertUtente}">
+                                                    <div class="alert alert-danger">
+                                                        <span th:text="${alertUtente}"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

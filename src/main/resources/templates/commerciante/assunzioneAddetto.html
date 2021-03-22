@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
         <meta charset="UTF-8">
-        <title>Aggiungi Promozione</title>
+        <title>ASSUMI ADDETTO</title>
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -81,23 +81,22 @@
             <div id="page-content-wrapper">
                 <div class = "container-fluid">
                     <div class="row">
-                        <div class = "col-lg-12">
+                        <div class = "col-lg-8">
                             <div>
-
-                                <h2>Assumi addetto</h2>
-
                                 <form action="#" th:action="@{/commerciante/assunzioneAddetto}" method="post">
                                     <label for="email" class="col-form-label">Email</label>
-                                    <input type="text" name="email" class="form-control" id="email" style="width: 800px">
+                                    <input type="text" name="email" class="form-control" id="email" required autofocus="autofocus">
                                     <br>
                                     <div id="containerAggiungiPromozione" style="width:500px;">
                                         <div style="float: left; width: 150px">
                                             <input type="submit" class="btn btn-primary" value="Ricerca utente">
                                         </div>
-                                        <div style="float: right; width: 350px;">
-                                            <input type="hidden" id="alertAssunzioneAddetto" name="alertAssunzioneAddetto" value="alertAssunzioneAddetto">
-                                            <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertAssunzioneAddetto}" th:text="${alertAssunzioneAddetto}" th:class="${'alertAssunzioneAddetto ' + alertAssunzioneAddetto}"></span>
-                                            </input>
+                                        <div class="divAlert" style="float: right; width: 350px;">
+                                            <div th:if="${alertAssunzioneAddetto}">
+                                                <div class="alert alert-danger" >
+                                                    <span th:text="${alertAssunzioneAddetto}"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

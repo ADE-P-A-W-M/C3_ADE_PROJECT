@@ -79,7 +79,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
         <form id="insertIndirizzoDomicilio" th:action="@{/addettonegozio/checkout/{idCliente}(idCliente=${idCliente})}" method="post">
-            <input type="text" id="indirizzoDomicilio" name="indirizzoDomicilio"/>
+            <input type="text" id="indirizzoDomicilio" name="indirizzoDomicilio" required autofocus="autofocus"/>
             <input type="hidden" id="idCliente" name="idCliente" th:value="${idCliente}"/>
             <input type="hidden" id="idCorriere" name="idCorriere" th:value="${idCorriere}"/>
             <button type="submit" name="action" value="confermaIndirizzo">Conferma</button>
