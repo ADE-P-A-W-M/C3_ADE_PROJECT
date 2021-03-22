@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name =  "user"/*, uniqueConstraints = @UniqueConstraint(columnNames = "email")*/)
+@Table(name =  "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User{
 
     @Id
@@ -19,6 +19,7 @@ public class User{
     private String nome;
     @Column(name = "cognome")
     private String cognome;
+    @Column(name = "email")
     private String email;
     private String password;
 

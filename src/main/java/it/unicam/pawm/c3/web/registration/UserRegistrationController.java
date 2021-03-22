@@ -2,10 +2,12 @@ package it.unicam.pawm.c3.web.registration;
 
 import it.unicam.pawm.c3.web.userdetailservice.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/registration")
@@ -19,8 +21,8 @@ public class UserRegistrationController {
     }
 
     @ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public UserRegistration userRegistrationDto() {
+        return new UserRegistration();
     }
 
     @GetMapping
@@ -28,9 +30,14 @@ public class UserRegistrationController {
         return "registration";
     }
 
-    @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-        userService.save(registrationDto);
-        return "redirect:/registration?success";
+    @PostMapping()
+    public String registerUserAccount(@ModelAttribute("user") UserRegistration registrationDto, Model model) {
+        try{
+            userService.save(registrationDto);
+            return "redirect:/registration?success";
+        } catch (IllegalStateException e){
+            model.addAttribute("alertEmailNonValida", "Registrazione incompleta, email non valida");
+            return "registration";
+        }
     }
 }
