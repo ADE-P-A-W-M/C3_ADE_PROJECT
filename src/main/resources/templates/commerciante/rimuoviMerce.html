@@ -87,9 +87,19 @@
                             <div  style="width:800px">
                                 <form action="#" th:action="@{/commerciante/showInventario/remove/{id}(id=${id})}" method="post">
                                     <label for="quantita" class="col-form-label">Quantita da rimuovere</label>
-                                    <input type="text" name="quantita" class="form-control" id="quantita">
+                                    <input type="number" step="0.1" name="quantita" class="form-control" id="quantita">
                                     <br>
-                                    <input type="submit" class="btn btn-primary" value="Rimuovi quantita">
+                                    <div id="containerEliminaMerce" style="width:500px;">
+                                        <div style="float: left; width: 150px">
+                                            <input type="submit" class="btn btn-primary" value="Rimuovi quantita">
+                                        </div>
+                                        <div style="float: right; width: 350px;">
+                                            <input type="hidden" id="alertEliminaMerce" name="alertEliminaMerce" value="alertEliminaMerce">
+                                            <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertEliminaMerce}" th:text="${alertEliminaMerce}" th:class="${'alertEliminaMerce ' + alertEliminaMerce}"></span>
+                                            </input>
+                                        </div>
+                                    </div>
+
                                 </form>
                             </div>
                         </div>

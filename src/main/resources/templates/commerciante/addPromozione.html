@@ -82,11 +82,11 @@
             <div id="page-content-wrapper">
                 <div class = "container-fluid">
                     <div class="row">
-                        <div class = "col-lg-12">
+                        <div class = "col-lg-8">
                             <div>
                                 <form action="#" th:action="@{/commerciante/merceInPromozione/addPromozione/{id}(id=${id})}"
                                       method="post">
-                                    <div style="width:800px">
+                                    <div>
                                         <div>
                                             <label for="dataInizio" class="col-form-label">Data inizio</label>
                                             <input type="date" name="dataInizio" class="form-control" id="dataInizio">
@@ -97,11 +97,18 @@
                                         </div>
                                         <div>
                                             <label for="percentualeSconto" class="col-form-label">percentuale sconto</label>
-                                            <input type="text" name="percentualeSconto" class="form-control" id="percentualeSconto">
+                                            <input type="number" name="percentualeSconto" class="form-control" id="percentualeSconto">
                                         </div>
                                         <br>
-                                        <div>
-                                            <input type="submit" class="btn btn-primary" value="Aggiungi Promozione">
+                                        <div id="containerAggiungiPromozione" style="width:500px;">
+                                            <div style="float: left; width: 150px">
+                                                <input type="submit" class="btn btn-primary" value="Aggiungi">
+                                            </div>
+                                            <div style="float: right; width: 350px;">
+                                                <input type="hidden" id="alertAddPromozione" name="alertAddPromozione" value="alertAddPromozione">
+                                                <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertAddPromozione}" th:text="${alertAddPromozione}" th:class="${'alertAddPromozione ' + alertAddPromozione}"></span>
+                                                </input>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

@@ -87,7 +87,16 @@
                                     <label for="email" class="col-form-label">Email</label>
                                     <input type="text" name="email" class="form-control" id="email" style="width: 800px">
                                     <br>
-                                    <input type="submit" class="btn btn-primary" value="Ricerca utente">
+                                    <div id="containerAggiungiPromozione" style="width:500px;">
+                                        <div style="float: left; width: 150px">
+                                            <input type="submit" class="btn btn-primary" value="Ricerca utente">
+                                        </div>
+                                        <div style="float: right; width: 350px;">
+                                            <input type="hidden" id="alertAssunzioneAddetto" name="alertAssunzioneAddetto" value="alertAssunzioneAddetto">
+                                            <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertAssunzioneAddetto}" th:text="${alertAssunzioneAddetto}" th:class="${'alertAssunzioneAddetto ' + alertAssunzioneAddetto}"></span>
+                                            </input>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>

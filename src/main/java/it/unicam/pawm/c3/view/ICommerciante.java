@@ -68,9 +68,14 @@ public class ICommerciante {
 
     @PostMapping("merceInPromozione/addPromozione/{id}")
     public String addPromozione(@PathVariable("id") Long id, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInizio,@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFine, Double percentualeSconto, Model model) {
-        gestoreCommercianti.addPromozione(id,dataInizio,dataFine,percentualeSconto);
-        model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
-        return "commerciante/showPromozioni";
+        try {
+            gestoreCommercianti.addPromozione(id,dataInizio,dataFine,percentualeSconto);
+            model.addAttribute("minList",gestoreCommercianti.getPromozioniAttive());
+            return "commerciante/showPromozioni";
+        } catch(Exception e) {
+            model.addAttribute("alertAddPromozione","campi non validi");
+            return "commerciante/addPromozione";
+        }
     }
     /******************Interfaccia Gestione Corriere***************/
 
@@ -102,8 +107,13 @@ public class ICommerciante {
 
     @PostMapping ("assunzioneAddetto")
     public String assumiCliente(String email,Model model) {
-        model.addAttribute("userList",gestoreCommercianti.getCliente(email));
-        return "commerciante/clienteDaAssumere";
+        try {
+            model.addAttribute("userList",gestoreCommercianti.getCliente(email));
+            return "commerciante/clienteDaAssumere";
+        } catch(Exception e) {
+            model.addAttribute("alertAssunzioneAddetto","campi non validi");
+            return "commerciante/assunzioneAddetto";
+        }
     }
 
     @GetMapping("assunzioneAddetto/{id}")
@@ -138,9 +148,14 @@ public class ICommerciante {
 
     @PostMapping("showInventario/remove/{id}")
     public String removeFromInventario(@PathVariable Long id,Double quantita,Model model) {
-        gestoreCommercianti.removeMerce(id,quantita);
-        model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "commerciante/showInventario";
+        try {
+            gestoreCommercianti.removeMerce(id,quantita);
+            model.addAttribute("minList",gestoreCommercianti.getInventario());
+            return "commerciante/showInventario";
+        } catch(Exception e) {
+            model.addAttribute("alertEliminaMerce","campi non validi");
+            return "commerciante/rimuoviMerce";
+        }
     }
 
     @PostMapping("showInventario/addMerceId")
@@ -163,15 +178,25 @@ public class ICommerciante {
     }
     @PostMapping("showInventario/addMerce")
     public String addMerceNew(String nome,String descrizione,Categoria categoria,Double quantita,Double prezzo,Double sconto,Model model) {
-        gestoreCommercianti.addMerce(nome,descrizione,categoria,quantita,prezzo,sconto);
-        model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "commerciante/showInventario";
+        try {
+            gestoreCommercianti.addMerce(nome,descrizione,categoria,quantita,prezzo,sconto);
+            model.addAttribute("minList",gestoreCommercianti.getInventario());
+            return "commerciante/showInventario";
+        } catch(Exception e) {
+            model.addAttribute("alertAddNewMerce","campi non validi");
+            return "commerciante/addNewMerce";
+        }
     }
 
     @PostMapping("showInventario/modificaMerce/{id}")
     public String modificaMerce(@PathVariable Long id,Model model,Double quantita,Double prezzo,Double sconto) {
-        gestoreCommercianti.modificaMerce(id,prezzo,sconto,quantita);
-        model.addAttribute("minList",gestoreCommercianti.getInventario());
-        return "commerciante/showInventario";
+        try {
+            gestoreCommercianti.modificaMerce(id,prezzo,sconto,quantita);
+            model.addAttribute("minList",gestoreCommercianti.getInventario());
+            return "commerciante/showInventario";
+        } catch(Exception e) {
+            model.addAttribute("alertModificaMerce","campi non validi");
+            return "commerciante/modificaMerceForm";
+        }
     }
 }

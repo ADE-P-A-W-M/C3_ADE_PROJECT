@@ -88,19 +88,26 @@
                                 <div  style="width: 800px">
                                     <div>
                                         <label for="quantita" class="col-form-label">Quantita</label>
-                                        <input type="text" name="quantita" class="form-control" id="quantita">
+                                        <input type="number" step="0.1" name="quantita" class="form-control" id="quantita">
                                     </div>
                                     <div>
                                         <label for="prezzo" class="col-form-label">Prezzo</label>
-                                        <input type="text" name="prezzo" class="form-control" id="prezzo">
+                                        <input type="number" step="0.1" name="prezzo" class="form-control" id="prezzo">
                                     </div>
                                     <div>
                                         <label for="sconto" class="col-form-label">Sconto</label>
-                                        <input type="text" name="sconto" class="form-control" id="sconto">
+                                        <input type="number" step=0.1 name="sconto" class="form-control" id="sconto">
                                     </div>
                                     <br>
-                                    <div>
-                                        <input type="submit" class="btn btn-primary" value="Modifica merce">
+                                    <div id="containerModificaMerce" style="width:500px;">
+                                        <div style="float: left; width: 150px">
+                                            <input type="submit" class="btn btn-primary" value="Modifica merce">
+                                        </div>
+                                        <div style="float: right; width: 350px;">
+                                            <input type="hidden" id="alertModificaMerce" name="alertModificaMerce" value="alertModificaMerce">
+                                            <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertModificaMerce}" th:text="${alertModificaMerce}" th:class="${'alertModificaMerce ' + alertModificaMerce}"></span>
+                                            </input>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
