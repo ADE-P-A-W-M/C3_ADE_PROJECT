@@ -78,9 +78,17 @@
                         <div class="form-group col-md-6">
                             <label for="email" class="col-form-label">Email</label> <input type="text" name="email" class="form-control" id="email">
                         </div>
-
                         <div class="form-group col-md-8">
-                            <input type="submit" class="btn btn-primary" value="Cerca utente">
+                            <div style="width: 500px;">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" value="Cerca utente">
+                                </div>
+                                <div style="float: right; width: 350px">
+                                    <input type="hidden" id="alertUserPerNegozio" name="alertUserPerNegozio" value="alertUserPerNegozio">
+                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertUserPerNegozio}" th:text="${alertUserPerNegozio}" th:class="${'alertRecuperoCC ' + alertUserPerNegozio}"></span>
+                                    </input>
+                                </div>
+                            </div>
                         </div>
 
 

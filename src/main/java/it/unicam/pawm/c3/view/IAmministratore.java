@@ -43,8 +43,13 @@ public class IAmministratore {
 
     @PostMapping("/addNegozioForm")
     public String addNegozioForm(String email, Model model) {
-        model.addAttribute("userList",gestoreAmministratori.searchCliente(email));
-        return "amministratore/addNegozioForm";
+        try{
+            model.addAttribute("userList",gestoreAmministratori.searchCliente(email));
+            return "amministratore/addNegozioForm";
+        } catch (Exception e) {
+            model.addAttribute("alertUserPerNegozio", "utente non presente o incorretto");
+            return "amministratore/searchUserByEmail";
+        }
     }
 
     @PostMapping("/addNegozio/{id}")
@@ -60,8 +65,13 @@ public class IAmministratore {
 
     @PostMapping("/addCorriereForm")
     public String addCorriereForm(String email, Model model) {
-        model.addAttribute("userList",gestoreAmministratori.searchCliente(email));
-        return "amministratore/addCorriereForm";
+        try{
+            model.addAttribute("userList",gestoreAmministratori.searchCliente(email));
+            return "amministratore/addCorriereForm";
+        } catch (Exception e){
+            model.addAttribute("alertUserPerCorriere", "utente non presente o incorretto");
+            return "amministratore/searchUserByEmailCorriere";
+        }
     }
 
     @PostMapping("/addCorriere/{id}")

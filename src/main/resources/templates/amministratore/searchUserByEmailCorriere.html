@@ -74,20 +74,24 @@
             <div id="page-content-wrapper">
                 <div class="container-fluid">
                     <form class="form-group col-lg-10" th:action="@{/amministratore/addCorriereForm}" method="post">
-                        <p>
-                            <div class="form-group col-md-6">
-                                <label for="email" class="col-form-label">Email</label> <input type="text" name="email" class="form-control" id="email">
-                            </div>
-                        </p>
-
+                        <div class="form-group col-md-6">
+                            <label for="email" class="col-form-label">Email</label> <input type="text" name="email"
+                                                                                           class="form-control"
+                                                                                           id="email">
+                        </div>
                         <br>
-
-                        <p>
-                            <div class="form-group col-md-8">
-                                <input type="submit" class="btn btn-primary" value="Cerca utente">
+                        <div class="form-group col-md-8">
+                            <div style="width: 500px;">
+                                <div style="float: left; width: 150px">
+                                    <input type="submit" class="btn btn-primary" value="Cerca utente">
+                                </div>
+                                <div style="float: right; width: 350px">
+                                    <input type="hidden" id="alertUserPerCorriere" name="alertUserPerCorriere" value="alertUserPerCorriere">
+                                    <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertUserPerCorriere}" th:text="${alertUserPerCorriere}" th:class="${'alertRecuperoCC ' + alertUserPerCorriere}"></span>
+                                    </input>
+                                </div>
                             </div>
-                        </p>
-
+                        </div>
                     </form>
                 </div>
             </div>
