@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/main.css" th:href="@{/css/main.css}" />
+</head>
+<body>
+    <div th:fragment="sidebarAmministratore">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Menu amministratore
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/amministratore/}">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/amministratore/registrazioneNegozio}">Registra negozio</a>
+                </li>
+                <li>
+                    <a th:href="@{/amministratore/registrazioneCorriere}">Registra corriere</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
