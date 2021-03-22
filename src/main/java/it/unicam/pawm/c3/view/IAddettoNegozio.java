@@ -186,9 +186,9 @@ public class IAddettoNegozio {
             if(gestoreAddetti.verificaCodiceCarta(codiceCarta)){
                 model.addAttribute("prezzoCarrello", gestoreAddetti.applyScontoCarta(codiceCarta));
                 model.addAttribute("codiceCarta", codiceCarta);
-                model.addAttribute("resultVerifica", "codice corretto");
+                model.addAttribute("alertCodiceValido", "codice corretto");
             } else {
-                model.addAttribute("resultVerifica", "codice non valido");
+                model.addAttribute("alertCodiceErrato", "codice non valido");
                 model.addAttribute("codiceCarta", 0);
                 model.addAttribute("prezzoCarrello", prezzoCarrello);
             }
