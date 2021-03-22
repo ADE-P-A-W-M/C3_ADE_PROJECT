@@ -8,6 +8,19 @@ p {
     font-family: sans-serif;
 }
 
+/*.alert {*/
+    /*display:inline-block;*/
+    /*line-height: 33px;*/
+    /*text-align: center;*/
+    /*height: 33px;*/
+/*}*/
+
+.divAlert{
+    height: 33px;
+    line-height: 0px;
+    text-align: center;
+}
+
 
 /*sidebar */
 #wrapper {

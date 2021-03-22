@@ -180,7 +180,7 @@ public class IAddettoNegozio {
         return "addetto/checkout";
     }
 
-    @PostMapping(value="/checkout", params = "action=ApplicaScontoCarta")
+    @PostMapping(value="/checkout", params = "action=ApplicaCarta")
     public String applicaScontoCarta(Long codiceCarta, Model model, Double prezzoCarrello){
         if(codiceCarta!=null){
             if(gestoreAddetti.verificaCodiceCarta(codiceCarta)){

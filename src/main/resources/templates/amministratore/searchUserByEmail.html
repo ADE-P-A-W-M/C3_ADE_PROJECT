@@ -83,15 +83,15 @@
                                 <div style="float: left; width: 150px">
                                     <input type="submit" class="btn btn-primary" value="Cerca utente">
                                 </div>
-                                <div style="float: right; width: 350px">
-                                    <input type="hidden" id="alertUserPerNegozio" name="alertUserPerNegozio" value="alertUserPerNegozio">
-                                        <span aria-hidden="true" onclick="this.parentElement.style.display='none';" th:if="${alertUserPerNegozio}" th:text="${alertUserPerNegozio}" th:class="${'alertRecuperoCC ' + alertUserPerNegozio}"></span>
-                                    </input>
+                                <div class="divAlert" style="float: right; width: 350px;">
+                                    <div th:if="${alertUserPerNegozio}">
+                                        <div class="alert alert-danger">
+                                            <span th:text="${alertUserPerNegozio}"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </form>
                 </div>
             </div>
