@@ -20,7 +20,7 @@ public class UserRegistrationController {
     }
 
     @ModelAttribute("user")
-    public UserRegistration userRegistrationDto() {
+    public UserRegistration userRegistration() {
         return new UserRegistration();
     }
 
@@ -30,9 +30,9 @@ public class UserRegistrationController {
     }
 
     @PostMapping()
-    public String registerUserAccount(@ModelAttribute("user") UserRegistration registrationDto, Model model) {
+    public String registerUser(@ModelAttribute("user") UserRegistration registration, Model model) {
         try{
-            userService.save(registrationDto);
+            userService.save(registration);
             return "redirect:/registration?success";
         } catch (IllegalStateException e){
             model.addAttribute("alertEmailNonValida", "Registrazione incompleta, email non valida");

@@ -1,8 +1,10 @@
 package it.unicam.pawm.c3.utils.userdetailservice;
 
-import it.unicam.pawm.c3.repository.NegozioRepository;
+import it.unicam.pawm.c3.model.personale.Cliente;
+import it.unicam.pawm.c3.model.personale.Ruolo;
+import it.unicam.pawm.c3.model.personale.RuoloSistema;
+import it.unicam.pawm.c3.model.personale.User;
 import it.unicam.pawm.c3.repository.UserRepository;
-import it.unicam.pawm.c3.model.personale.*;
 import it.unicam.pawm.c3.utils.registration.UserRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,8 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private NegozioRepository negozioRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(email);
         if(!user.isPresent()) {
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new UsernameNotFoundException("Email o password errati");
         }
         return new org.springframework.security.core.userdetails.User(user.get().getEmail(), user.get().getPassword(), mapRolesToAuthorities(user.get().getRuolo()));
     }
