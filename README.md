@@ -39,8 +39,33 @@ ________________________
     <li><h4>Ricerca promozioni:</h4></li>
 </ul>
 </li>
-<li><h3>Addetto:</h3></li>
-<li><h3>Commerciante:</h3></li>
-<li><h3>Corriere:</h3></li>
-<li><h3>Amministratore:</h3></li>
+<li><h3>Addetto:</h3>
+<ul>
+    <li><h4>Checkout:</h4></li>
+    <li><h4>Assegnazione carta:</h4></li>
+    <li><h4>Consulta inventario:</h4></li>
+    <li><h4>Consegna vendita:</h4></li>
+</ul>
+</li>
+<li><h3>Commerciante:</h3>
+<ul>
+    <li><h4>Gestione promozioni:</h4></li>
+    <li><h4>Gestione inventario:</h4></li>
+    <li><h4>Assunzione corrieri:</h4></li>
+    <li><h4>Assunzione addetto:</h4></li>
+</ul>
+</li>
+<li><h3>Corriere:</h3>
+<ul>
+    <li><h4>Ritira merce:</h4></li>
+    <li><h4>Consegna merce:</h4></li>
+    <li><h4>Consulta inventario:</h4></li>
+</ul>
+</li>
+<li><h3>Amministratore:</h3>
+<ul>
+    <li><h4>Registrazione negozio:</h4></li>
+    <li><h4>Registrazione corriere:</h4></li>
+</ul>
+</li>
 </ul></pre>
