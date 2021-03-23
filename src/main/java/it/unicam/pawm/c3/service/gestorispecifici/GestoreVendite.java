@@ -83,6 +83,13 @@ public class GestoreVendite {
         return tot;
     }
 
+    /**
+     * Il metodo serve per recuperare gli acquisti da ritirirare di un determinato cliente
+     *
+     * @param id del cliente
+     * @param negozio del negozio dove si trovano gli acquisti
+     * @return lista di vendite spedite
+     */
     public List<VenditaSpedita> getAcquistiClienteDaRitirare(Long id,Negozio negozio){
         List<VenditaSpedita> list = new ArrayList<>();
         Optional<User> user = userRepository.findById(id);
@@ -112,6 +119,13 @@ public class GestoreVendite {
         return list;
     }
 
+    /**
+     * Il metodo serve per confermare la vendita assegnata
+     * e per settare lo stato della vendita ad assegnato
+     *
+     * @param id della vendita spedita
+     * @param negozio del negozio dove si trova la merce
+     */
     public void confermaConsegnaVenditaAssegnata(Long id, Negozio negozio){
         Optional<VenditaSpedita> VS = venditaSpeditaRepository.findById(id);
         if(VS.isPresent()) {

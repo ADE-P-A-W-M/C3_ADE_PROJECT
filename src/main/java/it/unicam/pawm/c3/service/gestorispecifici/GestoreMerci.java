@@ -35,6 +35,7 @@ public class GestoreMerci {
 
     /**
      * il metodo ricerca il prezzo dell'id merce inserito,se non viene trovata nessuna merce con quel id
+     *
      * @param id l'id della merce da ricercare
      * @param negozio il negozio in cui cercare
      * @param quantita verifica che la quantita sia opportuna
@@ -57,6 +58,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve per ottenere lo sconto di una merce con l'id indicato
+     *
      * @param id della merce in questione
      * @param negozio dove si trova la merce
      * @return lo sconto,zero altrimenti
@@ -74,6 +76,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve per ridurre la quantita di un merce nell'inventario dell'ammontare che sta per essere venduto
+     *
      * @param mp merce a cui scalare la quantita
      * @param quantita da scalare
      * @param negozio dove si trova la merce
@@ -89,6 +92,7 @@ public class GestoreMerci {
 
     /**
      * il metodo reinserisce la quantita che stava per essere venduta nell'inventario
+     *
      * @param negozio dove stava avvenendo la vendita
      * @param merciCarrello le merci che necessitano del reinserimento nell'inventario
      */
@@ -105,6 +109,7 @@ public class GestoreMerci {
 
     /**
      * il metodo restituisce le info di una merce
+     *
      * @param min la merce di cui ottenere le info
      * @return le info dell merce
      */
@@ -121,6 +126,12 @@ public class GestoreMerci {
                 + promozione;
     }
 
+    /**
+     * Il metodo serve per recupare la merce tramite il suo id
+     *
+     * @param id della merce
+     * @return merce inventario negozio
+     */
     public MerceInventarioNegozio getInfoMerce(Long id){
         Optional<MerceInventarioNegozio> min = merceInventarioNegozioRepository.findById(id);
         if(min.isPresent()){
@@ -131,6 +142,7 @@ public class GestoreMerci {
 
     /**
      * Il metodo serve a verificare se una merce con l id selezionato è gia presente nel sistema
+     *
      * @param id della merce da verificare
      * @return se la merce è presente o meno
      */
@@ -144,6 +156,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve ad aggiungere una nuova merce in un megozio
+     *
      * @param nome della merce da inserire
      * @param descrizione della merce da inserire
      * @param categoria della merce da inserire
@@ -168,6 +181,17 @@ public class GestoreMerci {
         negozioRepository.save(negozio);
     }
 
+    /**
+     * Il metodo serve per aggiungere e salvare la merce
+     *
+     * @param nome della merce da aggiungere
+     * @param descrizione della merce da aggiungere
+     * @param categoria della merce da aggiungere
+     * @param quantita delle merce da aggiungere
+     * @param prezzo della merce da aggiungere
+     * @param sconto della merce da aggiungere
+     * @param negozio della merce da aggiungere
+     */
     public void addMerce(String nome, String descrizione, Categoria categoria, Double quantita, Double prezzo, Double sconto, Negozio negozio) {
         Merce m = new Merce(nome, categoria, descrizione);
         merceRepository.save(m);
@@ -182,9 +206,9 @@ public class GestoreMerci {
      * Il metodo serve per modificare una merce nel prezzo,quantita, e sconto
      *
      * @param min merce da modificare
-     * @param prezzo
-     * @param sconto
-     * @param quantita
+     * @param prezzo da modificare
+     * @param sconto da modificare
+     * @param quantita da modificare
      */
     public void modificaMerce(Negozio negozio,MerceInventarioNegozio min, double prezzo, double sconto, double quantita) {
         min.getMerceAlPubblico().setPrezzo(prezzo);
@@ -196,6 +220,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve a rimuovere dall'inventario del negozio specificato una determinata quantita di una lista di merci
+     *
      * @param min merce da rimuove
      * @param quantita da rimuovere
      * @param negozio dove si trovano le merci
@@ -208,7 +233,8 @@ public class GestoreMerci {
     }
 
     /**
-     * il metodo serve ad ottenere una merce con l'id specificato e se quest'ultima non vien etrovata,viene creata
+     * il metodo serve ad ottenere una merce con l'id specificato e se quest'ultima non viene trovata,viene creata
+     *
      * @param id della merce desiderata
      * @param prezzo della merce
      * @param quantita della merce
@@ -238,6 +264,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve ad ottenere le promozioni attive nel negozio
+     *
      * @param negozio dove ricercare le promozioni
      * @return lista merci con promozioni attive
      */
@@ -258,6 +285,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve ad ottenere le merci sulle quali è possibile applicare una promozione
+     *
      * @param negozio delle merci dove applicare una promozione
      * @return merci
      */
@@ -277,6 +305,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve per aggiungere una promozione alla merce specificata
+     *
      * @param miv la merce dove applicare la promozione
      * @param di data di inizio della promozione
      * @param df data di fine della promozione
@@ -291,7 +320,8 @@ public class GestoreMerci {
 
     /**
      * il metodo serve per disattivare la promozione sulle specificate
-     * @param min
+     *
+     * @param min merce da cui rimuovere la promozione
      */
     public void rimuoviPromozione(MerceInventarioNegozio min) {
             min.getMerceAlPubblico().getPromozione().setDisponibile(false);
@@ -300,6 +330,7 @@ public class GestoreMerci {
 
     /**
      * il metodo serve per ottenere la lista delle promozioni attive filtrate per categoria
+     *
      * @param categoria delle promozioni
      * @param promozioni merci su cui è attiva una promozione
      * @return merci su cui è attiva una promozione della categoria specificata

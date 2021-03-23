@@ -152,6 +152,13 @@ public class GestoreCarte {
         return 0;
     }
 
+    /**
+     * Il metodo serve per recupare il cliente utilizzando il codice carta
+     *
+     * @param codiceCarta della carta del cliente da recuperare
+     * @param negozio dove si trova il cliente
+     * @return id del cliente
+     */
     public Long getClienteFromCodiceCarta(Long codiceCarta, Negozio negozio) {
         Iterator<Carta> cartaIterator = negozio.getCarte().iterator();
         while(cartaIterator.hasNext()){

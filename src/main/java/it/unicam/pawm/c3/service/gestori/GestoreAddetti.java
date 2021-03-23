@@ -121,6 +121,12 @@ public class GestoreAddetti {
     }
     /*****************Assegnazione Carta***************/
 
+    /**
+     * Il metodo serve per cercare un user tramite la sua email
+     *
+     * @param email dello user da cercare
+     * @return lista di user con quella email
+     */
     public List<User> getCliente(String email){
         List<User> userList = new ArrayList<>();
         Optional<User> user = userRepository.findByEmail(email);
@@ -132,6 +138,12 @@ public class GestoreAddetti {
         throw new IllegalStateException("cliente non presente");
     }
 
+    /**
+     * Il metodo serve per cercare un user tramite il suo id
+     *
+     * @param id dello user da cercare
+     * @return lista di user con quel id
+     */
     public List<User> getCliente(Long id){
         List<User> userList = new ArrayList<>();
         Optional<User> user = userRepository.findById(id);
@@ -143,6 +155,13 @@ public class GestoreAddetti {
         throw new IllegalStateException("cliente non presente");
     }
 
+    /**
+     * Il metodo serve per assegnare la carta a un determinato user
+     *
+     * @param id dello user
+     * @param tsc della carta
+     * @return codice della carta assegnata
+     */
     public long assegnaCarta(Long id, TipoScontoCliente tsc){
         long cc=0L;
         Iterator<User> userList=userRepository.findAll().iterator();
@@ -169,6 +188,12 @@ public class GestoreAddetti {
         return getNegozio().getMerceInventarioNegozio();
     }
 
+    /**
+     * Il metodo serve per selezionare una merce in base al suo id
+     *
+     * @param id della merce da cercare
+     * @return lista di merce con quel id
+     */
     public List<MerceInventarioNegozio> getInfoMerce(Long id) {
         MerceInventarioNegozio min = gestoreMerci.getInfoMerce(id);
         List<MerceInventarioNegozio> minList = new ArrayList<>();

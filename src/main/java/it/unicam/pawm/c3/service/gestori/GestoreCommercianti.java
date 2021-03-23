@@ -75,9 +75,9 @@ public class GestoreCommercianti {
      * Il metodo serve per aggiungere una promozione
      *
      * @param id della merce
-     * @param di
-     * @param df
-     * @param pp
+     * @param di data inizio della promozione
+     * @param df data fine della promozione
+     * @param pp percentuale della promozione
      */
     public void addPromozione(Long id, LocalDate di, LocalDate df, double pp) {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
@@ -89,6 +89,11 @@ public class GestoreCommercianti {
         }
     }
 
+    /**
+     * Il metodo serve per rimuovere una promozione
+     *
+     * @param id della merce da rimuovere
+     */
     public void rimuoviPromozione(Long id) {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
@@ -168,6 +173,12 @@ public class GestoreCommercianti {
         gestoreMerci.addMerce(id, nome,descrizione, categoria, quantita, prezzo , sconto , getNegozio());
     }
 
+    /**
+     * Il metodo serve per rimuovere la merce
+     *
+     * @param id della merce da eliminare
+     * @param quantita di merce da eliminare
+     */
     public void removeMerce(Long id, double quantita){
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
@@ -179,6 +190,14 @@ public class GestoreCommercianti {
 
     }
 
+    /**
+     * Il metodo serve per modificare alcuni campi della merce
+     *
+     * @param id della merce
+     * @param prezzo della merce
+     * @param sconto della merce
+     * @param quantita della merce
+     */
     public void modificaMerce(Long id,double prezzo, double sconto, double quantita) {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {

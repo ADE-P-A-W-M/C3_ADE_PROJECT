@@ -28,6 +28,12 @@ public class GestoreAccessi {
     @Autowired
     public GestoreAccessi() { }
 
+    /**
+     * Il metodo serve per recuperare il ruolo cliente a partire dalla sua email
+     *
+     * @param email dello user
+     * @return cliente
+     */
     public Cliente homeCliente(String email){
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
@@ -44,7 +50,13 @@ public class GestoreAccessi {
         return null;
     }
 
-
+    /**
+     *  Il metodo serve per recuperare il negozio
+     *  relativo al ruolo addetto, a partire dalla email dello user
+     *
+     * @param email dello user
+     * @return negozio
+     */
     public Negozio homeAddetto(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
@@ -65,7 +77,12 @@ public class GestoreAccessi {
         return null;
     }
 
-
+    /**
+     * Il metodo serve per recuperare il ruolo corriere a partire dalla sua email
+     *
+     * @param email dello user
+     * @return corriere
+     */
     public Corriere homeCorriere(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
@@ -82,6 +99,12 @@ public class GestoreAccessi {
         return null;
     }
 
+    /**
+     * Il metodo serve per recuperare il ruolo amministratore a partire dalla sua email
+     *
+     * @param email dello user
+     * @return amministratore
+     */
     public Amministratore homeAmministratore(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if(user.isPresent()){
