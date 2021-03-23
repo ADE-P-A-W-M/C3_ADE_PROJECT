@@ -1,9 +1,6 @@
 package it.unicam.pawm.c3.utils.userdetailservice;
 
-import it.unicam.pawm.c3.model.personale.Cliente;
-import it.unicam.pawm.c3.model.personale.Ruolo;
-import it.unicam.pawm.c3.model.personale.RuoloSistema;
-import it.unicam.pawm.c3.model.personale.User;
+import it.unicam.pawm.c3.model.personale.*;
 import it.unicam.pawm.c3.repository.UserRepository;
 import it.unicam.pawm.c3.utils.registration.UserRegistration;
 import org.springframework.beans.factory.annotation.Autowired;

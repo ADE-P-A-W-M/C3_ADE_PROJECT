@@ -51,7 +51,7 @@
                             <div>
                                 <label for="categoria" class="col-form-label">Categoria</label>
                                 <select name="categoria" id="categoria" style="height: 35px">
-                                    <option th:each="categoria : ${T(it.unicam.pawm.c3.merce.Categoria).values()}" th:value="${categoria}" th:text="${categoria}"></option>
+                                    <option th:each="categoria : ${T(it.unicam.pawm.c3.model.merce.Categoria).values()}" th:value="${categoria}" th:text="${categoria}"></option>
                                 </select>
                             </div>
                             <br>

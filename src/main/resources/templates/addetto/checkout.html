@@ -214,7 +214,7 @@
                                             <td th:text="${user.cognome}"></td>
                                             <td>
                                                 <select name="tipoScontoCliente">
-                                                    <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.carta.TipoScontoCliente).values()}"
+                                                    <option th:each="tipoScontoCliente : ${T(it.unicam.pawm.c3.model.carta.TipoScontoCliente).values()}"
                                                             th:value="${tipoScontoCliente}"
                                                             th:text="${tipoScontoCliente}"></option>
                                                 </select>
