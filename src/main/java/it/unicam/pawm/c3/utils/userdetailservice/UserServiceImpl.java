@@ -31,6 +31,16 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Metodo utilizzato per salvare, registrare un nuovo user. Durante
+     * la procedura di salvataggio viene fatto un check per controllare
+     * se un utente con la stessa email è gia registrato cosi da prevenire
+     * registrazione in eccesso o false. Quando un user i registra gli verrà
+     * assegnato in modo automatico il ruolo di cliente.
+     *
+     * @param registration l'oggetto registrazione i quali campi saranno quelli del futuro user
+     * @return il nuovo user
+     */
     @Override
     public User save(UserRegistration registration) {
         Optional<User> userToRegister = userRepository.findByEmail(registration.getEmail());
@@ -44,6 +54,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Metodo che verrà richiamato durante il login per caricare lo user
+     * date email e password.
+     *
+     * @param email con ci viene caricato lo user e poi fatto il check della password
+     * @return userdetails che verrà utilizzato da springsecurity per mantenere l'autenticazione
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByEmail(email);

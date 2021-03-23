@@ -1,5 +1,9 @@
 package it.unicam.pawm.c3.utils.registration;
 
+/**
+ * Classe che ha la responsabilita di rappresentare
+ * uno user durante la registrazione
+ */
 public class UserRegistration {
     private String nome;
     private String cognome;
