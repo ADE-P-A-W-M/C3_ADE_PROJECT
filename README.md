@@ -3,10 +3,10 @@
 
 ________________________
 ## Introduzione:
-<pre>Il progetto è un applicazione Web che ha come scopo quello di ravvivare l'economia nei centri storici dei paesi.
-Permette ad ogni negozio registrato di vendere i suoi prodotti fisicamente ad un cliente, il quale potrà avere la
-possibilità di ritirare subito la merce o di scegliere un altro negozio, presente nella piattaforma, più comodo a
-seconda delle sue esigenze, per il ritiro. Il trasporto sarà compito di un corriere inserito nella piattaforma.</pre>
+<pre>Il progetto è un applicazione Web che ha come scopo quello di ravvivare l'economia nel centro storico di un paese.
+Permette ad ogni negozio registrato alla piattaforma di vendere i suoi prodotti fisicamente ad un cliente,
+il quale potrà avere la possibilità di ritirare subito la merce o di scegliere un altro negozio più comodo 
+a seconda delle sue esigenze, peril ritiro. Il trasporto sarà compiuto da un corriere affiliato.</pre>
 ________________________
 
 ## Attori coinvolti nel sistema:
@@ -31,9 +31,7 @@ verrà reindirizzati nella pagina relativa al ruolo cliente. Se si dispone di al
 <li><h4>Ricerca prodotto:</h4>Il cliente cerca un determinato prodotto tramite il nome e visualizza la lista dei negozi che 
 lo vendono.</li>
 <li><h4>Ricerca promozioni:</h4>Il cliente visualizza le promozioni attive in ogni negozio ed può filtrarle in base alla categoria.</li></ul></li>
-<li><h3>Addetto:</h3><ul><li><h4>Checkout:</h4>L'addetto inserisce i dati della merce che il cliente sta acquistando. L'addetto chiede poi al cliente se
-quest'ultimo ha già una carta. Nel caso in cui il cliente non possiede la carta e ne desidera una si procederà con l'assegnazione. 
-A questo punto il cliente può scegliere se far spedire l'acquisto in un altro negozio o nel proprio domicilio.</li>
+<li><h3>Addetto:</h3><ul><li><h4>Checkout:</h4><ul><li>L’addetto identifica le merci portate alla cassa dal cliente tramite l’id</li><li>Viene eventualmente applicato uno sconto relativo alla carta sul prezzo totale</li><li>Il cliente sceglie se ritirare l’acquisto subito oppure farlo spedire nel luogo di ritiro che preferisce(domicilio o negozio)</li><li>La vendita è completata</li></ul></li>
 <li><h4>Assegnazione carta:</h4>L'addetto crea una nuova carta assegnandola al cliente specificando anche il tipo di sconto da 
 attribuire alla carta</li>
 <li><h4>Consulta inventario:</h4>L'addetto visualizza la merce presente nell'inventario del negozio e visionare le informazioni di 
