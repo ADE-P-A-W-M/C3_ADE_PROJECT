@@ -39,8 +39,8 @@ public class GestoreAmministratori {
     /**
      * Il metodo serve per cercare un cliente tramite email
      *
-     * @param email del cliente da cercare
-     * @return cliente
+     * @param email dello user da cercare
+     * @return user
      */
     public User ricercaCliente(String email) {
         Optional<User> user=userRepository.findByEmail(email);
@@ -51,6 +51,12 @@ public class GestoreAmministratori {
         }
     }
 
+    /**
+     *  Il metodo serve per cercare un user tramite email
+     *
+     * @param email dello user da cercare
+     * @return lista di user
+     */
     public List<User> searchCliente(String email){
         Optional<User> user = userRepository.findByEmail(email);
         List<User> list = new ArrayList<>();

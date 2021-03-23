@@ -47,6 +47,7 @@ public class ICorriere {
 
     /************Interfaccia Preleva Vendita********************/
 
+
     @GetMapping("/venditeDaRitirare/ritiro/{id}")
     public ModelAndView prelevaVendita(@PathVariable Long id, ModelMap model) {
         gestoreCorrieri.prelevaVendita(id);
@@ -54,6 +55,7 @@ public class ICorriere {
     }
 
     /************Interfaccia Consegna Vendita********************/
+
 
     @GetMapping("/consegna/{id}")
     public ModelAndView consegnaVendita(@PathVariable Long id, ModelMap model) {

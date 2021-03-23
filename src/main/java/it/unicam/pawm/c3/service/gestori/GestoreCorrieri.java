@@ -50,6 +50,11 @@ public class GestoreCorrieri {
 
     /************Consegna Vendita********************/
 
+    /**
+     * Il metodo serve per consegnare una vendita, quindi per settare lo stato a consegnato
+     *
+     * @param id della merce
+     */
     public void consegnaVendita(Long id){
         Optional<VenditaSpedita> vs = venditaSpeditarepository.findById(id);
         if(vs.get().getLuogoDiRitiro().equals(LuogoDiRitiro.NEGOZIO)){
@@ -61,6 +66,11 @@ public class GestoreCorrieri {
 
     /************Preleva Vendita********************/
 
+    /**
+     * Il metodo serve per prelevare una vendita, quindi per settare lo stato a prelevato
+     *
+     * @param id della merce
+     */
     public void prelevaVendita(Long id) {
          Optional<VenditaSpedita> vs = venditaSpeditarepository.findById(id);
          gestoreVendite.aggiornaStatoVendita(vs.get(),StatoConsegna.RITIRATO, getCorriere());

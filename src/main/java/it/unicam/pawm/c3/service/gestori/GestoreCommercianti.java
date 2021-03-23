@@ -71,6 +71,14 @@ public class GestoreCommercianti {
         return gestoreMerci.getPromozioniPossibili(getNegozio());
     }
 
+    /**
+     * Il metodo serve per aggiungere una promozione
+     *
+     * @param id della merce
+     * @param di
+     * @param df
+     * @param pp
+     */
     public void addPromozione(Long id, LocalDate di, LocalDate df, double pp) {
         Iterator<MerceInventarioNegozio> minList=getNegozio().getMerceInventarioNegozio().iterator();
         while(minList.hasNext()) {
