@@ -266,8 +266,8 @@ public class IAddettoNegozio {
 
     @GetMapping("/getVenditeAssegnate/{id}")
     public String getAcquistiClienteDaRitirare(@PathVariable Long id,Model model){
-        model.addAttribute("listaVendite", gestoreAddetti.getAcquistiClienteDaRitare(id));
-        return "addetto/consegnaVenditaAssegnata";
+       model.addAttribute("listaVendite", gestoreAddetti.getAcquistiClienteDaRitare(id));
+       return "addetto/consegnaVenditaAssegnata";
     }
 
     @GetMapping("/consegnaAlCliente/{id}")

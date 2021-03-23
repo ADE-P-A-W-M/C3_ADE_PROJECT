@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>ISCRIZIONE CORRIERE</title>
@@ -14,62 +14,14 @@
     </head>
     <body>
         <!--NAVBAR-->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#" th:href="@{/}">Registration and Login Module</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-                    </ul>
-                    <div>
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Select Role<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <th:block th:each="r, iter:${#authentication.getAuthorities()}">
-                                        <div th:if="${iter.size}>1">
-                                            <li>
-                                                <a th:href="@{/{ruolo}/(ruolo=${r.authority.toLowerCase()})}" >
-                                                    <span th:text="${r}"></span><th:block th:if="${!iter.last}">, </th:block>
-                                                </a>
-                                            </li>
-                                        </div>
-                                    </th:block>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <div th:insert="fragments/navbar :: navbar" ></div>
 
         <br>
         <br>
 
         <div id="wrapper">
             <!--SIDEBAR AMMINISTRATORE-->
-            <div id="sidebar-wrapper">
-                <ul class="sidebar-nav">
-                    <li class="sidebar-brand">
-                        <a href="#">
-                            Menu amministratore
-                        </a>
-                    </li>
-                    <li>
-                        <a th:href="@{/amministratore/}">Home</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/amministratore/registrazioneNegozio}">Registra negozio</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/amministratore/registrazioneCorriere}">Registra corriere</a>
-                    </li>
-                </ul>
-            </div>
+            <div th:insert="fragments/sidebarAmministratore :: sidebarAmministratore"></div>
             <!-- Page Content -->
             <div id="page-content-wrapper">
                 <div class="container-fluid">

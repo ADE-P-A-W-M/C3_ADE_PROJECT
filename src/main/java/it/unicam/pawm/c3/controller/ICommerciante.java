@@ -85,13 +85,6 @@ public class ICommerciante {
         return "commerciante/showCorrieriDaAggiungere";
     }
 
-//    @GetMapping("showCorrieriDaAggiungere/add/{id}")
-//    public String addCorriere(@PathVariable Long id,Model model) {
-//        gestoreCommercianti.addCorriere(id);
-//        model.addAttribute("corrieriList",gestoreCommercianti.getCorrieri());
-//        return "home/homeCommerciante";
-//    }
-
     @GetMapping("showCorrieriDaAggiungere/add/{id}")
     public ModelAndView addCorriere(@PathVariable Long id, ModelMap model) {
         gestoreCommercianti.addCorriere(id);
