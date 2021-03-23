@@ -69,3 +69,12 @@ ________________________
 </ul>
 </li>
 </ul></pre>
+________________________
+
+## Tecnologie utilizzate: 
+<pre>
+</pre>
+________________________
+
+## Partecipanti al progetto: 
+
