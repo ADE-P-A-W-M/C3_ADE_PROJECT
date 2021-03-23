@@ -26,9 +26,19 @@ ________________________
 
 ## Funzionalità principali: 
 <pre><ul>
-<li><h3>User:</h3><ul><li><h4>Registrazione nella piattaforma:</h4></li>
-<li><h4>Accesso nella piattaforma:</h4></li></ul>
-<li><h3>Cliente:</h3></li>
+<li><h3>User:</h3>
+<ul>
+  <li><h4>Registrazione nella piattaforma:</h4></li>
+  <li><h4>Accesso nella piattaforma:</h4></li>
+</ul>
+</li>
+<li><h3>Cliente:</h3>
+<ul>
+    <li><h4>Consulta acquisti:</h4></li>
+    <li><h4>Ricerca prodotto:</h4></li>
+    <li><h4>Ricerca promozioni:</h4></li>
+</ul>
+</li>
 <li><h3>Addetto:</h3></li>
 <li><h3>Commerciante:</h3></li>
 <li><h3>Corriere:</h3></li>
