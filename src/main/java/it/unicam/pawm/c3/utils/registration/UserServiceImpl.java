@@ -1,8 +1,7 @@
-package it.unicam.pawm.c3.utils.userdetailservice;
+package it.unicam.pawm.c3.utils.registration;
 
 import it.unicam.pawm.c3.model.personale.*;
 import it.unicam.pawm.c3.repository.UserRepository;
-import it.unicam.pawm.c3.utils.registration.UserRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

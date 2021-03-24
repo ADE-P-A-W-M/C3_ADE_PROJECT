@@ -1,6 +1,6 @@
 package it.unicam.pawm.c3.utils.config;
 
-import it.unicam.pawm.c3.utils.userdetailservice.UserService;
+import it.unicam.pawm.c3.utils.registration.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
